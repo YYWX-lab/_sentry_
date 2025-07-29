@@ -10,6 +10,7 @@
         "shoot_task.h": "c",
         "my_protocol.h": "c",
         "referee_system.h": "c",
-        "crc.h": "c"
+        "crc.h": "c",
+        "data_send_task.h": "c"
     }
 }

@@ -9,6 +9,7 @@
 
 #include "timer_task.h"
 #include "detect_task.h"
+#include "data_send_task.h"
 /* 私有类型定义 --------------------------------------------------------------*/
 
 /* 私有宏定义 ----------------------------------------------------------------*/
@@ -84,7 +85,7 @@ void GimbalAppConfig(void)
 
     BSP_UART_SetRxCallback(&dbus_obj, DBUS_ReceiveCallback);
     BSP_UART_SetRxCallback(&com1_obj, COM1_ReceiveCallback);
-    BSP_UART_SetRxCallback(&com2_obj, COM2_ReceiveCallback);
+    BSP_UART_SetRxCallback(&com2_obj, PC_ReceiveCallback);
     BSP_CAN_SetRxCallback(&can1_obj, CAN1_ReceiveCallback);
     BSP_CAN_SetRxCallback(&can2_obj, CAN2_ReceiveCallback);
 }
