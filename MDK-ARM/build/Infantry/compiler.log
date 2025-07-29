@@ -1,0 +1,15 @@
+>>> cc
+
+
+".\..\Application\chassis\chassis_task.c", line 94: Warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
+      
+sThreadDef(chassis_task, ChassisTask, osPriorityNormal, 0, 256);
+      ^
+".\..\Application\chassis\chassis_task.c", line 17: Warning:  #550-D: variable "chassis_task_stack"  was set but never used
+  static uint32_t chassis_task_stack = 0;
+                  ^
+.\..\Application\chassis\chassis_task.c: 2 warnings, 0 errors
+
+>>> ld
+
+Program Size: Code=40604 RO-data=3688 RW-data=616 ZI-data=41264  

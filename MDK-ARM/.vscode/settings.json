@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "chassis_app.h": "c",
+        "cmath": "c",
+        "math.h": "c",
+        "stdio.h": "c",
+        "usart.h": "c",
+        "bsp_uart.h": "c",
+        "motor.h": "c",
+        "shoot_task.h": "c",
+        "my_protocol.h": "c",
+        "referee_system.h": "c",
+        "crc.h": "c"
+    }
+}

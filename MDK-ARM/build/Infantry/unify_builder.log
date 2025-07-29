@@ -1,0 +1,74 @@
+[2024-03-07 12:23:34]	[done]
+	build successfully !
+
+[2024-04-02 01:23:24]	[done]
+	build successfully !
+
+[2024-12-27 22:17:11]	[done]
+	build successfully !
+
+[2024-12-27 22:47:53]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'c:\Users\Ling\Desktop\EXTI\Odw_sentry\Infantry\Application\chassis\chassis_function.c': source file has been changed.
+'c:\Users\Ling\Desktop\EXTI\Odw_sentry\Infantry\Application\infantry_console.c': source file has been changed.
+
+[2024-12-27 22:47:54]	[done]
+	build successfully !
+
+[2024-12-27 22:51:03]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'c:\Users\Ling\Desktop\EXTI\Odw_sentry\Infantry\Application\chassis\chassis_task.c': source file has been changed.
+'c:\Users\Ling\Desktop\EXTI\Odw_sentry\Infantry\Application\infantry_console.c': source file has been changed.
+
+[2024-12-27 22:51:04]	[done]
+	build successfully !
+
+[2024-12-27 22:51:50]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\Ling\Desktop\EXTI\Odw_sentry\Infantry\Application\chassis\chassis_task.c': source file has been changed.
+
+[2024-12-27 22:51:50]	[done]
+	build successfully !
+
+[2024-12-27 22:52:07]	[done]
+	build successfully !
+
+[2024-12-27 23:00:57]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\Ling\Desktop\EXTI\Odw_sentry\Infantry\Application\chassis\chassis_task.c': source file has been changed.
+
+[2024-12-27 23:00:57]	[done]
+	build successfully !
+
+[2024-12-27 23:11:13]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\Ling\Desktop\EXTI\Odw_sentry\Infantry\Application\chassis\chassis_function.c': source file has been changed.
+
+[2024-12-27 23:11:14]	[done]
+	build successfully !
+
+[2024-12-27 23:12:33]	[done]
+	build successfully !
+
+[2024-12-27 23:18:46]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\Ling\Desktop\EXTI\Odw_sentry\Infantry\Application\chassis\chassis_task.c': source file has been changed.
+
+[2024-12-27 23:18:47]	[done]
+	build successfully !
+
+[2024-12-27 23:24:59]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'c:\Users\Ling\Desktop\EXTI\Odw_sentry\Infantry\Application\chassis\chassis_function.c': source file has been changed.
+'c:\Users\Ling\Desktop\EXTI\Odw_sentry\Infantry\Application\chassis\chassis_task.c': source file has been changed.
+
+[2024-12-27 23:25:00]	[done]
+	build successfully !
+
