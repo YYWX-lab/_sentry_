@@ -3,7 +3,7 @@
 #include "bsp_uart.h"
 
 #include "chassis_app.h"
-
+#include "app_init.h"
 #include "bsp_init.h"
 #include "stdio.h"
 #include "cmsis_os.h"
@@ -21,10 +21,12 @@ static uint32_t send_data_task_stack = 0;
 
 extern ist8310_real_data_t ist8310_handle;
 extern ChassisHandle_t chassis_handle;
+extern GimbalHandle_t gimbal_handle;
 extern Comm_GimbalInfo_t gimbal_info;
 extern ext_game_state_t game_state;
 ext_game_robot_HP_t hp;
 ext_game_robot_state_t robot_stste;
+AppType_e app_type;
 static uint8_t send_buff[40];
 static u16 robot_hp;
 static u8 robot_id;
@@ -55,10 +57,21 @@ void PC_ReceiveCallback(uint8_t* data, uint16_t len)
     // chassis_handle . vx = PACK_ANALYSIS_T_1 . f1;
     // chassis_handle . vy = PACK_ANALYSIS_T_1 . f2;
     // chassis_handle . vw = PACK_ANALYSIS_T_1 . f3;
+    if(app_type == CHASSIS_APP)
+    {
+        chassis_handle.vx_pc = PACK_ANALYSIS_T_1 . f1*1000;
+        chassis_handle.vy_pc = -PACK_ANALYSIS_T_1 . f2*1000;
+        chassis_handle . vw_pc = PACK_ANALYSIS_T_1 . f3;
+    }
+    else if (app_type == GIMBAL_APP)
+    {
+        gimbal_handle.pitch_angle = PACK_ANALYSIS_T_1.f1;
+        gimbal_handle.yaw_angle = PACK_ANALYSIS_T_1.f2;
+        gimbal_handle.distance = PACK_ANALYSIS_T_1.f3;
+        gimbal_handle.is_shoot = PACK_ANALYSIS_T_1.d1;
 
-    chassis_handle.vx_pc = PACK_ANALYSIS_T_1 . f1*1000;
-    chassis_handle.vy_pc = -PACK_ANALYSIS_T_1 . f2*1000;
-    chassis_handle . vw_pc = PACK_ANALYSIS_T_1 . f3;
+    }
+    
 
     // BSP_UART_TransmitData(&com2_obj,"MCU REED\r\n",12);
 
@@ -94,49 +107,70 @@ void data_send_task(void *argument)
             robot_hp = hp.red_7_robot_HP;
             robot_id = 0;
         }
-        if (gimbal_info.yaw_gyro_angle<0)
+
+        if (app_type == CHASSIS_APP)
         {
-            yaw = gimbal_info.yaw_gyro_angle + 360;       
-            yaw = gimbal_info.yaw_gyro_angle/57.295780490;
-        }
-        else
-        {
-            yaw = gimbal_info.yaw_gyro_angle/57.295780490;
-        }
-        vx = (chassis_handle.motor_speed[0]+chassis_handle.motor_speed[1]-chassis_handle.motor_speed[2]-chassis_handle.motor_speed[3])/2/1.414213562373095048801688f/1000;
-        vy = (chassis_handle.motor_speed[0]-chassis_handle.motor_speed[1]-chassis_handle.motor_speed[2]+chassis_handle.motor_speed[3])/2/1.414213562373095048801688f/1000;
-        time_err = (now_time - last_time)/100000000;
-        x += ((arm_sin_f32(yaw)*vy + arm_cos_f32(yaw)*vx)*time_err);
-        y += ((arm_sin_f32(yaw)*vx - arm_cos_f32(yaw)*vy)*time_err);
-        tx_pack_make(send_buff,
-        NAVIGATION_HEAD,
-        MCU_TO_PC_SEND_CMD,
-        // chassis_handle.imu->euler.pitch,
-        // chassis_handle.imu->euler.roll,
-        // chassis_handle.imu->euler.yaw,
-        // chassis_handle.chassis_motor[0].motor_info->speed_rpm/60.f/19.f*0.47752208334564857224632179425848443839796f, //rpm -> m/s  （rpm/60秒/减速比19）*轮子周长0.473m
-        // chassis_handle.chassis_motor[1].motor_info->speed_rpm/60.f/19.f*0.47752208334564857224632179425848443839796f, 
-        // chassis_handle.chassis_motor[2].motor_info->speed_rpm/60.f/19.f*0.47752208334564857224632179425848443839796f,
-        // chassis_handle.chassis_motor[3].motor_info->speed_rpm/60.f/19.f*0.47752208334564857224632179425848443839796f,
-        
-        x,
-        y,
-        vx,
-        vy,
-        // chassis_handle.motor_speed[2],
-        // chassis_handle.motor_speed[3],
-        // chassis_handle.imu->euler.true_yaw
-        yaw,
-        robot_hp,
-        // robot_id,
-        game_state.game_progress
+             if (gimbal_info.yaw_gyro_angle<0)
+            {
+                yaw = gimbal_info.yaw_gyro_angle + 360;       
+                yaw = gimbal_info.yaw_gyro_angle/57.295780490;
+            }
+            else
+            {
+                yaw = gimbal_info.yaw_gyro_angle/57.295780490;
+            }
+            vx = (chassis_handle.motor_speed[0]+chassis_handle.motor_speed[1]-chassis_handle.motor_speed[2]-chassis_handle.motor_speed[3])/2/1.414213562373095048801688f/1000;
+            vy = (chassis_handle.motor_speed[0]-chassis_handle.motor_speed[1]-chassis_handle.motor_speed[2]+chassis_handle.motor_speed[3])/2/1.414213562373095048801688f/1000;
+            time_err = (now_time - last_time)/100000000;
+            x += ((arm_sin_f32(yaw)*vy + arm_cos_f32(yaw)*vx)*time_err);
+            y += ((arm_sin_f32(yaw)*vx - arm_cos_f32(yaw)*vy)*time_err);
+            tx_pack_make(send_buff,
+            NAVIGATION_HEAD,
+            MCU_TO_PC_SEND_CMD,
+            // chassis_handle.imu->euler.pitch,
+            // chassis_handle.imu->euler.roll,
+            // chassis_handle.imu->euler.yaw,
+            // chassis_handle.chassis_motor[0].motor_info->speed_rpm/60.f/19.f*0.47752208334564857224632179425848443839796f, //rpm -> m/s  （rpm/60秒/减速比19）*轮子周长0.473m
+            // chassis_handle.chassis_motor[1].motor_info->speed_rpm/60.f/19.f*0.47752208334564857224632179425848443839796f, 
+            // chassis_handle.chassis_motor[2].motor_info->speed_rpm/60.f/19.f*0.47752208334564857224632179425848443839796f,
+            // chassis_handle.chassis_motor[3].motor_info->speed_rpm/60.f/19.f*0.47752208334564857224632179425848443839796f,
+            
+            x,
+            y,
+            vx,
+            vy,
+            // chassis_handle.motor_speed[2],
+            // chassis_handle.motor_speed[3],
+            // chassis_handle.imu->euler.true_yaw
+            yaw,
+            robot_hp,
+            // robot_id,
+            game_state.game_progress,
+            0
 
 
-        // chassis_handle.chassis_motor[0].motor_info->ecd,
-        // chassis_handle.chassis_motor[1].motor_info->ecd,
-        // chassis_handle.chassis_motor[2].motor_info->ecd,
-        // chassis_handle.chassis_motor[3].motor_info->ecd
-        );
+            // chassis_handle.chassis_motor[0].motor_info->ecd,
+            // chassis_handle.chassis_motor[1].motor_info->ecd,
+            // chassis_handle.chassis_motor[2].motor_info->ecd,
+            // chassis_handle.chassis_motor[3].motor_info->ecd
+            );
+        }
+        else if (app_type == GIMBAL_APP)
+        {
+            tx_pack_make(send_buff,
+            VISION_HEAD,
+            MCU_TO_PC_SEND_CMD,
+            0,
+            0,
+            0,
+            0,
+            0,
+            robot_hp,
+            game_state.game_progress,
+            robot_id
+            );
+        }
+       
 
         BSP_UART_TransmitData(&com2_obj,send_buff,sizeof(send_buff));
         

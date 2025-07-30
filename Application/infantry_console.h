@@ -19,6 +19,7 @@ typedef enum
     GIMBAL_GYRO_CMD,
     GIMBAL_RELATIVE_CMD,
     GIMBAL_NORMAL_CMD,
+    GIMBAL_VISION_CMD,
 } Gimbal_CMD_e;
 
 typedef enum

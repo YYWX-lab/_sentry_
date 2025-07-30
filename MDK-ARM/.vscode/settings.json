@@ -11,6 +11,8 @@
         "my_protocol.h": "c",
         "referee_system.h": "c",
         "crc.h": "c",
-        "data_send_task.h": "c"
+        "data_send_task.h": "c",
+        "imu_task.h": "c",
+        "bsp_init.h": "c"
     }
 }

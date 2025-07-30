@@ -11,6 +11,7 @@
 #define UINT16_HEAD         0xA2    //uint_16数据帧头
 #define PID_HEAD            0xA3    //PID调参数据帧头
 #define NAVIGATION_HEAD     0xDF    //导航数据帧头
+#define VISION_HEAD         0xA5    //视觉数据帧头
 
 /*----------------------------------------------------------*/
 

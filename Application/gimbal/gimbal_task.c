@@ -34,6 +34,7 @@ static void GimbalInitMode(void);
 static void GimbalGyroAngleMode(void);
 static void GimbalRelativeAngleMode(void);
 static void GimbalNormalMode(void);
+static void GimbalVisionMode(void);
 
 /* 函数体 --------------------------------------------------------------------*/
 void GimbalTask(void *argument)
@@ -63,6 +64,11 @@ void GimbalTask(void *argument)
             {
                 GimbalNormalMode();
             }break;
+
+            case GIMBAL_VISION:
+            {
+                GimbalVisionMode();
+            }
             default:
                 break;
         }
@@ -133,6 +139,10 @@ static void GimbalCtrlModeSwitch(void)
     else if (gimbal_handle.console->gimbal_cmd == GIMBAL_NORMAL_CMD)
     {
         gimbal_handle.ctrl_mode = GIMBAL_NORMAL;
+    }
+    else if (gimbal_handle.console->gimbal_cmd == GIMBAL_VISION_CMD)
+    {
+        gimbal_handle.ctrl_mode = GIMBAL_VISION;
     }
 }
 
@@ -209,5 +219,17 @@ static void GimbalNormalMode(void)
     gimbal_handle.pitch_motor.given_value += gimbal_handle.console->gimbal.pitch_v;
 
     VAL_LIMIT(gimbal_handle.pitch_motor.given_value, gimbal_handle.pitch_motor.min_relative_angle, gimbal_handle.pitch_motor.max_relative_angle);
+
+}
+
+static void GimbalVisionMode(void)
+{
+    gimbal_handle.yaw_motor.mode = GYRO_MODE;
+    gimbal_handle.pitch_motor.mode = ENCONDE_MODE;
+
+    fp32 yaw_target = 0 , pitch_angle = 0;
+    gimbal_handle.yaw_motor.given_value = gimbal_handle.yaw_motor.sensor.gyro_angle + gimbal_handle.yaw_angle + gimbal_handle.console->gimbal.yaw_v;
+    pitch_angle += gimbal_handle.console->gimbal.pitch_v;
+    gimbal_handle.pitch_motor.given_value = gimbal_handle.pitch_motor.sensor.relative_angle - gimbal_handle.pitch_angle + pitch_angle*3;
 
 }

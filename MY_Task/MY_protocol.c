@@ -6,7 +6,7 @@
 #include "crc.h"
 
 
-uint8_t tx_pack_make(uint8_t *tx_pack,uint8_t header,uint8_t cmd,float f1,float f2, float f3 ,float f4, float f5 , uint16_t d1, uint8_t game_state)//,uint16_t d1,uint16_t d2,uint16_t d3,uint16_t d4)
+uint8_t tx_pack_make(uint8_t *tx_pack,uint8_t header,uint8_t cmd,float f1,float f2, float f3 ,float f4, float f5 , uint16_t d1, uint8_t game_state, uint8_t robot_id)//,uint16_t d1,uint16_t d2,uint16_t d3,uint16_t d4)
 {
     uint8_t len = 0;
     uint8_t *p = (uint8_t *)(&f1);
@@ -59,7 +59,11 @@ uint8_t tx_pack_make(uint8_t *tx_pack,uint8_t header,uint8_t cmd,float f1,float 
     tx_pack[len+1] = (d1 >> 8) & 0xff;
     len += 2;
 
+
     tx_pack[len] = game_state;
+    len += 1;
+
+    tx_pack[len] = robot_id;
     len += 1;
     // tx_pack[len] = d2 & 0xff;
     // tx_pack[len+1] = (d2 >> 8) & 0xff;

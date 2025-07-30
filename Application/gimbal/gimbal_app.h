@@ -16,6 +16,7 @@ typedef enum
     GIMBAL_GYRO,
     GIMBAL_RELATIVE,
     GIMBAL_NORMAL,
+    GIMBAL_VISION,
 } GimbalCtrlMode_e;
 
 typedef enum
@@ -71,6 +72,11 @@ typedef struct
 
     GimbalMotor_t   yaw_motor;
     GimbalMotor_t   pitch_motor;
+
+    fp32            yaw_angle;//视觉传下来的yaw轴角度差（度）
+    fp32            pitch_angle;//视觉传下来的pitch轴角度差（度）
+    fp32            distance;//装甲版的距离
+    uint8_t         is_shoot;//是否射击
 } GimbalHandle_t;
 
 /* 宏定义 --------------------------------------------------------------------*/

@@ -31,6 +31,7 @@ static void RemoteControlWheelAction(void);
 static void RemoteControl_Operation(void);
 static void Keyboard_Operation(void);
 static void Other_Operation(void);
+static void Vision_mode(void);
 
 /* 函数体 --------------------------------------------------------------------*/
 void ConsoleTask(void *argument)
@@ -68,7 +69,7 @@ void ConsoleTask(void *argument)
                 }
                 else if(console.rc->sw1 == REMOTE_SWITCH_VALUE_UP)
                 {
-                    Keyboard_Operation();
+                    Vision_mode();
                 }
                 else if(console.rc->sw1 == REMOTE_SWITCH_VALUE_DOWN)
                 {
@@ -211,6 +212,13 @@ static void RemoteControl_Operation(void)
     }
 }
 
+
+static void Vision_mode()
+{
+    console.gimbal_cmd = GIMBAL_VISION_CMD;
+}
+
+
 static void Keyboard_Operation(void)
 {
     fp32 chassis_vx = 0;
@@ -315,4 +323,6 @@ static void Other_Operation(void)
     console.chassis_cmd = CHASSIS_RELEASE_CMD;
     console.gimbal_cmd = GIMBAL_RELEASE_CMD;
     console.shoot_cmd = SHOOT_RELEASE_CMD;
+
+
 }
