@@ -116,6 +116,11 @@ void ShootTaskInit(void)
     pid_init(&shoot_handle.trigger_motor[1].pid.inter_pid, POSITION_PID, M2006_MOTOR_MAX_CURRENT, 7000.0f,
         100.0f, 0.0f, 0.0f);
 
+    pid_init(&shoot_handle.trigger_motor[0].pid.pid, POSITION_PID, 300.0f, 60.0f,
+         8.0f, 0.0f, 0.0f);
+    pid_init(&shoot_handle.trigger_motor[1].pid.pid, POSITION_PID, 300.0f, 60.0f,
+         8.0f, 0.0f, 0.0f);     
+
     Blocked_Reset(&shoot_handle.trigger_motor[0].blocked_handle, TRIGGER_BLOCKED_TIMER, 1000);
     Blocked_Reset(&shoot_handle.trigger_motor[1].blocked_handle, TRIGGER_BLOCKED_TIMER, 1000);
 
@@ -337,16 +342,26 @@ static void Shoot_TriggerMotorCtrl(ShootHandle_t* handle)
         handle->trigger_state = TRIGGER_END;
         handle->trigger_motor[0].set_angle = handle->trigger_motor[0].angle;
         handle->trigger_motor[1].set_angle = handle->trigger_motor[1].angle;
-    }
-    handle->trigger_motor[0].current_set = DoublePID_Calc(&handle->trigger_motor[0].pid,
+        handle->trigger_motor[0].current_set = DoublePID_Calc(&handle->trigger_motor[0].pid,
                                                        handle->trigger_motor[0].set_angle,
                                                        handle->trigger_motor[0].angle,
                                                        handle->trigger_motor[0].speed);
 
-    handle->trigger_motor[1].current_set = DoublePID_Calc(&handle->trigger_motor[1].pid,
+        handle->trigger_motor[1].current_set = DoublePID_Calc(&handle->trigger_motor[1].pid,
                                                        handle->trigger_motor[1].set_angle,
                                                        handle->trigger_motor[1].angle,
                                                        handle->trigger_motor[1].speed);
+    }
+    
+    handle->trigger_motor[0].current_set = pid_calc(&handle->trigger_motor[0].pid.pid,
+                                                    handle->trigger_motor[0].motor_info->speed_rpm,
+                                                    100);
+    handle->trigger_motor[1].current_set = pid_calc(&handle->trigger_motor[0].pid.pid,
+                                                    handle->trigger_motor[0].motor_info->speed_rpm,
+                                                    -100);
+
+        
+
 }
 
 static void Shoot_FrictionWheelMotorCtrl(ShootCtrlMode_e mode, FrictionWheelMotor_t motor[4])

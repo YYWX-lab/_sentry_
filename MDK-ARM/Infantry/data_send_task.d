@@ -54,6 +54,7 @@ infantry\data_send_task.o: ..\BSP\Inc\bsp_can.h
 infantry\data_send_task.o: ../Core/Inc/can.h
 infantry\data_send_task.o: ..\Components\algorithms\pid.h
 infantry\data_send_task.o: ..\Application\infantry_console.h
+infantry\data_send_task.o: ..\Application\app_init.h
 infantry\data_send_task.o: ..\BSP\Inc\bsp_init.h
 infantry\data_send_task.o: ..\BSP\Inc\bsp_delay.h
 infantry\data_send_task.o: ..\BSP\Inc\bsp_gpio.h

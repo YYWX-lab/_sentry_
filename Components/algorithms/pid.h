@@ -41,6 +41,7 @@ typedef struct
 {
     pid_t           outer_pid;
     pid_t           inter_pid;
+    pid_t           pid;
     float           outer_ref;
     float           outer_fdb;
     float           inter_ref;

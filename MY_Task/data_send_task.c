@@ -26,7 +26,7 @@ extern Comm_GimbalInfo_t gimbal_info;
 extern ext_game_state_t game_state;
 ext_game_robot_HP_t hp;
 ext_game_robot_state_t robot_stste;
-AppType_e app_type;
+extern AppType_e app_type;
 static uint8_t send_buff[40];
 static u16 robot_hp;
 static u8 robot_id;

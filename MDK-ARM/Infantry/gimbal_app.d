@@ -69,3 +69,4 @@ infantry\gimbal_app.o: ..\Application\chassis/chassis_app.h
 infantry\gimbal_app.o: ..\Application\timer_task.h
 infantry\gimbal_app.o: ..\Components\SoftwareTimer\soft_timer.h
 infantry\gimbal_app.o: ..\Application\detect_task.h
+infantry\gimbal_app.o: ..\MY_Task\data_send_task.h

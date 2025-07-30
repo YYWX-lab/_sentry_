@@ -1,4 +1,26 @@
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Infantry'
-"Infantry\Infantry.axf" - 0 Error(s), 0 Warning(s).
-Build Time Elapsed:  00:00:01
+compiling data_send_task.c...
+..\MY_Task\data_send_task.h(7): warning:  #1295-D: Deprecated declaration data_send_task_init - give arg types
+  void data_send_task_init();
+..\MY_Task\data_send_task.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif // !DATA_SEND_TASK_H
+..\MY_Task\data_send_task.c(46): warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
+      
+sThreadDef(data_sendTask, data_send_task, osPriorityNormal, 0, 256);
+..\MY_Task\data_send_task.c(116): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                  yaw = gimbal_info.yaw_gyro_angle/57.295780490;
+..\MY_Task\data_send_task.c(120): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                  yaw = gimbal_info.yaw_gyro_angle/57.295780490;
+..\MY_Task\data_send_task.c(125): warning:  #223-D: function "arm_sin_f32" declared implicitly
+              x += ((arm_sin_f32(yaw)*vy + arm_cos_f32(yaw)*vx)*time_err);
+..\MY_Task\data_send_task.c(125): warning:  #223-D: function "arm_cos_f32" declared implicitly
+              x += ((arm_sin_f32(yaw)*vy + arm_cos_f32(yaw)*vx)*time_err);
+..\MY_Task\data_send_task.c(17): warning:  #177-D: variable "send_data_task_stack"  was declared but never referenced
+  static uint32_t send_data_task_stack = 0;
+..\MY_Task\data_send_task.c: 8 warnings, 0 errors
+linking...
+Program Size: Code=58416 RO-data=4196 RW-data=692 ZI-data=42388  
+FromELF: creating hex file...
+"Infantry\Infantry.axf" - 0 Error(s), 8 Warning(s).
+Build Time Elapsed:  00:00:03
