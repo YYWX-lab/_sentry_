@@ -57,21 +57,24 @@ void GimbalAppConfig(void)
     gimbal_handle.pitch_motor.min_relative_angle = -15;
     pid_init(&gimbal_handle.yaw_motor.pid.outer_pid, POSITION_PID, 2000.0f, 0.0f,
              40.0f, 0.0f, 40.0f);   //40 0 40
-    pid_init(&gimbal_handle.yaw_motor.pid.inter_pid, POSITION_PID, GM6020_MOTOR_MAX_CURRENT, 3000.0f,
-             60.0f, 0.1f, 40.0f);
+    pid_init(&gimbal_handle.yaw_motor.pid.inter_pid, POSITION_PID, GM6020_MOTOR_MAX_CURRENT, 6000.0f,
+             80.0f, 0.1f, 0.0f); //3000 60 0.1 40
     pid_init(&gimbal_handle.pitch_motor.pid.outer_pid, POSITION_PID, 2000.0f, 0.0f,
-             60.0f, 0.0f, 10.0f);// 40 0 0
+             40.0f, 0.0f, 0.0f);// 40 0 0
     pid_init(&gimbal_handle.pitch_motor.pid.inter_pid, POSITION_PID, GM6020_MOTOR_MAX_CURRENT, 6000.0f,
-             60.0f, 0.5f, 0.0f);
+             80.0f, 0.5f, 0.0f);
+    pid_init(&gimbal_handle.pitch_motor.pid.vision_pid, POSITION_PID, 2000.0f,0.0f, 5.0f, 0.0f, 0.0f);
 
     /*--------------------event------------------------|-------enable-------|-offline time-|-beep_times-*/
     OfflineHandle_Init(OFFLINE_GIMBAL_PITCH,            OFFLINE_ERROR_LEVEL,       100,         5);
     OfflineHandle_Init(OFFLINE_GIMBAL_YAW,              OFFLINE_ERROR_LEVEL,       100,         6);
-    OfflineHandle_Init(OFFLINE_FRICTION_WHEEL_MOTOR1,   OFFLINE_ERROR_LEVEL,       100,         1);
-    OfflineHandle_Init(OFFLINE_FRICTION_WHEEL_MOTOR2,   OFFLINE_ERROR_LEVEL,       100,         2);
+    // OfflineHandle_Init(OFFLINE_FRICTION_WHEEL_MOTOR1,   OFFLINE_ERROR_LEVEL,       100,         1);
+    // OfflineHandle_Init(OFFLINE_FRICTION_WHEEL_MOTOR2,   OFFLINE_ERROR_LEVEL,       100,         2);
     OfflineHandle_Init(OFFLINE_TRIGGER_MOTOR,           OFFLINE_ERROR_LEVEL,       100,         3);
     // OfflineHandle_Init(OFFLINE_MAGAZINE_MOTOR,          OFFLINE_WARNING_LEVEL,     100,         4);
-    OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,          OFFLINE_WARNING_LEVEL,     100,         1);
+
+
+    // OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,          OFFLINE_WARNING_LEVEL,     100,         1);ganggang
     
 
     //    OfflineHandle_Init(OFFLINE_CHASSIS_INFO,            OFFLINE_WARNING_LEVEL,     100,         2);

@@ -35,12 +35,14 @@ typedef struct
 
 typedef struct
 {
+    pid_t           vision_pid;
     pid_t           outer_pid;
     pid_t           inter_pid;
     fp32            angle_ref;
     fp32            angle_fdb;
     fp32            speed_ref;
     fp32            speed_fdb;
+    fp32            angle_err;//上位机自瞄传下来的角度差
 } Gimbal_PID_t;
 
 typedef struct
@@ -56,6 +58,7 @@ typedef struct
     fp32            given_value;
     GimbalSensor_t  sensor;
     Gimbal_PID_t    pid;
+    fp32            vision_angle;//自瞄传下来的角度
 
     int16_t         current_set;
 } GimbalMotor_t;
@@ -76,7 +79,10 @@ typedef struct
     fp32            yaw_angle;//视觉传下来的yaw轴角度差（度）
     fp32            pitch_angle;//视觉传下来的pitch轴角度差（度）
     fp32            distance;//装甲版的距离
-    uint8_t         is_shoot;//是否射击
+    uint8_t         is_track;//是否识别
+    uint8_t         is_fire;//是否开火
+    uint8_t         up_date;//是否更新
+
 } GimbalHandle_t;
 
 /* 宏定义 --------------------------------------------------------------------*/

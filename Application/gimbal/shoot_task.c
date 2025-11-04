@@ -116,10 +116,10 @@ void ShootTaskInit(void)
     pid_init(&shoot_handle.trigger_motor[1].pid.inter_pid, POSITION_PID, M2006_MOTOR_MAX_CURRENT, 7000.0f,
         100.0f, 0.0f, 0.0f);
 
-    pid_init(&shoot_handle.trigger_motor[0].pid.pid, POSITION_PID, 300.0f, 60.0f,
-         8.0f, 0.0f, 0.0f);
-    pid_init(&shoot_handle.trigger_motor[1].pid.pid, POSITION_PID, 300.0f, 60.0f,
-         8.0f, 0.0f, 0.0f);     
+    // pid_init(&shoot_handle.trigger_motor[0].pid.pid, POSITION_PID, 300.0f, 60.0f,
+    //      8.0f, 0.0f, 0.0f);
+    // pid_init(&shoot_handle.trigger_motor[1].pid.pid, POSITION_PID, 300.0f, 60.0f,
+    //      8.0f, 0.0f, 0.0f);     
 
     Blocked_Reset(&shoot_handle.trigger_motor[0].blocked_handle, TRIGGER_BLOCKED_TIMER, 1000);
     Blocked_Reset(&shoot_handle.trigger_motor[1].blocked_handle, TRIGGER_BLOCKED_TIMER, 1000);
@@ -246,7 +246,6 @@ static void Shoot_MagazineMotorCtrl(ShootHandle_t* handle)
 //以下未修改
 static void Shoot_TriggerMotorCtrl(ShootHandle_t* handle)
 {
-    float a ;
     static int8_t max_bullet_nums = 0;
     static uint32_t reverse_time_1 = 0;
     static uint32_t reverse_time_2 = 0;
@@ -318,23 +317,23 @@ static void Shoot_TriggerMotorCtrl(ShootHandle_t* handle)
             }
 
 
-            // if ( fabs(handle->trigger_motor[1].set_angle - handle->trigger_motor[1].angle) < 0.5f )
-            // {
-            //     handle->fire_bullet_number--;
-            //     handle->trigger_state = TRIGGER_BEGIN;
-            // }
-            // else if (blocked_2 == BLOCKED)
-            // {
-            //     if (reverse_time_2 == 0)
-            //     {
-            //         reverse_time_2 = BSP_GetTime_ms();
-            //         handle->trigger_motor[1].set_angle = handle->trigger_motor[1].angle + REVERSE_ANGLE;
-            //     }
-            //     else if (BSP_GetTime_ms() - reverse_time_2 > REVERSE_TIMER)
-            //     {
-            //         handle->trigger_state = TRIGGER_BEGIN;
-            //     }
-            // }
+            if ( fabs(handle->trigger_motor[1].set_angle - handle->trigger_motor[1].angle) < 0.5f )
+            {
+                handle->fire_bullet_number--;
+                handle->trigger_state = TRIGGER_BEGIN;
+            }
+            else if (blocked_2 == BLOCKED)
+            {
+                if (reverse_time_2 == 0)
+                {
+                    reverse_time_2 = BSP_GetTime_ms();
+                    handle->trigger_motor[1].set_angle = handle->trigger_motor[1].angle + REVERSE_ANGLE;
+                }
+                else if (BSP_GetTime_ms() - reverse_time_2 > REVERSE_TIMER)
+                {
+                    handle->trigger_state = TRIGGER_BEGIN;
+                }
+            }
         }
     }
     else
@@ -353,12 +352,12 @@ static void Shoot_TriggerMotorCtrl(ShootHandle_t* handle)
                                                        handle->trigger_motor[1].speed);
     }
     
-    handle->trigger_motor[0].current_set = pid_calc(&handle->trigger_motor[0].pid.pid,
-                                                    handle->trigger_motor[0].motor_info->speed_rpm,
-                                                    100);
-    handle->trigger_motor[1].current_set = pid_calc(&handle->trigger_motor[0].pid.pid,
-                                                    handle->trigger_motor[0].motor_info->speed_rpm,
-                                                    -100);
+    // handle->trigger_motor[0].current_set = pid_calc(&handle->trigger_motor[0].pid.pid,
+    //                                                 handle->trigger_motor[0].motor_info->speed_rpm,
+    //                                                 100);
+    // handle->trigger_motor[1].current_set = pid_calc(&handle->trigger_motor[0].pid.pid,
+    //                                                 handle->trigger_motor[0].motor_info->speed_rpm,
+    //                                                 -100);
 
         
 

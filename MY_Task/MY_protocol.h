@@ -21,6 +21,7 @@ typedef struct PACK_ANALYSIS_T
     uint16_t d2;
     uint16_t d3;
     uint16_t d4;
+    uint8_t  d5;
 
 }PACK_ANALYSIS_T;
 

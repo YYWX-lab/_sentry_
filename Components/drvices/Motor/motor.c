@@ -95,22 +95,38 @@ void Motor_DataParse(MotorInfo_t *ptr, uint8_t data[])
  *        offset 补偿
  * Return: 无
 *************************************************/
-int16_t Motor_RelativePosition(int16_t ecd, int16_t offset)
+int16_t Motor_RelativePosition(int16_t ecd, int16_t center_offset)
 {
-    int16_t tmp = 0;
-    if (offset >= MOTOR_ENCODER_RANGE_HALF)
+    // int16_t tmp = 0;
+    // if (offset >= MOTOR_ENCODER_RANGE_HALF)
+    // {
+    //     if (ecd > offset - MOTOR_ENCODER_RANGE_HALF)
+    //         tmp = ecd - offset;
+    //     else
+    //         tmp = ecd + MOTOR_ENCODER_RANGE - offset;
+    // }
+    // else
+    // {
+    //     if (ecd > offset + MOTOR_ENCODER_RANGE_HALF)
+    //         tmp = ecd - MOTOR_ENCODER_RANGE - offset;
+    //     else
+    //         tmp = ecd - offset;
+    // }
+    // return tmp;
+        int16_t tmp = 0;
+    if (center_offset >= MOTOR_ENCODER_RANGE_HALF)
     {
-        if (ecd > offset - MOTOR_ENCODER_RANGE_HALF)
-            tmp = ecd - offset;
+        if (ecd > center_offset - MOTOR_ENCODER_RANGE_HALF)
+            tmp = ecd - center_offset;
         else
-            tmp = ecd + MOTOR_ENCODER_RANGE - offset;
+            tmp = ecd + MOTOR_ENCODER_RANGE - center_offset;
     }
     else
     {
-        if (ecd > offset + MOTOR_ENCODER_RANGE_HALF)
-            tmp = ecd - MOTOR_ENCODER_RANGE - offset;
+        if (ecd > center_offset + MOTOR_ENCODER_RANGE_HALF)
+            tmp = ecd - MOTOR_ENCODER_RANGE - center_offset;
         else
-            tmp = ecd - offset;
+            tmp = ecd - center_offset;
     }
     return tmp;
 }

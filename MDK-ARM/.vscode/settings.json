@@ -13,6 +13,13 @@
         "crc.h": "c",
         "data_send_task.h": "c",
         "imu_task.h": "c",
-        "bsp_init.h": "c"
+        "bsp_init.h": "c",
+        "pid.h": "c",
+        "gimbal_function.h": "c",
+        "gimbal_app.h": "c",
+        "bsp_flash.h": "c",
+        "rgb_led.h": "c",
+        "buzzer.h": "c",
+        "imu_driver.h": "c"
     }
 }

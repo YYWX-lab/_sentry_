@@ -16,6 +16,9 @@ osThreadId ConsoleTaskHandle;
 #if INCLUDE_uxTaskGetStackHighWaterMark
 static uint32_t console_task_stack = 0;
 #endif
+extern GimbalHandle_t gimbal_handle;
+extern ChassisHandle_t chassis_handle;
+
 
 Console_t console;
 RC_Info_t last_rc;
@@ -55,7 +58,7 @@ void ConsoleTask(void *argument)
                 }
                 else
                 {
-                    console.ctrl_mode = NORMAL_MODE;
+                    // console.ctrl_mode = NORMAL_MODE;
                     console.gimbal_cmd  = GIMBAL_INIT_CMD;
                     console.chassis_cmd = CHASSIS_STOP_CMD;
                     console.shoot_cmd = SHOOT_STOP_CMD;
@@ -69,11 +72,12 @@ void ConsoleTask(void *argument)
                 }
                 else if(console.rc->sw1 == REMOTE_SWITCH_VALUE_UP)
                 {
-                    Vision_mode();
+                    Keyboard_Operation();
                 }
                 else if(console.rc->sw1 == REMOTE_SWITCH_VALUE_DOWN)
                 {
-                    Other_Operation();
+                    // Other_Operation();
+                    Vision_mode();
                 }
             }break;
             case SAFETY_MODE:
@@ -215,7 +219,88 @@ static void RemoteControl_Operation(void)
 
 static void Vision_mode()
 {
-    console.gimbal_cmd = GIMBAL_VISION_CMD;
+    if (gimbal_handle.up_date == 1)
+    {
+        static uint32_t shoot_time = 0;
+        console.gimbal_cmd = GIMBAL_VISION_CMD;
+        if(console.rc->sw2 == REMOTE_SWITCH_VALUE_UP)
+        {
+            console.chassis_cmd = CHASSIS_SEPARATE_GIMBAL_CMD;
+        }
+        else if(console.rc->sw2 == REMOTE_SWITCH_VALUE_CENTRAL)
+        {
+            console.chassis_cmd = CHASSIS_FOLLOW_GIMBAL_CMD;
+
+        }
+        else if(console.rc->sw2 == REMOTE_SWITCH_VALUE_DOWN)
+        {
+            console.chassis_cmd = CHASSIS_SPIN_CMD;
+        }
+        // console.chassis_cmd = CHASSIS_FOLLOW_GIMBAL_CMD;
+//        console.super_power_cmd = SUPER_POWER_OFF_CMD;
+
+        console.chassis.vx = console.rc->ch2 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_X;
+        console.chassis.vy = console.rc->ch1 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_Y;
+        console.gimbal.pitch_v = console.rc->ch4 * RC_GIMBAL_MOVE_RATIO_PIT;
+        console.gimbal.yaw_v = -console.rc->ch3 * RC_GIMBAL_MOVE_RATIO_YAW;
+
+
+        if (console.gimbal_cmd == GIMBAL_VISION_CMD ) 
+        {
+            
+            // if (gimbal_handle.is_track == 0x01 && (fabs(gimbal_handle.yaw_angle) < 0.5f && fabs(gimbal_handle.pitch_angle) < 0.5f))
+            // {
+            //     gimbal_handle.is_fire = 1 ;
+            // }
+            // else
+            // {
+            //     gimbal_handle.is_fire = 0;
+            // }
+            
+
+            if (console.shoot_cmd == SHOOT_STOP_CMD )
+            {
+                if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
+                {
+                    console.shoot_cmd = SHOOT_START_CMD;
+                }
+            }
+            else if (console.shoot_cmd == SHOOT_START_CMD )
+            {
+                if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
+                {
+                    console.shoot_cmd = SHOOT_STOP_CMD;
+                }
+                else if (gimbal_handle.is_fire == 1 || wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO2)
+                {
+                    console.shoot.fire_cmd = ONE_FIRE_CMD;
+                }
+                else if (wheel_switch.switch_value_raw == REMOTE_SWITCH_VALUE_DOWN)
+                {
+                    shoot_time++;
+                    if(shoot_time > 50)
+                        console.shoot.fire_cmd = ONE_FIRE_CMD;
+                    else
+                        console.shoot.fire_cmd = STOP_FIRE_CMD;
+                }
+                else
+                {
+                    console.shoot.fire_cmd = STOP_FIRE_CMD;
+                    shoot_time = 0;
+                }
+            }
+            else
+            {
+                console.shoot.fire_cmd = STOP_FIRE_CMD;
+            }
+
+
+
+          
+        }
+    }
+    
+    
 }
 
 

@@ -38,6 +38,11 @@ static fp32 now_time;
 static fp32 last_time;
 static fp32 time_err;
 static fp32 yaw;
+static fp32 vision_yaw;
+static fp32 vision_pitch;
+static fp32 distance;
+static u8 is_track;
+
 
 // static uint8_t receive_buff[50] = "";
 
@@ -65,11 +70,13 @@ void PC_ReceiveCallback(uint8_t* data, uint16_t len)
     }
     else if (app_type == GIMBAL_APP)
     {
-        gimbal_handle.pitch_angle = PACK_ANALYSIS_T_1.f1;
-        gimbal_handle.yaw_angle = PACK_ANALYSIS_T_1.f2;
+        gimbal_handle.yaw_angle = PACK_ANALYSIS_T_1.f1;
+        gimbal_handle.pitch_angle = PACK_ANALYSIS_T_1.f2;
         gimbal_handle.distance = PACK_ANALYSIS_T_1.f3;
-        gimbal_handle.is_shoot = PACK_ANALYSIS_T_1.d1;
+        gimbal_handle.is_track = PACK_ANALYSIS_T_1.d5;
+        gimbal_handle.up_date = 1;
 
+        
     }
     
 
@@ -159,7 +166,7 @@ void data_send_task(void *argument)
         {
             tx_pack_make(send_buff,
             VISION_HEAD,
-            MCU_TO_PC_SEND_CMD,
+            PC_TO_MCU_RECEIVE,
             0,
             0,
             0,

@@ -50,11 +50,11 @@ void AppInit(void)
     Comm_TaskInit();
     DetectTaskInit();
     data_send_task_init();
-
+    ShootTaskInit();
     if (app_type == GIMBAL_APP)
     {
         GimbalAppConfig();
-        ShootTaskInit();
+    
         GimbalTaskInit();
     }
     else if (app_type == CHASSIS_APP)
@@ -62,6 +62,7 @@ void AppInit(void)
         ChassisAppConfig();
         ChassisTaskInit();
     }
+    Calibrate_Init();
 }
 
 AppType_e GetAppType(void)

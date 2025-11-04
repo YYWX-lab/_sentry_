@@ -79,6 +79,7 @@
 "infantry\detect_task.o"
 "infantry\comm_task.o"
 "infantry\app_init.o"
+"infantry\calibrate.o"
 "infantry\gimbal_app.o"
 "infantry\gimbal_function.o"
 "infantry\gimbal_task.o"

@@ -20,6 +20,11 @@
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Application",
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\MY_Task",
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Application\\chassis",
+                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\Buzzer",
+                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\RGB_Led",
+                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\IMU",
+                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\Motor",
+                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\RemoteControl",
                 "C:\\Keil_v5\\ARM\\ARMCC\\include",
                 "C:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\MDK-ARM",
@@ -28,11 +33,6 @@
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Middlewares\\Third_Party\\FreeRTOS\\Source",
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\MemMang",
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\BSP\\Src",
-                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\Buzzer",
-                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\IMU",
-                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\Motor",
-                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\RemoteControl",
-                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\RGB_Led",
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Application\\gimbal"
             ],
             "defines": [

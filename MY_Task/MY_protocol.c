@@ -99,34 +99,24 @@ void pack_analysis(uint8_t *rx_pack,PACK_ANALYSIS_T *pack_analysis)
                 len = 3;
 
                 uint8_t *fp = (uint8_t *)&pack_analysis->f1;
-
-                // fp[3] = rx_pack[len];
-                // fp[2] = rx_pack[len+1];
-                // fp[1] = rx_pack[len+2];
-                // fp[0] = rx_pack[len+3];
                 fp[0] = rx_pack[len];
                 fp[1] = rx_pack[len+1];
                 fp[2] = rx_pack[len+2];
                 fp[3] = rx_pack[len+3];
-                
-
-
                 len += 4;
+
                 fp = (uint8_t *)&pack_analysis->f2;
-
                 fp[0] = rx_pack[len];
                 fp[1] = rx_pack[len+1];
                 fp[2] = rx_pack[len+2];
                 fp[3] = rx_pack[len+3];
-
                 len += 4;
-                fp = (uint8_t *)&pack_analysis->f3;
 
+                fp = (uint8_t *)&pack_analysis->f3;
                 fp[0] = rx_pack[len];
                 fp[1] = rx_pack[len+1];
                 fp[2] = rx_pack[len+2];
                 fp[3] = rx_pack[len+3];
-
                 len += 4;
 
                 pack_analysis->d1 = (rx_pack[len+1] << 8) | rx_pack[len];
@@ -142,6 +132,42 @@ void pack_analysis(uint8_t *rx_pack,PACK_ANALYSIS_T *pack_analysis)
                 len += 2;
             }
 
+    }
+    else if (rx_pack[0] == VISION_HEAD)
+    {
+        len = rx_pack[2];
+        if(verify_crc16_check_sum(rx_pack,len))
+        {
+            
+            pack_analysis->header = rx_pack[0];
+            pack_analysis->cmd    = rx_pack[1];
+            len = 3;
+
+            uint8_t *fp = (uint8_t *)&pack_analysis->f1;
+            fp[0] = rx_pack[len];
+            fp[1] = rx_pack[len+1];
+            fp[2] = rx_pack[len+2];
+            fp[3] = rx_pack[len+3];
+            len += 4;
+
+            fp = (uint8_t *)&pack_analysis->f2;
+            fp[0] = rx_pack[len];
+            fp[1] = rx_pack[len+1];
+            fp[2] = rx_pack[len+2];
+            fp[3] = rx_pack[len+3];
+            len += 4;
+
+            fp = (uint8_t *)&pack_analysis->f3;
+            fp[0] = rx_pack[len];
+            fp[1] = rx_pack[len+1];
+            fp[2] = rx_pack[len+2];
+            fp[3] = rx_pack[len+3];
+            len += 4;
+
+
+            pack_analysis->d5 = rx_pack[len];
+
+        }
     }
 }
 

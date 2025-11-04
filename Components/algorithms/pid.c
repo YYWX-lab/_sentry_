@@ -19,6 +19,7 @@
 #include "user_lib.h"
 #include "stddef.h"
 
+
 /* 私有类型定义 --------------------------------------------------------------*/
 
 /* 私有宏定义 ----------------------------------------------------------------*/
@@ -141,6 +142,49 @@ float pid_calc(pid_t* pid, float get, float set)
 }
 
 /*************************************************
+ * Function: vision_pid
+ * Description: 视觉pid算法
+ * Input: pid pid指针
+ *        err 上位机传下来的角度差
+ * Return: pid计算输出值
+*************************************************/
+float vision_pid_calc(pid_t *pid, float err)
+{
+    pid->err[NOW] = err;
+    if ((pid->input_max_err != 0) && (fabs(pid->err[NOW]) > pid->input_max_err))
+        return 0;
+
+    if (pid->pid_mode == POSITION_PID) //position PID
+    {
+        pid->pout = pid->p * pid->err[NOW];
+        pid->iout += pid->i * pid->err[NOW];
+        pid->dout = pid->d * (pid->err[NOW] - pid->err[LAST]);
+
+        abs_limit(&(pid->iout), pid->integral_limit);
+        pid->out = pid->pout + pid->iout + pid->dout;
+        abs_limit(&(pid->out), pid->max_out);
+    }
+    else if (pid->pid_mode == DELTA_PID) //delta PID
+    {
+        pid->pout = pid->p * (pid->err[NOW] - pid->err[LAST]);
+        pid->iout = pid->i * pid->err[NOW];
+        pid->dout = pid->d * (pid->err[NOW] - 2 * pid->err[LAST] + pid->err[LLAST]);
+
+        pid->out += pid->pout + pid->iout + pid->dout;
+        abs_limit(&(pid->out), pid->max_out);
+    }
+
+    pid->err[LLAST] = pid->err[LAST];
+    pid->err[LAST]  = pid->err[NOW];
+
+
+    if ((pid->output_deadband != 0) && (fabs(pid->out) < pid->output_deadband))
+        return 0;
+    else
+        return pid->out;
+}
+
+/*************************************************
  * Function: pid_clear
  * Description: 清除pid计算值
  * Input: pid pid指针
@@ -156,6 +200,8 @@ void pid_clear(pid_t* pid)
     pid->err[NOW] = pid->err[LAST] = pid->err[LLAST] = 0.0f;
     pid->out = pid->pout = pid->iout = pid->dout = 0.0f;
     pid->get = pid->set = 0.0f;
+
+
 }
 
 /*************************************************

@@ -27,6 +27,8 @@ static uint8_t referee_tx_fifo_buffer[REFEREE_SYSTEM_FIFO_SIZE];
 static ReceiveHandle_t referee_rx_handle;
 static uint8_t referee_rx_fifo_buffer[REFEREE_SYSTEM_FIFO_SIZE];
 
+
+
 /* 扩展变量 ------------------------------------------------------------------*/
 
 /* 私有函数原形 --------------------------------------------------------------*/
@@ -60,11 +62,11 @@ void ChassisAppConfig(void)
              8.0f, 0.0f, 2.0f);
 
     /*--------------------event-----------------|-------enable-------|-offline time-|-beep_times-*/
-     OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR1,  OFFLINE_ERROR_LEVEL,       100,         1);
-     OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR2,  OFFLINE_ERROR_LEVEL,       100,         2);
-     OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR3,  OFFLINE_ERROR_LEVEL,       100,         3);
-     OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR4,  OFFLINE_ERROR_LEVEL,       100,         4);
-    OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,  OFFLINE_WARNING_LEVEL,     100,         1);
+    //  OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR1,  OFFLINE_ERROR_LEVEL,       100,         1);
+    //  OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR2,  OFFLINE_ERROR_LEVEL,       100,         2);
+    //  OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR3,  OFFLINE_ERROR_LEVEL,       100,         3);
+    //  OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR4,  OFFLINE_ERROR_LEVEL,       100,         4);
+    // OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,  OFFLINE_WARNING_LEVEL,     100,         1);-------ganggang
     //OfflineHandle_Init(OFFLINE_GIMBAL_INFO,     OFFLINE_WARNING_LEVEL,     100,         3);
     OfflineHandle_Init(OFFLINE_DBUS,            OFFLINE_WARNING_LEVEL,     100,         0);
 
