@@ -73,3 +73,9 @@ infantry\gimbal_task.o: ..\Components\algorithms\arm_math.h
 infantry\gimbal_task.o: ../Drivers/CMSIS/Include/core_cm4.h
 infantry\gimbal_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 infantry\gimbal_task.o: ..\Components\algorithms\user_lib.h
+infantry\gimbal_task.o: ..\Components\Comm\user_protocol.h
+infantry\gimbal_task.o: ..\Components\Comm\comm_protocol.h
+infantry\gimbal_task.o: ..\Components\utils\linux_list.h
+infantry\gimbal_task.o: ..\Application\chassis/chassis_app.h
+infantry\gimbal_task.o: ..\MY_Task\RV_protocol.h
+infantry\gimbal_task.o: ..\MY_Task\RV_task.h

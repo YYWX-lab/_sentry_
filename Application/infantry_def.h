@@ -92,10 +92,10 @@
 #define COMM_TASK_PERIOD            1
 #define DETECT_TASK_PERIOD          10
 /*---------------↓ 底盘任务 ↓---------------*/
-#define CHASSIS_TASK_PERIOD         10
+#define CHASSIS_TASK_PERIOD         10//10ms
 /*---------------↓ 云台任务 ↓---------------*/
-#define GIMBAL_TASK_PERIOD          10
-#define SHOOT_TASK_PERIOD           10
+#define GIMBAL_TASK_PERIOD          10//10ms
+#define SHOOT_TASK_PERIOD           10//10ms
 #define GIMBAL_UPLOAD_TIMER_PERIOD  20
 
 

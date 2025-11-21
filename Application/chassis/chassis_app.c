@@ -8,7 +8,7 @@
 #include "referee_system.h"
 #include "timer_task.h"
 #include "detect_task.h"
-#include <stdint.h>         
+
 #include "data_send_task.h"
 /* 私有类型定义 --------------------------------------------------------------*/
 
@@ -27,19 +27,19 @@ static uint8_t referee_tx_fifo_buffer[REFEREE_SYSTEM_FIFO_SIZE];
 static ReceiveHandle_t referee_rx_handle;
 static uint8_t referee_rx_fifo_buffer[REFEREE_SYSTEM_FIFO_SIZE];
 
-
-
 /* 扩展变量 ------------------------------------------------------------------*/
 
 /* 私有函数原形 --------------------------------------------------------------*/
 static void CAN1_UploadDataHook(uint8_t *data, uint16_t len);
 static void CAN1_RefereeDataHook(uint8_t *data, uint16_t len);
 static int32_t Transmit_RefereeData(void *argc);
+static int32_t ChassisInfoUploadCallback(void *argc);
 static void DBUS_ReceiveCallback(uint8_t* data, uint16_t len);
 static void COM1_ReceiveCallback(uint8_t* data, uint16_t len);
 static void COM2_ReceiveCallback(uint8_t* data, uint16_t len);
 static void CAN1_ReceiveCallback(uint32_t std_id, uint8_t *data, uint32_t dlc);
 static void CAN2_ReceiveCallback(uint32_t std_id, uint8_t *data, uint32_t dlc);
+
 /* 函数体 --------------------------------------------------------------------*/
 void ChassisAppConfig(void)
 {
@@ -66,7 +66,7 @@ void ChassisAppConfig(void)
     //  OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR2,  OFFLINE_ERROR_LEVEL,       100,         2);
     //  OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR3,  OFFLINE_ERROR_LEVEL,       100,         3);
     //  OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR4,  OFFLINE_ERROR_LEVEL,       100,         4);
-    // OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,  OFFLINE_WARNING_LEVEL,     100,         1);-------ganggang
+    // OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,  OFFLINE_WARNING_LEVEL,     100,         1);
     //OfflineHandle_Init(OFFLINE_GIMBAL_INFO,     OFFLINE_WARNING_LEVEL,     100,         3);
     OfflineHandle_Init(OFFLINE_DBUS,            OFFLINE_WARNING_LEVEL,     100,         0);
 
@@ -76,6 +76,7 @@ void ChassisAppConfig(void)
     Comm_TransmitInit(&referee_tx_handle, referee_tx_fifo_buffer, REFEREE_SYSTEM_FIFO_SIZE, CAN1_RefereeDataHook);
     Comm_ReceiveInit(&referee_rx_handle, REFEREE_SYSTEM_HEADER_SOF, referee_rx_fifo_buffer, REFEREE_SYSTEM_FIFO_SIZE, RefereeSystem_ParseHandler);
     SoftwareTimerRegister(Transmit_RefereeData, (void*)NULL, 10);
+    SoftwareTimerRegister(ChassisInfoUploadCallback, (void*)NULL, CHASSIS_TASK_PERIOD);
 
     BSP_UART_SetRxCallback(&dbus_obj, DBUS_ReceiveCallback);
     BSP_UART_SetRxCallback(&com1_obj, COM1_ReceiveCallback);
@@ -85,9 +86,19 @@ void ChassisAppConfig(void)
 
 }
 
+static int32_t ChassisInfoUploadCallback(void *argc)
+{
+    Comm_ChassisInfo_t* info = ChassisInfo_Pointer();
+    info->x_speed = chassis_handle.vx;
+    info->y_speed = chassis_handle.vy;
+    Comm_TransmitData(&chassis_tx_handle, USER_PROTOCOL_HEADER_SOF, CHASSIS_INFO_CMD_ID, (uint8_t*)info, sizeof(Comm_ChassisInfo_t));
+    return 0;
+}
+
 
 static void CAN1_UploadDataHook(uint8_t *data, uint16_t len)
 {
+
     BSP_CAN_TransmitData(&can1_obj, CHASSIS_TX_DATA_STD_ID, data, len);
 }
 

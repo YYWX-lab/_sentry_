@@ -11,6 +11,7 @@
 #include "gimbal/gimbal_app.h"
 #include "gimbal/gimbal_task.h"
 #include "gimbal/shoot_task.h"
+#include "RV_task.h"
 
 /* 私有类型定义 --------------------------------------------------------------*/
 
@@ -49,20 +50,27 @@ void AppInit(void)
     ConsoleTaskInit();
     Comm_TaskInit();
     DetectTaskInit();
-    data_send_task_init();
-    ShootTaskInit();
+    // data_send_task_init();
+    
+    
+    
     if (app_type == GIMBAL_APP)
     {
         GimbalAppConfig();
-    
         GimbalTaskInit();
+        ShootTaskInit();
+        // time_stamp_timer_init();
+        vofa_send_task_init();
+        // RV_TaskInit();
+        data_send_task_init();
+
     }
     else if (app_type == CHASSIS_APP)
     {
         ChassisAppConfig();
         ChassisTaskInit();
     }
-    Calibrate_Init();
+    // Calibrate_Init();
 }
 
 AppType_e GetAppType(void)

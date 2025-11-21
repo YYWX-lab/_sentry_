@@ -20,6 +20,15 @@
         "bsp_flash.h": "c",
         "rgb_led.h": "c",
         "buzzer.h": "c",
-        "imu_driver.h": "c"
+        "imu_driver.h": "c",
+        "remote_control.h": "c",
+        "user_protocol.h": "c",
+        "chassis_function.h": "c",
+        "infantry_def.h": "c",
+        "chassis_task.h": "c",
+        "cmsis_os.h": "c",
+        "rv_protocol.h": "c",
+        "string.h": "c",
+        "rv_task.h": "c"
     }
 }

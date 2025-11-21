@@ -83,3 +83,4 @@ infantry\data_send_task.o: ..\Components\Comm\comm_protocol.h
 infantry\data_send_task.o: ..\Components\utils\linux_list.h
 infantry\data_send_task.o: ..\Application\gimbal/gimbal_app.h
 infantry\data_send_task.o: ..\Components\Comm\referee_system.h
+infantry\data_send_task.o: ..\MY_Task\RV_protocol.h

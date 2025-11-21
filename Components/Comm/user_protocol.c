@@ -10,6 +10,7 @@
 /* 私有变量 ------------------------------------------------------------------*/
 Comm_ChassisInfo_t chassis_info;
 Comm_GimbalInfo_t gimbal_info;
+Comm_VisionInfo_t vision_info;
 
 /* 扩展变量 ------------------------------------------------------------------*/
 
@@ -68,4 +69,15 @@ Comm_ChassisInfo_t* ChassisInfo_Pointer(void)
 Comm_GimbalInfo_t* GimbalInfo_Pointer(void)
 {
     return &gimbal_info;
+}
+
+/*************************************************
+ * Function: GimbalInfo_Pointer
+ * Description: 获取自瞄信息数据
+ * Input: 无
+ * Return: 自瞄信息数据指针
+*************************************************/
+Comm_VisionInfo_t* VisionInfo_Pointer(void)
+{
+    return &vision_info;
 }

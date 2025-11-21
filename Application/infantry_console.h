@@ -58,18 +58,25 @@ typedef struct
         fp32 vx;
         fp32 vy;
         fp32 vw;
+        fp32 x_speed;
+        fp32 y_speed;
     } chassis;
 
     struct
     {
         fp32 pitch_v;
         fp32 yaw_v;
+        fp32 vx_pc;
+        fp32 vy_pc;
+        fp32 vw_pc;
     } gimbal;
 
     struct
     {
         ShootFire_CMD_e fire_cmd;
     } shoot;
+
+
 
 } Console_t;
 

@@ -73,3 +73,4 @@ infantry\app_init.o: ..\Application\gimbal/gimbal_app.h
 infantry\app_init.o: ..\Application\gimbal/gimbal_task.h
 infantry\app_init.o: ..\Application\gimbal/shoot_task.h
 infantry\app_init.o: ..\Components\drvices\Motor/blocked.h
+infantry\app_init.o: ..\MY_Task\RV_task.h

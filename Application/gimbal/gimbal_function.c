@@ -14,24 +14,10 @@ extern GimbalHandle_t gimbal_handle;
 /* 函数体 --------------------------------------------------------------------*/
 fp32 Gimbal_PID_Calc(Gimbal_PID_t* pid, fp32 angle_ref, fp32 angle_fdb, fp32 speed_fdb)
 {
-
-
-        pid->angle_ref = angle_ref;
-        pid->angle_fdb = angle_fdb;
-        pid_calc(&pid->outer_pid, pid->angle_fdb, pid->angle_ref);
-        pid->speed_ref = pid->outer_pid.out;
-        pid->speed_fdb = speed_fdb;
-        pid_calc(&pid->inter_pid, pid->speed_fdb, pid->speed_ref);
-        return pid->inter_pid.out;
-    
-    
-}
-
-fp32 Gimbal_vision_PID_Calc(Gimbal_PID_t* pid, fp32 angle_err, fp32 speed_fdb)
-{
-    pid->angle_err = angle_err; 
-    vision_pid_calc(&pid->vision_pid, pid->angle_err);
-    pid->speed_ref = pid->vision_pid.out;
+    pid->angle_ref = angle_ref;
+    pid->angle_fdb = angle_fdb;
+    pid_calc(&pid->outer_pid, pid->angle_fdb, pid->angle_ref);
+    pid->speed_ref = pid->outer_pid.out;
     pid->speed_fdb = speed_fdb;
     pid_calc(&pid->inter_pid, pid->speed_fdb, pid->speed_ref);
     return pid->inter_pid.out;
@@ -41,7 +27,6 @@ void Gimbal_PID_Clear(Gimbal_PID_t* pid)
 {
     pid_clear(&pid->outer_pid);
     pid_clear(&pid->inter_pid);
-    pid_clear(&pid->vision_pid);
 }
 
 void GimbalMotorChangeProtect(GimbalMotor_t* motor)
@@ -72,35 +57,20 @@ void GimbalMotorControl(GimbalMotor_t* motor)
         motor->current_set = motor->given_value;
         Gimbal_PID_Clear(&motor->pid);
     }
-
-    // if (gimbal_handle.console->gimbal_cmd == GIMBAL_VISION_CMD && gimbal_handle.is_track == 1)
-    // {
-    //     motor->current_set = Gimbal_vision_PID_Calc(&motor->pid,
-    //                                         motor->vision_angle,
-    //                                         motor->sensor.palstance);
-    // }
-    // else 
-    // {
     else if(motor->mode == GYRO_MODE)
     {
-    motor->current_set = Gimbal_PID_Calc(&motor->pid,
-                                            motor->given_value,
-                                            motor->sensor.gyro_angle,
-                                            motor->sensor.palstance);
+        motor->current_set = Gimbal_PID_Calc(&motor->pid,
+                                             motor->given_value,
+                                             motor->sensor.gyro_angle,
+                                             motor->sensor.palstance);
     }
-    else if(motor->mode == ENCONDE_MODE  )
+    else if(motor->mode == ENCONDE_MODE)
     {
-    motor->current_set = Gimbal_PID_Calc(&motor->pid,
-                                            motor->given_value,
-                                            motor->sensor.relative_angle,
-                                            motor->sensor.palstance);
+        motor->current_set = Gimbal_PID_Calc(&motor->pid,
+                                             motor->given_value,
+                                             motor->sensor.relative_angle,
+                                             motor->sensor.palstance);
     }
-    // }
-    
-
-    
-    
-    
 }
 
 fp32 AngleTransform(fp32 target_angle, fp32 gyro_angle)

@@ -18,6 +18,8 @@ typedef enum
 typedef struct
 {
     ChassisCtrlMode_e mode;
+    fp32    x_speed;
+    fp32    y_speed;
 } Comm_ChassisInfo_t;
 
 typedef struct
@@ -31,7 +33,22 @@ typedef struct
     /* uint: degree/s */
     fp32 pitch_rate;
     fp32 yaw_rate;
+    uint8_t vision_up_date;
+    fp32 vx_pc;
+    fp32 vy_pc;
+    fp32 vw_pc;
 } Comm_GimbalInfo_t;
+
+typedef struct 
+{
+    fp32    yaw_angle;//传下来的yaw轴角度（度）
+    fp32    pitch_angle;//传下来的pitch轴角度（度）
+    fp32    distance;//距离（mm）
+    uint8_t is_track;
+    uint8_t vision_up_date;
+    uint8_t up_date;
+} Comm_VisionInfo_t;
+
 #pragma pack(pop)
 /* 宏定义 --------------------------------------------------------------------*/
 #define USER_PROTOCOL_HEADER_SOF     0xAA
@@ -41,6 +58,7 @@ typedef struct
 void UserProtocol_ParseHandler(uint16_t cmd_id, uint8_t* data, uint16_t len);
 Comm_ChassisInfo_t* ChassisInfo_Pointer(void);
 Comm_GimbalInfo_t* GimbalInfo_Pointer(void);
+Comm_VisionInfo_t* VisionInfo_Pointer(void);
 
 #endif  // USER_PROTOCOL_H
 

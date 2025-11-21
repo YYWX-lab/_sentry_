@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx,USE_HAL_DRIVER,STM32F407xx,ARM_MATH_CM4,__FPU_USED=1U,__FPU_PRESENT=1U,__CC_ARM,ARM_MATH_MATRIX_CHECK,ARM_MATH_ROUNDING</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\BSP\Inc;..\Components\utils;..\Components\drvices;..\Components\algorithms;..\Components\Comm;..\Components\SoftwareTimer;..\Application;..\MY_Task;..\Application\chassis;..\Components\drvices\Buzzer;..\Components\drvices\RGB_Led;..\Components\drvices\IMU;..\Components\drvices\Motor;..\Components\drvices\RemoteControl</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\BSP\Inc;..\Components\utils;..\Components\drvices;..\Components\algorithms;..\Components\Comm;..\Components\SoftwareTimer;..\Application;..\MY_Task;..\Application\chassis;..\Components\drvices\Buzzer;..\Components\drvices\RGB_Led;..\Components\drvices\IMU;..\Components\drvices\Motor;..\Components\drvices\RemoteControl;..\Application\gimbal</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -918,6 +918,16 @@
               <FileName>MY_protocol_configuration.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\MY_Task\MY_protocol_configuration.h</FilePath>
+            </File>
+            <File>
+              <FileName>RV_protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MY_Task\RV_protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>RV_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MY_Task\RV_task.c</FilePath>
             </File>
           </Files>
         </Group>

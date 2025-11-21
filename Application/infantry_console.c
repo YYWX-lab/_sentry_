@@ -58,7 +58,6 @@ void ConsoleTask(void *argument)
                 }
                 else
                 {
-                    // console.ctrl_mode = NORMAL_MODE;
                     console.gimbal_cmd  = GIMBAL_INIT_CMD;
                     console.chassis_cmd = CHASSIS_STOP_CMD;
                     console.shoot_cmd = SHOOT_STOP_CMD;
@@ -150,6 +149,9 @@ static void RemoteControlWheelAction(void)
 
 static void RemoteControl_Operation(void)
 {
+
+    console.chassis.x_speed = (chassis_handle.motor_speed[0] + chassis_handle.motor_speed[1] - chassis_handle.motor_speed[2] - chassis_handle.motor_speed[3])/2/1.414213562373095048801688f/1000;
+    console.chassis.y_speed = (chassis_handle.motor_speed[0] - chassis_handle.motor_speed[1] - chassis_handle.motor_speed[2] + chassis_handle.motor_speed[3])/2/1.414213562373095048801688f/1000;
     static uint32_t shoot_time = 0;
     if (console.rc->sw2 == REMOTE_SWITCH_VALUE_UP)
     {
@@ -219,25 +221,30 @@ static void RemoteControl_Operation(void)
 
 static void Vision_mode()
 {
-    if (gimbal_handle.up_date == 1)
-    {
+    // if ( == 1)
+    // {
         static uint32_t shoot_time = 0;
         console.gimbal_cmd = GIMBAL_VISION_CMD;
-        if(console.rc->sw2 == REMOTE_SWITCH_VALUE_UP)
+        if (console.rc->sw2 == REMOTE_SWITCH_VALUE_UP)
         {
+            // console.gimbal_cmd = GIMBAL_RELATIVE_CMD;
             console.chassis_cmd = CHASSIS_SEPARATE_GIMBAL_CMD;
+
         }
         else if(console.rc->sw2 == REMOTE_SWITCH_VALUE_CENTRAL)
         {
+            // console.gimbal_cmd = GIMBAL_NORMAL_CMD;
             console.chassis_cmd = CHASSIS_FOLLOW_GIMBAL_CMD;
 
         }
         else if(console.rc->sw2 == REMOTE_SWITCH_VALUE_DOWN)
         {
+            // console.gimbal_cmd = GIMBAL_NORMAL_CMD;
             console.chassis_cmd = CHASSIS_SPIN_CMD;
+
         }
-        // console.chassis_cmd = CHASSIS_FOLLOW_GIMBAL_CMD;
-//        console.super_power_cmd = SUPER_POWER_OFF_CMD;
+
+  
 
         console.chassis.vx = console.rc->ch2 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_X;
         console.chassis.vy = console.rc->ch1 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_Y;
@@ -245,8 +252,8 @@ static void Vision_mode()
         console.gimbal.yaw_v = -console.rc->ch3 * RC_GIMBAL_MOVE_RATIO_YAW;
 
 
-        if (console.gimbal_cmd == GIMBAL_VISION_CMD ) 
-        {
+        // if (console.gimbal_cmd == GIMBAL_VISION_CMD ) 
+        // {
             
             // if (gimbal_handle.is_track == 0x01 && (fabs(gimbal_handle.yaw_angle) < 0.5f && fabs(gimbal_handle.pitch_angle) < 0.5f))
             // {
@@ -258,47 +265,47 @@ static void Vision_mode()
             // }
             
 
-            if (console.shoot_cmd == SHOOT_STOP_CMD )
+        if (console.shoot_cmd == SHOOT_STOP_CMD )
+        {
+            if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
             {
-                if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
-                {
-                    console.shoot_cmd = SHOOT_START_CMD;
-                }
+                console.shoot_cmd = SHOOT_START_CMD;
             }
-            else if (console.shoot_cmd == SHOOT_START_CMD )
+        }
+        else if (console.shoot_cmd == SHOOT_START_CMD )
+        {
+            if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
             {
-                if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
-                {
-                    console.shoot_cmd = SHOOT_STOP_CMD;
-                }
-                else if (gimbal_handle.is_fire == 1 || wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO2)
-                {
+                console.shoot_cmd = SHOOT_STOP_CMD;
+            }
+            else if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO2)
+            {
+                console.shoot.fire_cmd = ONE_FIRE_CMD;
+            }
+            else if (wheel_switch.switch_value_raw == REMOTE_SWITCH_VALUE_DOWN)
+            {
+                shoot_time++;
+                if(shoot_time > 50)
                     console.shoot.fire_cmd = ONE_FIRE_CMD;
-                }
-                else if (wheel_switch.switch_value_raw == REMOTE_SWITCH_VALUE_DOWN)
-                {
-                    shoot_time++;
-                    if(shoot_time > 50)
-                        console.shoot.fire_cmd = ONE_FIRE_CMD;
-                    else
-                        console.shoot.fire_cmd = STOP_FIRE_CMD;
-                }
                 else
-                {
                     console.shoot.fire_cmd = STOP_FIRE_CMD;
-                    shoot_time = 0;
-                }
             }
             else
             {
                 console.shoot.fire_cmd = STOP_FIRE_CMD;
+                shoot_time = 0;
             }
+        }        
+            // else
+            // {
+            //     console.shoot.fire_cmd = STOP_FIRE_CMD;
+            // }
 
 
 
           
-        }
-    }
+        
+    
     
     
 }
@@ -400,14 +407,118 @@ static void Keyboard_Operation(void)
 static void Other_Operation(void)
 {
     /* 控制数值全部赋值0进行保护 */
-    console.chassis.vx = 0;
-    console.chassis.vy = 0;
-    console.chassis.vw = 0;
-    console.gimbal.pitch_v = 0;
-    console.gimbal.yaw_v = 0;
-    console.chassis_cmd = CHASSIS_RELEASE_CMD;
-    console.gimbal_cmd = GIMBAL_RELEASE_CMD;
-    console.shoot_cmd = SHOOT_RELEASE_CMD;
+   if (gimbal_handle.up_date == 1)
+    {
+        static uint32_t shoot_time = 0;
+        console.gimbal_cmd = GIMBAL_VISION_CMD;
+        if (console.rc->sw2 == REMOTE_SWITCH_VALUE_UP)
+        {
+            // console.gimbal_cmd = GIMBAL_RELATIVE_CMD;
+            console.chassis_cmd = CHASSIS_SEPARATE_GIMBAL_CMD;
+
+            console.chassis.vx = console.rc->ch2 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_X;
+            console.chassis.vw = console.rc->ch1 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_R;
+            console.gimbal.pitch_v = console.rc->ch4 * RC_GIMBAL_MOVE_RATIO_PIT;
+            console.gimbal.yaw_v = -console.rc->ch3 * RC_GIMBAL_MOVE_RATIO_YAW;
+        }
+        else if(console.rc->sw2 == REMOTE_SWITCH_VALUE_CENTRAL)
+        {
+            // console.gimbal_cmd = GIMBAL_NORMAL_CMD;
+            console.chassis_cmd = CHASSIS_FOLLOW_GIMBAL_CMD;
+
+            console.chassis.vx = console.rc->ch2 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_X;
+            console.chassis.vy = console.rc->ch1 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_Y;
+            console.chassis.vw = console.rc->ch3 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_R;//12_27加的，想实现左侧摇杆控制yaw
+            console.gimbal.pitch_v = console.rc->ch4 * RC_GIMBAL_MOVE_RATIO_PIT;
+            console.gimbal.yaw_v = -console.rc->ch3 * RC_GIMBAL_MOVE_RATIO_YAW;
+        }
+        else if(console.rc->sw2 == REMOTE_SWITCH_VALUE_DOWN)
+        {
+            // console.gimbal_cmd = GIMBAL_NORMAL_CMD;
+            console.chassis_cmd = CHASSIS_SPIN_CMD;
+
+            console.chassis.vx = console.rc->ch2 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_X;
+            console.chassis.vy = console.rc->ch1 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_Y;
+            console.gimbal.pitch_v = console.rc->ch4 * RC_GIMBAL_MOVE_RATIO_PIT;
+            console.gimbal.yaw_v = -console.rc->ch3 * RC_GIMBAL_MOVE_RATIO_YAW;
+        }
+
+        // if(console.rc->sw2 == REMOTE_SWITCH_VALUE_UP)
+        // {
+        //     console.chassis_cmd = CHASSIS_SEPARATE_GIMBAL_CMD;
+        // }
+        // else if(console.rc->sw2 == REMOTE_SWITCH_VALUE_CENTRAL)
+        // {
+        //     console.chassis_cmd = CHASSIS_FOLLOW_GIMBAL_CMD;
+
+        // }
+        // else if(console.rc->sw2 == REMOTE_SWITCH_VALUE_DOWN)
+        // {
+        //     console.chassis_cmd = CHASSIS_SPIN_CMD;
+        // }
+        // console.chassis_cmd = CHASSIS_FOLLOW_GIMBAL_CMD;
+//        console.super_power_cmd = SUPER_POWER_OFF_CMD;
+
+        // console.chassis.vx = console.rc->ch2 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_X;
+        // console.chassis.vy = console.rc->ch1 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_Y;
+        // console.gimbal.pitch_v = console.rc->ch4 * RC_GIMBAL_MOVE_RATIO_PIT;
+        // console.gimbal.yaw_v = -console.rc->ch3 * RC_GIMBAL_MOVE_RATIO_YAW;
+
+
+        // if (console.gimbal_cmd == GIMBAL_VISION_CMD ) 
+        // {
+            
+            // if (gimbal_handle.is_track == 0x01 && (fabs(gimbal_handle.yaw_angle) < 0.5f && fabs(gimbal_handle.pitch_angle) < 0.5f))
+            // {
+            //     gimbal_handle.is_fire = 1 ;
+            // }
+            // else
+            // {
+            //     gimbal_handle.is_fire = 0;
+            // }
+            
+
+        if (console.shoot_cmd == SHOOT_STOP_CMD )
+        {
+            if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
+            {
+                console.shoot_cmd = SHOOT_START_CMD;
+            }
+        }
+        else if (console.shoot_cmd == SHOOT_START_CMD )
+        {
+            if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
+            {
+                console.shoot_cmd = SHOOT_STOP_CMD;
+            }
+            else if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO2)
+            {
+                console.shoot.fire_cmd = ONE_FIRE_CMD;
+            }
+            else if (wheel_switch.switch_value_raw == REMOTE_SWITCH_VALUE_DOWN)
+            {
+                shoot_time++;
+                if(shoot_time > 50)
+                    console.shoot.fire_cmd = ONE_FIRE_CMD;
+                else
+                    console.shoot.fire_cmd = STOP_FIRE_CMD;
+            }
+            else
+            {
+                console.shoot.fire_cmd = STOP_FIRE_CMD;
+                shoot_time = 0;
+            }
+        }        
+        else
+        {
+            console.shoot.fire_cmd = STOP_FIRE_CMD;
+        }
+
+
+
+          
+        
+    }
 
 
 }

@@ -10,8 +10,11 @@
 #include "timer_task.h"
 #include "detect_task.h"
 #include "data_send_task.h"
-/* 私有类型定义 --------------------------------------------------------------*/
 
+#include "RV_protocol.h"
+#include "AHRS_MiddleWare.h"
+/* 私有类型定义 --------------------------------------------------------------*/
+extern RV_RX_STR RV_RXS;	
 /* 私有宏定义 ----------------------------------------------------------------*/
 
 /* 私有变量 ------------------------------------------------------------------*/
@@ -45,39 +48,39 @@ void GimbalAppConfig(void)
     gimbal_handle.ctrl_mode = GIMBAL_INIT;
     gimbal_handle.yaw_motor.motor_info = GimbalMotorYaw_Pointer();
     gimbal_handle.pitch_motor.motor_info = GimbalMotorPitch_Pointer();
-    gimbal_handle.yaw_motor.offset_ecd = 1000; //4
-    gimbal_handle.pitch_motor.offset_ecd = 4800; //4   4280  4800
+    gimbal_handle.yaw_motor.offset_ecd = 978; //4
+    gimbal_handle.pitch_motor.offset_ecd = 4692; //4   4280  4800
 //    gimbal_handle.yaw_motor.offset_ecd = 7670;  //3
 //    gimbal_handle.pitch_motor.offset_ecd = 4728;  //3
     gimbal_handle.yaw_motor.ecd_ratio = YAW_MOTO_POSITIVE_DIR * YAW_REDUCTION_RATIO / ENCODER_ANGLE_RATIO;
     gimbal_handle.pitch_motor.ecd_ratio = PITCH_MOTO_POSITIVE_DIR * PITCH_REDUCTION_RATIO / ENCODER_ANGLE_RATIO;
     gimbal_handle.yaw_motor.max_relative_angle = 90;
     gimbal_handle.yaw_motor.min_relative_angle = -90;
-    gimbal_handle.pitch_motor.max_relative_angle = 20;
-    gimbal_handle.pitch_motor.min_relative_angle = -15;
+    gimbal_handle.pitch_motor.max_relative_angle = 30;
+    gimbal_handle.pitch_motor.min_relative_angle = -13;
     pid_init(&gimbal_handle.yaw_motor.pid.outer_pid, POSITION_PID, 2000.0f, 0.0f,
              40.0f, 0.0f, 40.0f);   //40 0 40
     pid_init(&gimbal_handle.yaw_motor.pid.inter_pid, POSITION_PID, GM6020_MOTOR_MAX_CURRENT, 6000.0f,
              80.0f, 0.1f, 0.0f); //3000 60 0.1 40
     pid_init(&gimbal_handle.pitch_motor.pid.outer_pid, POSITION_PID, 2000.0f, 0.0f,
              40.0f, 0.0f, 0.0f);// 40 0 0
-    pid_init(&gimbal_handle.pitch_motor.pid.inter_pid, POSITION_PID, GM6020_MOTOR_MAX_CURRENT, 6000.0f,
-             80.0f, 0.5f, 0.0f);
-    pid_init(&gimbal_handle.pitch_motor.pid.vision_pid, POSITION_PID, 2000.0f,0.0f, 5.0f, 0.0f, 0.0f);
+    pid_init(&gimbal_handle.pitch_motor.pid.inter_pid, POSITION_PID, GM6020_MOTOR_MAX_CURRENT, 8000.0f,
+             60.0f, 0.0f, 0.0f);
+    // pid_init(&gimbal_handle.pitch_motor.pid.vision_pid, POSITION_PID, 2000.0f,0.0f, 5.0f, 0.0f, 0.0f);
 
     /*--------------------event------------------------|-------enable-------|-offline time-|-beep_times-*/
-    OfflineHandle_Init(OFFLINE_GIMBAL_PITCH,            OFFLINE_ERROR_LEVEL,       100,         5);
-    OfflineHandle_Init(OFFLINE_GIMBAL_YAW,              OFFLINE_ERROR_LEVEL,       100,         6);
+    // OfflineHandle_Init(OFFLINE_GIMBAL_PITCH,            OFFLINE_ERROR_LEVEL,       100,         5);
+    // OfflineHandle_Init(OFFLINE_GIMBAL_YAW,              OFFLINE_ERROR_LEVEL,       100,         6);
     // OfflineHandle_Init(OFFLINE_FRICTION_WHEEL_MOTOR1,   OFFLINE_ERROR_LEVEL,       100,         1);
     // OfflineHandle_Init(OFFLINE_FRICTION_WHEEL_MOTOR2,   OFFLINE_ERROR_LEVEL,       100,         2);
-    OfflineHandle_Init(OFFLINE_TRIGGER_MOTOR,           OFFLINE_ERROR_LEVEL,       100,         3);
+    // OfflineHandle_Init(OFFLINE_TRIGGER_MOTOR,           OFFLINE_ERROR_LEVEL,       100,         3);
     // OfflineHandle_Init(OFFLINE_MAGAZINE_MOTOR,          OFFLINE_WARNING_LEVEL,     100,         4);
 
 
-    // OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,          OFFLINE_WARNING_LEVEL,     100,         1);ganggang
+    // OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,          OFFLINE_WARNING_LEVEL,     100,         1);//ganggang
     
 
-    //    OfflineHandle_Init(OFFLINE_CHASSIS_INFO,            OFFLINE_WARNING_LEVEL,     100,         2);
+    // OfflineHandle_Init(OFFLINE_CHASSIS_INFO,            OFFLINE_WARNING_LEVEL,     100,         2);
     OfflineHandle_Init(OFFLINE_DBUS,                    OFFLINE_WARNING_LEVEL,     100,         0);
 
     Comm_TransmitInit(&gimbal_tx_handle, gimbal_tx_fifo_buffer, GIMBAL_CHASSIS_DATA_FIFO_SIZE, CAN1_UploadDataHook);
@@ -88,6 +91,7 @@ void GimbalAppConfig(void)
 
     BSP_UART_SetRxCallback(&dbus_obj, DBUS_ReceiveCallback);
     BSP_UART_SetRxCallback(&com1_obj, COM1_ReceiveCallback);
+    // BSP_UART_SetRxCallback(&com2_obj, COM2_ReceiveCallback);
     BSP_UART_SetRxCallback(&com2_obj, PC_ReceiveCallback);
     BSP_CAN_SetRxCallback(&can1_obj, CAN1_ReceiveCallback);
     BSP_CAN_SetRxCallback(&can2_obj, CAN2_ReceiveCallback);
@@ -108,6 +112,7 @@ static int32_t GimbalInfoUploadCallback(void *argc)
     info->yaw_gyro_angle    = gimbal_handle.yaw_motor.sensor.gyro_angle;
     info->pitch_rate        = gimbal_handle.pitch_motor.sensor.palstance;
     info->yaw_rate          = gimbal_handle.yaw_motor.sensor.palstance;
+    info->vision_up_date    = gimbal_handle.up_date;
     Comm_TransmitData(&gimbal_tx_handle, USER_PROTOCOL_HEADER_SOF, GIMBAL_INFO_CMD_ID, (uint8_t*)info, sizeof(Comm_GimbalInfo_t));
     return 0;
 }
@@ -126,7 +131,7 @@ static void COM1_ReceiveCallback(uint8_t* data, uint16_t len)
 
 static void COM2_ReceiveCallback(uint8_t* data, uint16_t len)
 {
-
+    RV_PC_PackAnalysis(data,&RV_RXS);
 }
 
 static void CAN1_ReceiveCallback(uint32_t std_id, uint8_t *data, uint32_t dlc)

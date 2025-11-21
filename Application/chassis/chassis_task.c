@@ -20,6 +20,7 @@ static uint32_t chassis_task_stack = 0;
 /* 扩展变量 ------------------------------------------------------------------*/
 extern ChassisHandle_t chassis_handle;
 
+
 /* 私有函数原形 --------------------------------------------------------------*/
 static void ChassisCtrlModeSwitch(void);
 static void ChassisSensorUpdata(void);
@@ -98,10 +99,14 @@ void ChassisTaskInit(void)
 static void ChassisSensorUpdata(void)
 {
     Comm_GimbalInfo_t* gimbal_info = GimbalInfo_Pointer();
+    Comm_VisionInfo_t* vision_info = VisionInfo_Pointer();
     chassis_handle.gimbal_yaw_ecd_angle = gimbal_info->yaw_ecd_angle;
     chassis_handle.chassis_pitch = chassis_handle.imu->attitude.pitch - gimbal_info->pitch_gyro_angle;
     chassis_handle.chassis_roll = chassis_handle.imu->attitude.roll;
     chassis_handle.chassis_yaw = chassis_handle.imu->attitude.yaw - gimbal_info->yaw_gyro_angle;
+    chassis_handle.vx_pc = gimbal_info->vx_pc;
+    chassis_handle.vy_pc = gimbal_info->vy_pc;
+    chassis_handle.vw_pc = gimbal_info->vw_pc;
 
     
 }
@@ -163,9 +168,9 @@ static void ChassisSpinMode(void)
     chassis_handle.vx = chassis_handle.console->chassis.vx + chassis_handle.vx_pc;
     chassis_handle.vy = chassis_handle.console->chassis.vy + chassis_handle.vy_pc;
     if (fabs(chassis_handle.vx) < 500 && fabs(chassis_handle.vy) < 500)
-        chassis_handle.vw = 300;//200
+        chassis_handle.vw = 200;//200
     else if (fabs(chassis_handle.vx) < 1000 && fabs(chassis_handle.vy) < 1000)
-        chassis_handle.vw = 300;//100
+        chassis_handle.vw = 200;//100
     else
         chassis_handle.vw = 200;//0
 }

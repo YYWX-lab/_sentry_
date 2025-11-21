@@ -3,7 +3,9 @@
 #include "infantry_def.h"
 #include "cmsis_os.h"
 #include "gimbal_function.h"
-
+#include "user_protocol.h"
+#include "RV_protocol.h"
+#include "RV_task.h"
 /* 私有类型定义 --------------------------------------------------------------*/
 
 /* 私有宏定义 ----------------------------------------------------------------*/
@@ -20,11 +22,15 @@ static uint32_t gimbal_task_stack = 0;
 /* control ramp parameter */
 static ramp_v0_t yaw_ramp = RAMP_GEN_DAFAULT;
 static ramp_v0_t pitch_ramp = RAMP_GEN_DAFAULT;
+static ramp_v0_t vision_pitch_ramp = RAMP_GEN_DAFAULT;
 static ramp_v0_t pitch_vision_ramp = RAMP_GEN_DAFAULT;
 
 
 /* 扩展变量 ------------------------------------------------------------------*/
 extern GimbalHandle_t gimbal_handle;
+
+extern RV_GB_MOVE_STR rv_gb_s;
+extern RV_RX_STR RV_RXS;
 
 /* 私有函数原形 --------------------------------------------------------------*/
 static void GimbalSensorUpdata(void);
@@ -69,7 +75,7 @@ void GimbalTask(void *argument)
             case GIMBAL_VISION:
             {
                 GimbalVisionMode();
-            }
+            }break;
             default:
                 break;
         }
@@ -83,7 +89,6 @@ void GimbalTask(void *argument)
             pid_clear(&gimbal_handle.yaw_motor.pid.inter_pid);
             pid_clear(&gimbal_handle.pitch_motor.pid.outer_pid);
             pid_clear(&gimbal_handle.pitch_motor.pid.inter_pid);
-            // pid_clear(&gimbal_handle.pitch_motor.pid.vision_pid);//新加的
             gimbal_handle.yaw_motor.current_set = 0;
             gimbal_handle.pitch_motor.current_set = 0;
         }
@@ -160,17 +165,13 @@ static void GimbalInitMode(void)
     {
         ramp_v0_init(&yaw_ramp, BACK_CENTER_TIME/GIMBAL_TASK_PERIOD);
         ramp_v0_init(&pitch_ramp, BACK_CENTER_TIME/GIMBAL_TASK_PERIOD);
-        // ramp_v0_init(&pitch_vision_ramp, /* 过渡时间（如500ms）*/ 10000 / GIMBAL_TASK_PERIOD);
-
     }
 
     gimbal_handle.yaw_motor.mode = ENCONDE_MODE;
     gimbal_handle.pitch_motor.mode = ENCONDE_MODE;
 
     gimbal_handle.yaw_motor.given_value = gimbal_handle.yaw_motor.sensor.relative_angle;
-    gimbal_handle.pitch_motor.given_value = gimbal_handle.pitch_motor.sensor.relative_angle * (1- ramp_v0_calculate(&pitch_ramp));
-
-
+    gimbal_handle.pitch_motor.given_value = gimbal_handle.pitch_motor.sensor.relative_angle * (1 - ramp_v0_calculate(&pitch_ramp));
     if (fabsf(gimbal_handle.pitch_motor.sensor.relative_angle) <= 2.0f)
     {
         gimbal_handle.yaw_motor.given_value = gimbal_handle.yaw_motor.sensor.relative_angle * (1 - ramp_v0_calculate(&yaw_ramp));
@@ -230,36 +231,39 @@ static void GimbalNormalMode(void)
 
 static void GimbalVisionMode(void)
 {
+    ramp_v0_init(&pitch_ramp, 100/GIMBAL_TASK_PERIOD);
    
     gimbal_handle.yaw_motor.mode = GYRO_MODE;
     gimbal_handle.pitch_motor.mode = ENCONDE_MODE;
 
     fp32 yaw_target = 0 , pitch_angle = 0;//2025.3.10 add
     
-   
+    Comm_VisionInfo_t* info = VisionInfo_Pointer();
        
-    if (gimbal_handle.is_track == 1)
+    if (info->is_track == 1)
     {
-        if (gimbal_handle.up_date == 1)
+        if (info->up_date == 1)
         {
         
-            gimbal_handle.up_date = 0;
+            info->up_date = 0;
 
-            // AimCalc(&aim_yaw, gimbal_handle.yaw_motor.sensor.gyro_angle - info->yaw, 10);
-            // AimCalc(&aim_pitch, gimbal_handle.pitch_motor.sensor.relative_angle + info->pitch, 10);
-            // AimCalc(&aim_yaw, gimbal_handle.yaw_motor.sensor.gyro_angle - (info->yaw), 10);
-            
-//                AimCalc(&aim_pitch, gimbal_handle.pitch_motor.sensor.relative_angle + (info->pitch)*0.8+2 ,10);
-            yaw_target = gimbal_handle.yaw_motor.given_value + gimbal_handle.console->gimbal.yaw_v;//
-            // gimbal_handle.yaw_motor.given_value = -aim_yaw.out;
-            gimbal_handle.yaw_motor.given_value = gimbal_handle.yaw_motor.sensor.gyro_angle + gimbal_handle.yaw_angle + gimbal_handle.console->gimbal.yaw_v;//2025.3.10加入
-            // gimbal_handle.yaw_motor.given_value = AngleTransform(yaw_target,gimbal_handle.yaw_motor.sensor.gyro_angle);
-            // gimbal_handle.last_yaw = gimbal_handle.yaw_motor.sensor.gyro_angle;
+
+            // gimbal_handle.yaw_motor.given_value = gimbal_handle.yaw_motor.sensor.gyro_angle + info->yaw_angle + gimbal_handle.console->gimbal.yaw_v;//2025.3.10加入
+
+            // gimbal_handle.yaw_motor.given_value =  (rv_gb_s.yaw_e * 57.324 + (RV_RXS.v_yaw * rv_gb_s.t) * 57.324) + gimbal_handle.console->gimbal.yaw_v;
+
+
+  
             pitch_angle += gimbal_handle.console->gimbal.pitch_v;
             
 
             gimbal_handle.pitch_motor.vision_angle = gimbal_handle.pitch_angle;
-            gimbal_handle.pitch_motor.given_value = gimbal_handle.pitch_motor.sensor.relative_angle - gimbal_handle.pitch_angle  + pitch_angle*3 ;
+
+            // gimbal_handle.pitch_motor.given_value = gimbal_handle.pitch_motor.sensor.relative_angle - info->pitch_angle   + pitch_angle*3 ;
+            gimbal_handle.pitch_motor.given_value = info->pitch_angle + pitch_angle*3;
+            gimbal_handle.yaw_motor.given_value = info->yaw_angle + gimbal_handle.console->gimbal.yaw_v;
+            // gimbal_handle.pitch_motor.given_value = rv_gb_s.pitch_e * 57.324  + RV_PITCH_OFFSET + pitch_angle*3;
+            // gimbal_handle.pitch_motor.given_value =gimbal_handle.pitch_motor.sensor.relative_angle+ rv_gb_s.pitch_e* 57.324*0.1   + pitch_angle*3;
 
        
         }
@@ -268,15 +272,7 @@ static void GimbalVisionMode(void)
         else
         {
 
-            // gimbal_handle.yaw_motor.given_value =  (gimbal_handle.yaw_motor.given_value + gimbal_handle.console->gimbal.yaw_v,
-            //                                                      gimbal_handle.yaw_motor.sensor.gyro_angle);
-
-            // // gimbal_handle.yaw_motor.given_value =  gimbal_handle.yaw_motor.given_value = AngleTransform(yaw_target, gimbal_handle.yaw_motor.sensor.gyro_angle);                                                  AngleTransform(yaw_target, gimbal_handle.yaw_motor.sensor.gyro_angle);
-            // gimbal_handle.pitch_motor.given_value += gimbal_handle.console->gimbal.pitch_v;
-
-            // AimReset(&aim_yaw);
-            // AimReset(&aim_pitch);
-            // gimbal_handle.ctrl_mode = GIMBAL_NORMAL;
+          
             yaw_target = gimbal_handle.yaw_motor.given_value + gimbal_handle.console->gimbal.yaw_v;
 
             gimbal_handle.yaw_motor.given_value = AngleTransform(yaw_target, gimbal_handle.yaw_motor.sensor.gyro_angle);

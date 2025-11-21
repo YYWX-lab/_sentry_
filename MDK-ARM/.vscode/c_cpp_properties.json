@@ -25,6 +25,7 @@
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\IMU",
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\Motor",
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Components\\drvices\\RemoteControl",
+                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Application\\gimbal",
                 "C:\\Keil_v5\\ARM\\ARMCC\\include",
                 "C:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\MDK-ARM",
@@ -32,8 +33,7 @@
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Drivers\\STM32F4xx_HAL_Driver\\Src",
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Middlewares\\Third_Party\\FreeRTOS\\Source",
                 "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\MemMang",
-                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\BSP\\Src",
-                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\Application\\gimbal"
+                "d:\\RM\\Odw_sentry\\Odw_sentry (2)\\Odw_sentry\\Infantry\\BSP\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

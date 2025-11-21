@@ -89,6 +89,8 @@
 "infantry\chassis_task.o"
 "infantry\data_send_task.o"
 "infantry\my_protocol.o"
+"infantry\rv_protocol.o"
+"infantry\rv_task.o"
 --library_type=microlib --strict --scatter "Infantry\Infantry.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
