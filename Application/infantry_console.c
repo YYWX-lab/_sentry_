@@ -255,15 +255,7 @@ static void Vision_mode()
         // if (console.gimbal_cmd == GIMBAL_VISION_CMD ) 
         // {
             
-            // if (gimbal_handle.is_track == 0x01 && (fabs(gimbal_handle.yaw_angle) < 0.5f && fabs(gimbal_handle.pitch_angle) < 0.5f))
-            // {
-            //     gimbal_handle.is_fire = 1 ;
-            // }
-            // else
-            // {
-            //     gimbal_handle.is_fire = 0;
-            // }
-            
+   
 
         if (console.shoot_cmd == SHOOT_STOP_CMD )
         {
@@ -278,7 +270,7 @@ static void Vision_mode()
             {
                 console.shoot_cmd = SHOOT_STOP_CMD;
             }
-            else if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO2)
+            else if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO2 || gimbal_handle.is_fire == 1)
             {
                 console.shoot.fire_cmd = ONE_FIRE_CMD;
             }

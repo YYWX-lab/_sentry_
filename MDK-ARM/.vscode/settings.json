@@ -29,6 +29,8 @@
         "cmsis_os.h": "c",
         "rv_protocol.h": "c",
         "string.h": "c",
-        "rv_task.h": "c"
+        "rv_task.h": "c",
+        "comm_protocol.h": "c",
+        "app_init.h": "c"
     }
 }

@@ -69,18 +69,18 @@ void GimbalAppConfig(void)
     // pid_init(&gimbal_handle.pitch_motor.pid.vision_pid, POSITION_PID, 2000.0f,0.0f, 5.0f, 0.0f, 0.0f);
 
     /*--------------------event------------------------|-------enable-------|-offline time-|-beep_times-*/
-    // OfflineHandle_Init(OFFLINE_GIMBAL_PITCH,            OFFLINE_ERROR_LEVEL,       100,         5);
-    // OfflineHandle_Init(OFFLINE_GIMBAL_YAW,              OFFLINE_ERROR_LEVEL,       100,         6);
+    OfflineHandle_Init(OFFLINE_GIMBAL_PITCH,            OFFLINE_ERROR_LEVEL,       100,         5);
+    OfflineHandle_Init(OFFLINE_GIMBAL_YAW,              OFFLINE_ERROR_LEVEL,       100,         6);
     // OfflineHandle_Init(OFFLINE_FRICTION_WHEEL_MOTOR1,   OFFLINE_ERROR_LEVEL,       100,         1);
     // OfflineHandle_Init(OFFLINE_FRICTION_WHEEL_MOTOR2,   OFFLINE_ERROR_LEVEL,       100,         2);
-    // OfflineHandle_Init(OFFLINE_TRIGGER_MOTOR,           OFFLINE_ERROR_LEVEL,       100,         3);
+    OfflineHandle_Init(OFFLINE_TRIGGER_MOTOR,           OFFLINE_ERROR_LEVEL,       100,         3);
     // OfflineHandle_Init(OFFLINE_MAGAZINE_MOTOR,          OFFLINE_WARNING_LEVEL,     100,         4);
 
 
-    // OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,          OFFLINE_WARNING_LEVEL,     100,         1);//ganggang
+    OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,          OFFLINE_WARNING_LEVEL,     100,         0);//ganggang
     
 
-    // OfflineHandle_Init(OFFLINE_CHASSIS_INFO,            OFFLINE_WARNING_LEVEL,     100,         2);
+    OfflineHandle_Init(OFFLINE_CHASSIS_INFO,            OFFLINE_WARNING_LEVEL,     100,         2);
     OfflineHandle_Init(OFFLINE_DBUS,                    OFFLINE_WARNING_LEVEL,     100,         0);
 
     Comm_TransmitInit(&gimbal_tx_handle, gimbal_tx_fifo_buffer, GIMBAL_CHASSIS_DATA_FIFO_SIZE, CAN1_UploadDataHook);
@@ -131,7 +131,7 @@ static void COM1_ReceiveCallback(uint8_t* data, uint16_t len)
 
 static void COM2_ReceiveCallback(uint8_t* data, uint16_t len)
 {
-    RV_PC_PackAnalysis(data,&RV_RXS);
+    // RV_PC_PackAnalysis(data,&RV_RXS);
 }
 
 static void CAN1_ReceiveCallback(uint32_t std_id, uint8_t *data, uint32_t dlc)

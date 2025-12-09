@@ -199,6 +199,11 @@ void pack_analysis(uint8_t *rx_pack,PACK_ANALYSIS_T *pack_analysis)
 
 
             pack_analysis->d5 = rx_pack[len];
+            len += 1;
+
+            pack_analysis->is_shoot = rx_pack[len];
+
+
 
         }
     }

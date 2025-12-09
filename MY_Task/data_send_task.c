@@ -95,6 +95,7 @@ void PC_ReceiveCallback(uint8_t* data, uint16_t len)
     // }
     if (app_type == GIMBAL_APP)
     {   
+
         first_communicat = 1;
         
         if(PACK_ANALYSIS_T_1.state == 1)
@@ -104,6 +105,8 @@ void PC_ReceiveCallback(uint8_t* data, uint16_t len)
             vision_info.distance = PACK_ANALYSIS_T_1.f3;
             vision_info.is_track = PACK_ANALYSIS_T_1.d5;
             vision_info.up_date = 1;
+            vision_info.is_shoot = PACK_ANALYSIS_T_1.is_shoot;
+
         }
         else if (PACK_ANALYSIS_T_1.state == 0)
         {
@@ -112,11 +115,8 @@ void PC_ReceiveCallback(uint8_t* data, uint16_t len)
             gimbal_info.vw_pc = PACK_ANALYSIS_T_1.f3;
         }
 
-        
     }
     
-
-
 }
 
 
@@ -226,7 +226,7 @@ void data_send_task(void *argument)
             VISION_HEAD,
             PC_TO_MCU_RECEIVE,
             gimbal_handle.pitch_motor.sensor.relative_angle,
-            gimbal_handle.yaw_motor.sensor.relative_angle,
+            gimbal_handle.yaw_motor.sensor.gyro_angle,
             gimbal_handle.yaw_motor.motor_info->speed_rpm*6.f,
             gimbal_handle.pitch_motor.motor_info->speed_rpm*6.f,
             x,
@@ -254,13 +254,13 @@ void vofa_send_task(void *argumen)
 {
     for (;;)
     {
-     
+        Comm_VisionInfo_t* info = VisionInfo_Pointer();
         fp32 pitch_given_current = (fp32)gimbal_handle.pitch_motor.motor_info->given_current;
         fp32 pitch_current_set = (fp32)gimbal_handle.pitch_motor.current_set;
         
-        sprintf(vofa_buff, "samples: %.2f, %.2f, %.2f, %.2f,%.2f, %.2f\r\n",gimbal_handle.pitch_motor.given_value,
+        sprintf(vofa_buff, "samples: %.2f, %.2f, %.2f, %.2f,%.2f, %.2f\r\n",info->pitch_angle,
                                                                         gimbal_handle.pitch_motor.sensor.relative_angle,
-                                                                        rv_gb_s.yaw_e * 57.324 + (RV_RXS.v_yaw * rv_gb_s.t) * 57.324,
+                                                                        info->yaw_angle,
                                                                         gimbal_handle.yaw_motor.sensor.gyro_angle,
                                                                         pitch_given_current,
                                                                         rv_gb_s.pitch_e * 57.324*0.1);

@@ -262,6 +262,14 @@ static void GimbalVisionMode(void)
             // gimbal_handle.pitch_motor.given_value = gimbal_handle.pitch_motor.sensor.relative_angle - info->pitch_angle   + pitch_angle*3 ;
             gimbal_handle.pitch_motor.given_value = info->pitch_angle + pitch_angle*3;
             gimbal_handle.yaw_motor.given_value = info->yaw_angle + gimbal_handle.console->gimbal.yaw_v;
+            if (info->is_shoot == 1)
+            {
+                gimbal_handle.is_fire = 1;
+            }
+            else
+            {
+                gimbal_handle.is_fire = 0;
+            }
             // gimbal_handle.pitch_motor.given_value = rv_gb_s.pitch_e * 57.324  + RV_PITCH_OFFSET + pitch_angle*3;
             // gimbal_handle.pitch_motor.given_value =gimbal_handle.pitch_motor.sensor.relative_angle+ rv_gb_s.pitch_e* 57.324*0.1   + pitch_angle*3;
 

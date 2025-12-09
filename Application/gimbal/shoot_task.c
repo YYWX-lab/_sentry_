@@ -120,10 +120,10 @@ void ShootTaskInit(void)
     Blocked_Reset(&shoot_handle.trigger_motor[1].blocked_handle, TRIGGER_BLOCKED_TIMER, 1000);
 
 
-    shoot_handle.trigger_motor[0].motor_info = TriggerMotor_1_Pointer();
+    // shoot_handle.trigger_motor[0].motor_info = TriggerMotor_1_Pointer();
     shoot_handle.trigger_motor[1].motor_info = TriggerMotor_2_Pointer();//2025.2.21 add
     shoot_handle.trigger_state = TRIGGER_END;
-    shoot_handle.trigger_motor[0].ecd_ratio = TRIGGER_MOTOR_POSITIVE_DIR * TRIGGER_MOTOR_REDUCTION_RATIO / ENCODER_ANGLE_RATIO;
+    // shoot_handle.trigger_motor[0].ecd_ratio = TRIGGER_MOTOR_POSITIVE_DIR * TRIGGER_MOTOR_REDUCTION_RATIO / ENCODER_ANGLE_RATIO;
     shoot_handle.trigger_motor[1].ecd_ratio = -TRIGGER_MOTOR_POSITIVE_DIR * TRIGGER_MOTOR_REDUCTION_RATIO / ENCODER_ANGLE_RATIO;
     
 

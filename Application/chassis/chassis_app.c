@@ -66,8 +66,8 @@ void ChassisAppConfig(void)
     //  OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR2,  OFFLINE_ERROR_LEVEL,       100,         2);
     //  OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR3,  OFFLINE_ERROR_LEVEL,       100,         3);
     //  OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR4,  OFFLINE_ERROR_LEVEL,       100,         4);
-    // OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,  OFFLINE_WARNING_LEVEL,     100,         1);
-    //OfflineHandle_Init(OFFLINE_GIMBAL_INFO,     OFFLINE_WARNING_LEVEL,     100,         3);
+    OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,  OFFLINE_WARNING_LEVEL,     100,         0);
+    OfflineHandle_Init(OFFLINE_GIMBAL_INFO,     OFFLINE_WARNING_LEVEL,     100,         3);
     OfflineHandle_Init(OFFLINE_DBUS,            OFFLINE_WARNING_LEVEL,     100,         0);
 
     Comm_TransmitInit(&chassis_tx_handle, chassis_tx_fifo_buffer, GIMBAL_CHASSIS_DATA_FIFO_SIZE, CAN1_UploadDataHook);

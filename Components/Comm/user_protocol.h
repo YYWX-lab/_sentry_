@@ -47,6 +47,7 @@ typedef struct
     uint8_t is_track;
     uint8_t vision_up_date;
     uint8_t up_date;
+    uint8_t is_shoot;//射击为1
 } Comm_VisionInfo_t;
 
 #pragma pack(pop)
