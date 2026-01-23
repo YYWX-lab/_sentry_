@@ -79,3 +79,14 @@ infantry\gimbal_task.o: ..\Components\utils\linux_list.h
 infantry\gimbal_task.o: ..\Application\chassis/chassis_app.h
 infantry\gimbal_task.o: ..\MY_Task\RV_protocol.h
 infantry\gimbal_task.o: ..\MY_Task\RV_task.h
+infantry\gimbal_task.o: ..\Components\drvices\Motor\dm_motor_ctrl.h
+infantry\gimbal_task.o: ..\Components\drvices\Motor\dm_motor_drv.h
+infantry\gimbal_task.o: ..\Application\detect_task.h
+infantry\gimbal_task.o: ..\BSP\Inc\bsp_init.h
+infantry\gimbal_task.o: ..\BSP\Inc\bsp_delay.h
+infantry\gimbal_task.o: ..\BSP\Inc\bsp_gpio.h
+infantry\gimbal_task.o: ../Core/Inc/gpio.h
+infantry\gimbal_task.o: ../Core/Inc/tim.h
+infantry\gimbal_task.o: ..\BSP\Inc\bsp_i2c.h
+infantry\gimbal_task.o: ..\BSP\Inc\bsp_uart.h
+infantry\gimbal_task.o: ../Core/Inc/usart.h

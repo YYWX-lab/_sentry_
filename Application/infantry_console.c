@@ -18,7 +18,10 @@ static uint32_t console_task_stack = 0;
 #endif
 extern GimbalHandle_t gimbal_handle;
 extern ChassisHandle_t chassis_handle;
+UI_Update_flag UI_update_flag;
 
+extern int16_t init_flag ;
+extern int16_t flag ;
 
 Console_t console;
 RC_Info_t last_rc;
@@ -252,53 +255,44 @@ static void Vision_mode()
         console.gimbal.yaw_v = -console.rc->ch3 * RC_GIMBAL_MOVE_RATIO_YAW;
 
 
-        // if (console.gimbal_cmd == GIMBAL_VISION_CMD ) 
-        // {
+        if (console.gimbal_cmd == GIMBAL_VISION_CMD ) 
+        {
             
    
 
-        if (console.shoot_cmd == SHOOT_STOP_CMD )
-        {
-            if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
+            if (console.shoot_cmd == SHOOT_STOP_CMD )
             {
-                console.shoot_cmd = SHOOT_START_CMD;
+                if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
+                {
+                    console.shoot_cmd = SHOOT_START_CMD;
+                }
             }
-        }
-        else if (console.shoot_cmd == SHOOT_START_CMD )
-        {
-            if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
+            else if (console.shoot_cmd == SHOOT_START_CMD )
             {
-                console.shoot_cmd = SHOOT_STOP_CMD;
-            }
-            else if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO2 || gimbal_handle.is_fire == 1)
-            {
-                console.shoot.fire_cmd = ONE_FIRE_CMD;
-            }
-            else if (wheel_switch.switch_value_raw == REMOTE_SWITCH_VALUE_DOWN)
-            {
-                shoot_time++;
-                if(shoot_time > 50)
+                if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
+                {
+                    console.shoot_cmd = SHOOT_STOP_CMD;
+                }
+                else if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO2 || gimbal_handle.is_fire == 1)
+                {
                     console.shoot.fire_cmd = ONE_FIRE_CMD;
+                }
+                else if (wheel_switch.switch_value_raw == REMOTE_SWITCH_VALUE_DOWN)
+                {
+                    shoot_time++;
+                    if(shoot_time > 50)
+                        console.shoot.fire_cmd = ONE_FIRE_CMD;
+                    else
+                        console.shoot.fire_cmd = STOP_FIRE_CMD;
+                }
                 else
+                {
                     console.shoot.fire_cmd = STOP_FIRE_CMD;
-            }
-            else
-            {
-                console.shoot.fire_cmd = STOP_FIRE_CMD;
-                shoot_time = 0;
-            }
-        }        
-            // else
-            // {
-            //     console.shoot.fire_cmd = STOP_FIRE_CMD;
-            // }
+                    shoot_time = 0;
+                }
+            }        
+        }
 
-
-
-          
-        
-    
-    
     
 }
 
@@ -308,15 +302,23 @@ static void Keyboard_Operation(void)
     fp32 chassis_vx = 0;
     fp32 chassis_vy = 0;
 
-    if (console.rc->kb.bit.F)
+    if (console.chassis_cmd == CHASSIS_SPIN_CMD)
     {
-        console.gimbal_cmd = GIMBAL_NORMAL_CMD;
-        console.chassis_cmd = CHASSIS_FOLLOW_GIMBAL_CMD;
+        if (!last_rc.kb.bit.C && console.rc->kb.bit.C)
+        {
+            console.gimbal_cmd = GIMBAL_NORMAL_CMD;
+            console.chassis_cmd = CHASSIS_FOLLOW_GIMBAL_CMD;
+            UI_update_flag.chassis_mode = 0;
+        }
     }
-    else if (console.rc->kb.bit.C)
+    else if (console.chassis_cmd == CHASSIS_FOLLOW_GIMBAL_CMD)
     {
-        console.gimbal_cmd = GIMBAL_NORMAL_CMD;
-        console.chassis_cmd = CHASSIS_SPIN_CMD;
+        if (!last_rc.kb.bit.C && console.rc->kb.bit.C)
+        {
+            console.gimbal_cmd = GIMBAL_NORMAL_CMD;
+            console.chassis_cmd = CHASSIS_SPIN_CMD;
+            UI_update_flag.chassis_mode = 1;
+        }
     }
 
 
@@ -329,6 +331,30 @@ static void Keyboard_Operation(void)
     {
         chassis_vx = KB_CHASSIS_MAX_SPEED_X * 0.5f;
         chassis_vy = KB_CHASSIS_MAX_SPEED_Y * 0.5f;
+    }
+
+    if (console.gimbal_cmd == GIMBAL_VISION_CMD)
+    {
+        if (!last_rc.kb.bit.Q && console.rc->kb.bit.Q)
+        {
+            console.gimbal_cmd = GIMBAL_NORMAL_CMD;
+            UI_update_flag.vision_mode = 0;
+        }
+    }
+    else
+    {
+        if (!last_rc.kb.bit.Q && console.rc->kb.bit.Q)
+        {
+            console.gimbal_cmd = GIMBAL_VISION_CMD;
+            UI_update_flag.vision_mode = 1;
+        }
+
+    }
+
+    if(console.rc->kb.bit.G)
+    {
+        flag = 1;
+        init_flag = 0;//重置ui，防止启动时出现部分ui不刷新的情况
     }
 
     if (console.rc->kb.bit.W)
@@ -361,7 +387,7 @@ static void Keyboard_Operation(void)
 
 
     console.gimbal.yaw_v = -console.rc->mouse.x * KB_GIMBAL_MOVE_RATIO_YAW;
-    console.gimbal.pitch_v = -console.rc->mouse.y * KB_GIMBAL_MOVE_RATIO_PIT;
+    console.gimbal.pitch_v = console.rc->mouse.y * KB_GIMBAL_MOVE_RATIO_PIT;
 
 
     if (console.shoot_cmd == SHOOT_STOP_CMD)
@@ -369,10 +395,12 @@ static void Keyboard_Operation(void)
         if (!last_rc.kb.bit.V && console.rc->kb.bit.V)
         {
             console.shoot_cmd = SHOOT_START_CMD;
+            UI_update_flag.shoot_mode = 1;
         }
         else if (!last_rc.mouse.l && console.rc->mouse.l)
         {
             console.shoot_cmd = SHOOT_START_CMD;
+            UI_update_flag.shoot_mode = 1;
         }
     }
     else if (console.shoot_cmd == SHOOT_START_CMD)
@@ -380,6 +408,7 @@ static void Keyboard_Operation(void)
         if (!last_rc.kb.bit.V && console.rc->kb.bit.V)
         {
             console.shoot_cmd = SHOOT_STOP_CMD;
+            UI_update_flag.shoot_mode = 0;
         }
         else if (console.rc->mouse.l)
         {

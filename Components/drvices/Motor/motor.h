@@ -25,10 +25,42 @@ typedef struct
     uint16_t offset_ecd;
 } MotorInfo_t;
 
+
+typedef struct
+{
+    uint16_t ecd;
+    uint16_t last_ecd;
+
+    fp32 rad_s; //rad/s
+    int16_t speed_rpm;
+    int16_t given_current;
+    uint8_t temperature;           //电机温度
+
+    int32_t round_cnt;
+    int32_t total_ecd;
+    int32_t total_angle;
+
+    int32_t ecd_raw_rate;
+
+    uint32_t msg_cnt;
+    uint16_t offset_ecd;
+
+    uint8_t err_code;
+    
+} DM_1TO4_MotorInfo_t;
+
+typedef struct 
+{
+    fp32 angle; //弧度，将绝对角度值变为-180~180度之间。
+} Dm_Angle2Angle;
+
+
 /* 宏定义 --------------------------------------------------------------------*/
 #define MOTOR_1TO4_CONTROL_STD_ID   0x200
 #define MOTOR_5TO8_CONTROL_STD_ID   0x1FF
 #define GM_APPEND_CONTROL_STD_ID    0x2FF   //云台电机增加的ID
+#define DM_1TO4_CONTROL_STD_ID      0x3FE  //达妙一拖四
+#define DM_5TO8_CONTROL_STD_ID      0x4FE  //达妙一拖四
 #define MOTOR_QUICKLY_SET_ID        0x700   //电机快速设置ID
 
 #define MOTOR_1_FEEDBACK_ID         0x201
@@ -45,6 +77,7 @@ typedef struct
 
 #define M3508_MOTOR_MAX_CURRENT     (16000.0f)
 #define GM6020_MOTOR_MAX_CURRENT    (30000.0f)
+#define J_4310_MOTOR_MAX_CURRENT    (10000.0f)
 #define M2006_MOTOR_MAX_CURRENT     (10000.0f)
 #define MOTOR_ENCODER_RANGE         (8192)
 #define MOTOR_ENCODER_RANGE_HALF    (4096)
@@ -58,12 +91,14 @@ typedef struct
 
 /* 函数声明 ------------------------------------------------------------------*/
 void Motor_DataParse(MotorInfo_t* ptr, uint8_t data[]);
+void DM_1TO4_Motor_DataParse(DM_1TO4_MotorInfo_t* ptr, uint8_t data[]);
 int16_t Motor_RelativePosition(int16_t ecd, int16_t center_offset);
 void Motor_SendMessage(CAN_Object_t* obj, uint32_t std_id, int16_t cur1, int16_t cur2, int16_t cur3, int16_t cur4);
+void DM_Motor_SendMessage(CAN_Object_t* obj, uint32_t std_id, int16_t cur1, int16_t cur2, int16_t cur3, int16_t cur4);
 void Motor_QuicklySetID(CAN_Object_t* obj);
 
 MotorInfo_t* ChassisMotor_Pointer(uint8_t i);
-MotorInfo_t* GimbalMotorYaw_Pointer(void);
+DM_1TO4_MotorInfo_t* GimbalMotorYaw_Pointer(void);
 MotorInfo_t* GimbalMotorPitch_Pointer(void);
 MotorInfo_t* FrictionWheelMotor_1_Pointer(void);
 MotorInfo_t* FrictionWheelMotor_2_Pointer(void);

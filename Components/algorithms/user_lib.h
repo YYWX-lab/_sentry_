@@ -41,6 +41,8 @@
     (val) += (int)(angle) % 360;    \
     if((val)>180)                   \
       (val) -= 360;                 \
+    if((val)<-180)                  \
+      (val) += 360;                 \
   } while (0)
 
 #define VAL_MIN(a, b) ((a) < (b) ? (a) : (b))

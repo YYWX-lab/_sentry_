@@ -37,6 +37,7 @@ typedef struct
     fp32 vx_pc;
     fp32 vy_pc;
     fp32 vw_pc;
+    fp32 vision_distance;//自瞄目标距离 mm
 } Comm_GimbalInfo_t;
 
 typedef struct 

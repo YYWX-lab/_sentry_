@@ -11,6 +11,8 @@
 #include "user_protocol.h"
 #include "referee_system.h"
 #include "RV_protocol.h"
+#include "dm_motor_drv.h"
+#include "dm_motor_ctrl.h"
 
 
 osThreadId SendDataTaskHandle;
@@ -27,22 +29,23 @@ extern ChassisHandle_t chassis_handle;
 extern GimbalHandle_t gimbal_handle;
 extern Comm_GimbalInfo_t gimbal_info;
 extern Comm_ChassisInfo_t chassis_info;
-extern ext_game_state_t game_state;
+// extern ext_game_state_t game_state;
 extern Comm_VisionInfo_t vision_info;
 extern RV_GB_MOVE_STR rv_gb_s;
 extern RV_RX_STR RV_RXS;
 
-ext_game_robot_HP_t hp;
-ext_game_robot_state_t robot_stste;
+
+// ext_game_robot_HP_t hp;
+// ext_game_robot_state_t robot_stste;
 extern AppType_e app_type;
 static uint8_t send_buff[60];
 static uint8_t vofa_buff[100];
 static u16 robot_hp;
 static u8 enemy_colcor;//红色是1，蓝色是0
-static fp32 vx;
-static fp32 vy;
-static fp32 x;
-static fp32 y;
+static fp32 vx;//x方向上的速度
+static fp32 vy;//y方向上的速度
+static fp32 x;//走过的距离x
+static fp32 y;//走过的距离y
 static fp32 now_time;
 static fp32 last_time;
 static fp32 time_err;
@@ -137,17 +140,19 @@ void data_send_task(void *argument)
 
     for (;;)
     {
-        
+
+        ext_game_robot_state_t* robot_state = RefereeSystem_RobotState_Pointer();
+        ext_game_state_t* game_state = Game_State_Pointer();
 
         now_time = HAL_GetTick();
-        if (robot_stste.robot_id > 100)     //ID大于100是蓝方  
+        if (robot_state->robot_id > 100)     //ID大于100是蓝方  
         {
-            robot_hp = hp.blue_7_robot_HP;
+            robot_hp = robot_state->remain_HP;
             enemy_colcor = 1;
         }
-        else if (robot_stste.robot_id > 1) //红色置1
+        else if (robot_state->robot_id > 1) //红色置1
         {
-            robot_hp = hp.red_7_robot_HP;
+            robot_hp = robot_state->remain_HP;
             enemy_colcor = 0;
         }
         else 
@@ -221,21 +226,23 @@ void data_send_task(void *argument)
             time_err = (now_time - last_time)/100000000;
             x += ((arm_sin_f32(yaw)*vy + arm_cos_f32(yaw)*vx)*time_err);
             y += ((arm_sin_f32(yaw)*vx - arm_cos_f32(yaw)*vy)*time_err);
-
+            // float yaw_speed = ((float)gimbal_handle.yaw_motor.motor_info->speed_rpm)*0.1046666f;
+            float yaw_speed = motor[Motor1].para.vel;
+            float pitch_speed = ((float)gimbal_handle.pitch_motor.motor_info->speed_rpm)*0.1046666f;
             tx_pack_make(send_buff,
             VISION_HEAD,
             PC_TO_MCU_RECEIVE,
             gimbal_handle.pitch_motor.sensor.relative_angle,
             gimbal_handle.yaw_motor.sensor.gyro_angle,
-            gimbal_handle.yaw_motor.motor_info->speed_rpm*6.f,
-            gimbal_handle.pitch_motor.motor_info->speed_rpm*6.f,
+            yaw_speed,
+            pitch_speed,
             x,
             y,
             vx,
             vy,
             robot_hp,
             time_stamp,
-            game_state.game_progress,
+            game_state->game_progress,
             enemy_colcor
             );
         }
@@ -263,7 +270,7 @@ void vofa_send_task(void *argumen)
                                                                         info->yaw_angle,
                                                                         gimbal_handle.yaw_motor.sensor.gyro_angle,
                                                                         pitch_given_current,
-                                                                        rv_gb_s.pitch_e * 57.324*0.1);
+                                                                        gimbal_handle.yaw_motor.j4310_info->rad_s);
 
         BSP_UART_TransmitData(&com1_obj,vofa_buff,sizeof(vofa_buff));     
         

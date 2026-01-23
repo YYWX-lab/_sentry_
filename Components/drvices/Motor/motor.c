@@ -1,15 +1,20 @@
 /* 包含头文件 ----------------------------------------------------------------*/
 #include "motor.h"
+#include "dm_motor_ctrl.h"
 
 /* 私有类型定义 --------------------------------------------------------------*/
 
 /* 私有宏定义 ----------------------------------------------------------------*/
+// rpm换算到rad/s
+#define RPM_TO_RADPS (2.0f * pi / 60.0f)
+// 圆周率PI
+#define pi (3.14159265358979323846f)
 
 /* 私有变量 ------------------------------------------------------------------*/
 
 /* 扩展变量 ------------------------------------------------------------------*/
 MotorInfo_t chassis_motor[4];
-MotorInfo_t gimbal_motor_yaw;
+DM_1TO4_MotorInfo_t gimbal_motor_yaw;
 MotorInfo_t gimbal_motor_pitch;
 MotorInfo_t friction_wheel_motor[4];
 MotorInfo_t trigger_motor[2];
@@ -53,6 +58,51 @@ static void Motor_EncoderData(MotorInfo_t* ptr, uint8_t data[])
     ptr->temperature = data[6];
 }
 
+
+/*************************************************
+ * Function: DM_1TO4_Motor_EncoderData
+ * Description: 达妙一拖四电机编码器数据解析
+ * Input: ptr 电机信息指针
+ *        data 数据指针
+ * Return: 无
+*************************************************/
+static void DM_1TO4_Motor_EncoderData(DM_1TO4_MotorInfo_t* ptr, uint8_t data[])
+{
+    int16_t i_16_speed_rpm;
+    ptr->last_ecd = ptr->ecd;
+    ptr->ecd = (uint16_t)(data[0] << 8 | data[1]);
+
+    if (ptr->ecd - ptr->last_ecd > MOTOR_ENCODER_RANGE_HALF)
+    {
+        ptr->round_cnt--;
+        ptr->ecd_raw_rate = ptr->ecd - ptr->last_ecd - MOTOR_ENCODER_RANGE;
+    }
+    else if (ptr->ecd - ptr->last_ecd < -MOTOR_ENCODER_RANGE_HALF)
+    {
+        ptr->round_cnt++;
+        ptr->ecd_raw_rate = ptr->ecd - ptr->last_ecd + MOTOR_ENCODER_RANGE;
+    }
+    else
+    {
+        ptr->ecd_raw_rate = ptr->ecd - ptr->last_ecd;
+    }
+
+    ptr->total_ecd = ptr->round_cnt * MOTOR_ENCODER_RANGE + ptr->ecd - ptr->offset_ecd;
+    /* total angle, unit is degree */
+    ptr->total_angle = ptr->total_ecd / ENCODER_ANGLE_RATIO;
+
+    i_16_speed_rpm = (int16_t)(data[2] << 8 | data[3]);
+
+    ptr->speed_rpm = i_16_speed_rpm;
+    ptr->rad_s = i_16_speed_rpm / 100 * RPM_TO_RADPS ;
+
+    ptr->given_current = (int16_t)(data[4] << 8 | data[5]);
+
+    ptr->temperature = data[6];
+
+    ptr->err_code = data[7];
+}
+
 /*************************************************
  * Function: Motor_EncoderOffset
  * Description: 电机编码器补偿
@@ -65,6 +115,22 @@ static void Motor_EncoderOffset(MotorInfo_t* ptr, uint8_t data[])
     ptr->ecd        = (uint16_t)(data[0] << 8 | data[1]);
     ptr->offset_ecd = ptr->ecd;
 }
+
+
+/*************************************************
+ * Function: DM_1TO4_Motor_EncoderOffset
+ * Description: 达妙一拖四电机编码器补偿
+ * Input: ptr 电机信息指针
+ *        data 数据指针
+ * Return: 无
+*************************************************/
+static void DM_1TO4_Motor_EncoderOffset(DM_1TO4_MotorInfo_t* ptr, uint8_t data[])
+{
+    ptr->ecd        = (uint16_t)(data[0] << 8 | data[1]);
+    ptr->offset_ecd = ptr->ecd;
+}
+
+
 
 /*************************************************
  * Function: Motor_DataParse
@@ -86,6 +152,29 @@ void Motor_DataParse(MotorInfo_t *ptr, uint8_t data[])
     }
 
     Motor_EncoderData(ptr, data);
+}
+
+
+/*************************************************
+ * Function: DM_1_TO_4_Motor_DataParse
+ * Description: 达妙一拖四电机编码器数据处理
+ * Input: ptr 电机信息指针
+ *        data 数据指针
+ * Return: 无
+*************************************************/
+void DM_1TO4_Motor_DataParse(DM_1TO4_MotorInfo_t *ptr, uint8_t data[])
+{
+    if (ptr == NULL)
+        return;
+    ptr->msg_cnt++;
+
+    if (ptr->msg_cnt < 50)
+    {
+        DM_1TO4_Motor_EncoderOffset(ptr, data);
+        return;
+    }
+
+    DM_1TO4_Motor_EncoderData(ptr, data);
 }
 
 /*************************************************
@@ -157,6 +246,31 @@ void Motor_SendMessage(CAN_Object_t* obj, uint32_t std_id, int16_t cur1, int16_t
 }
 
 /*************************************************
+ * Function: DM_Motor_SendMessage
+ * Description: 达妙电机控制数据发送
+ * Input: obj CAN对象指针
+ *        std_id CAN发送标识符
+ *        cur1 电机1电流值
+ *        cur2 电机2电流值
+ *        cur3 电机3电流值
+ *        cur4 电机4电流值
+ * Return: 无
+*************************************************/
+void DM_Motor_SendMessage(CAN_Object_t* obj, uint32_t std_id, int16_t cur1, int16_t cur2, int16_t cur3, int16_t cur4)
+{
+    uint8_t TxData[8] = {0};
+    TxData[0] = (uint8_t)(cur1 << 8);
+    TxData[1] = (uint8_t)cur1;
+    TxData[2] = (uint8_t)(cur2 << 8);
+    TxData[3] = (uint8_t)cur2;
+    TxData[4] = (uint8_t)(cur3 << 8);
+    TxData[5] = (uint8_t)cur3;
+    TxData[6] = (uint8_t)(cur4 << 8);
+    TxData[7] = (uint8_t)cur4;
+    BSP_CAN_TransmitData(obj, std_id, TxData, 8);
+}
+
+/*************************************************
  * Function: Motor_QuicklySetID
  * Description: 快速设置电机ID
  * Input: obj CAN对象指针
@@ -173,7 +287,7 @@ MotorInfo_t* ChassisMotor_Pointer(uint8_t i)
     return &chassis_motor[i];
 }
 
-MotorInfo_t* GimbalMotorYaw_Pointer(void)
+DM_1TO4_MotorInfo_t* GimbalMotorYaw_Pointer(void)
 {
     return &gimbal_motor_yaw;
 }

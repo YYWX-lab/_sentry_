@@ -37,11 +37,11 @@ void GimbalMotorChangeProtect(GimbalMotor_t* motor)
         {
             motor->given_value = motor->current_set;
         }
-        else if (motor->mode == GYRO_MODE)
+        else if (motor->mode == GYRO_MODE || motor->mode == J4310_MIT_VEL_MODE)
         {
             motor->given_value = motor->sensor.gyro_angle;
         }
-        else if (motor->mode == ENCONDE_MODE)
+        else if (motor->mode == ENCONDE_MODE || motor->mode == J4310_MIT_ANGLE_MODE)
         {
             motor->given_value = motor->sensor.relative_angle;
         }
@@ -90,4 +90,27 @@ fp32 AngleTransform(fp32 target_angle, fp32 gyro_angle)
         offset = offset + 360;
     }
     return gyro_angle + offset;
+}
+
+//输入弧度，变为角度，归到180度之间
+fp32 DM_AngleTransform(fp32 dm_angle)
+{
+    float angle = 0;
+    dm_angle *= (180.0f)/PI;
+
+    // angle = dm_angle % 360;
+    // ANGLE_LIMIT_180(angle , dm_angle);
+    angle = dm_angle;
+    // if (angle < 180.f)
+    // {
+    //     angle += 360;
+    // }
+    // else if (angle > 180.f)
+    // {
+    //     angle -= 360;
+    // }
+
+
+
+    return angle;//弧度转为角度
 }

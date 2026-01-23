@@ -724,6 +724,11 @@
               <FileType>1</FileType>
               <FilePath>..\Components\Comm\user_protocol.c</FilePath>
             </File>
+            <File>
+              <FileName>client_ui_base.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\Comm\client_ui_base.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -778,6 +783,21 @@
               <FileName>rgb_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Components\drvices\RGB_Led\rgb_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>dm_motor_ctrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\drvices\Motor\dm_motor_ctrl.c</FilePath>
+            </File>
+            <File>
+              <FileName>dm_motor_drv.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\drvices\Motor\dm_motor_drv.c</FilePath>
+            </File>
+            <File>
+              <FileName>super_power.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\drvices\RGB_Led\super_power.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -844,6 +864,11 @@
               <FileType>1</FileType>
               <FilePath>..\Application\calibrate.c</FilePath>
             </File>
+            <File>
+              <FileName>clinet_ui_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\clinet_ui_app.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -868,6 +893,11 @@
               <FileName>shoot_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Application\gimbal\shoot_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>dm_motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\gimbal\dm_motor.c</FilePath>
             </File>
           </Files>
         </Group>

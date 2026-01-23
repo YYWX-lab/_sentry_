@@ -14,9 +14,11 @@
 #define CHASSIS_MOTOR_LB_MESSAGE_ID     MOTOR_3_FEEDBACK_ID     //底盘左后电机
 #define CHASSIS_MOTOR_RB_MESSAGE_ID     MOTOR_4_FEEDBACK_ID     //底盘右后电机
 /*---------------↓ 云台电机ID ↓---------------*/
+#define DM_MOTOR_CONTROL_STD_ID
 #define GIMBAL_MOTOR_CONTROL_STD_ID     MOTOR_5TO8_CONTROL_STD_ID
 #define GIMBAL_MOTOR_YAW_MESSAGE_ID     MOTOR_6_FEEDBACK_ID     //Yaw云台电机
 #define GIMBAL_MOTOR_PITCH_MESSAGE_ID   MOTOR_5_FEEDBACK_ID     //Pitch云台电机
+#define DM_MOTOR_YAW_MESSAGE_ID         0x00    //Master ID  这里必须和Master ID相同，Master ID在dm_motor_ctrl.h里面设置
 /*---------------↓ 射击电机ID ↓---------------*/
 #define SHOOT_MOTOR_CONTROL_STD_ID      MOTOR_1TO4_CONTROL_STD_ID
 #define TIGGER_MOTOR_CONTROL_STD_ID     MOTOR_5TO8_CONTROL_STD_ID
@@ -47,10 +49,10 @@
 /******************************************************************************
  *                                                              机械安装参数                                                                      *
  ******************************************************************************/
-#define WHEEL_RADIUS                (76)    //轮子半径(mm)
-#define WHEEL_PERIMETER             (478)   //轮子周长(mm)
-#define WHEELTRACK                  (401)   //轮距(mm)
-#define WHEELBASE                   (350)   //轴距(mm)
+#define WHEEL_RADIUS                (80)    //轮子半径(mm)
+#define WHEEL_PERIMETER             (502.6548)   //轮子周长(mm)
+#define WHEELTRACK                  (325)   //轮距(mm)
+#define WHEELBASE                   (325)   //轴距(mm)
 #define GIMBAL_X_OFFSET             (0)     //云台相对底盘中心X轴偏移
 #define GIMBAL_Y_OFFSET             (0)     //云台相对底盘中心Y轴偏移
 #define PITCH_REDUCTION_RATIO       (1.0f)  //pitch减速比
@@ -75,8 +77,8 @@
 #define KB_CHASSIS_MAX_SPEED_X      MAX_CHASSIS_VX_SPEED     //X轴方向最大速度
 #define KB_CHASSIS_MAX_SPEED_Y      MAX_CHASSIS_VX_SPEED     //Y轴方向最大速度
 #define KB_CHASSIS_MAX_SPEED_R      MAX_CHASSIS_VW_SPEED      //旋转最大速度
-#define KB_GIMBAL_MOVE_RATIO_PIT    0.005f       //pitch移动比例
-#define KB_GIMBAL_MOVE_RATIO_YAW    0.01f        //yaw移动比例
+#define KB_GIMBAL_MOVE_RATIO_PIT    0.007f       //pitch移动比例 0.005
+#define KB_GIMBAL_MOVE_RATIO_YAW    0.03f        //yaw移动比例 0.01
 
 #define CHASSIS_ACCEL_TIME      1500  //ms
 #define ROTATE_ACCEL_TIME       3000  //ms

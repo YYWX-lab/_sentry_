@@ -10,12 +10,17 @@
 #include "detect_task.h"
 
 #include "data_send_task.h"
+#include "client_ui_base.h"
+#include "clinet_ui_app.h"
+#include "super_power.h"
 /* 私有类型定义 --------------------------------------------------------------*/
 
 /* 私有宏定义 ----------------------------------------------------------------*/
 
 /* 私有变量 ------------------------------------------------------------------*/
 ChassisHandle_t chassis_handle;
+
+static float power_limit;
 
 static TransmitHandle_t chassis_tx_handle;
 static uint8_t chassis_tx_fifo_buffer[GIMBAL_CHASSIS_DATA_FIFO_SIZE];
@@ -26,6 +31,9 @@ static TransmitHandle_t referee_tx_handle;
 static uint8_t referee_tx_fifo_buffer[REFEREE_SYSTEM_FIFO_SIZE];
 static ReceiveHandle_t referee_rx_handle;
 static uint8_t referee_rx_fifo_buffer[REFEREE_SYSTEM_FIFO_SIZE];
+
+static TransmitHandle_t client_ui_tx_handle;
+static uint8_t client_ui_tx_fifo_buffer[REFEREE_SYSTEM_FIFO_SIZE];
 
 /* 扩展变量 ------------------------------------------------------------------*/
 
@@ -39,6 +47,8 @@ static void COM1_ReceiveCallback(uint8_t* data, uint16_t len);
 static void COM2_ReceiveCallback(uint8_t* data, uint16_t len);
 static void CAN1_ReceiveCallback(uint32_t std_id, uint8_t *data, uint32_t dlc);
 static void CAN2_ReceiveCallback(uint32_t std_id, uint8_t *data, uint32_t dlc);
+static int32_t SuperPower_CtrlLoop(void *argc);
+static void ClientUI_UploadDataHook(uint8_t *data, uint16_t len);
 
 /* 函数体 --------------------------------------------------------------------*/
 void ChassisAppConfig(void)
@@ -59,7 +69,7 @@ void ChassisAppConfig(void)
                  6.5f, 0.1f, 0.0f);
     }
     pid_init(&chassis_handle.chassis_follow_pid, POSITION_PID, 300.0f, 50.0f,
-             8.0f, 0.0f, 2.0f);
+             4.0f, 0.0f, 2.0f);
 
     /*--------------------event-----------------|-------enable-------|-offline time-|-beep_times-*/
     //  OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR1,  OFFLINE_ERROR_LEVEL,       100,         1);
@@ -77,6 +87,10 @@ void ChassisAppConfig(void)
     Comm_ReceiveInit(&referee_rx_handle, REFEREE_SYSTEM_HEADER_SOF, referee_rx_fifo_buffer, REFEREE_SYSTEM_FIFO_SIZE, RefereeSystem_ParseHandler);
     SoftwareTimerRegister(Transmit_RefereeData, (void*)NULL, 10);
     SoftwareTimerRegister(ChassisInfoUploadCallback, (void*)NULL, CHASSIS_TASK_PERIOD);
+    SoftwareTimerRegister(SuperPower_CtrlLoop, (void*)NULL, 100);
+    Comm_TransmitInit(&client_ui_tx_handle, client_ui_tx_fifo_buffer, REFEREE_SYSTEM_FIFO_SIZE, ClientUI_UploadDataHook);
+    SoftwareTimerRegister(ClientUI_DrawLoop, (void*)NULL, 30);
+    ClientUI_Init(&client_ui_tx_handle);
 
     BSP_UART_SetRxCallback(&dbus_obj, DBUS_ReceiveCallback);
     BSP_UART_SetRxCallback(&com1_obj, COM1_ReceiveCallback);
@@ -91,6 +105,7 @@ static int32_t ChassisInfoUploadCallback(void *argc)
     Comm_ChassisInfo_t* info = ChassisInfo_Pointer();
     info->x_speed = chassis_handle.vx;
     info->y_speed = chassis_handle.vy;
+    info->mode = chassis_handle.ctrl_mode;
     Comm_TransmitData(&chassis_tx_handle, USER_PROTOCOL_HEADER_SOF, CHASSIS_INFO_CMD_ID, (uint8_t*)info, sizeof(Comm_ChassisInfo_t));
     return 0;
 }
@@ -116,6 +131,32 @@ static int32_t Transmit_RefereeData(void *argc)
     ext_power_heat_data_t* power_heat_data = RefereeSystem_PowerHeatData_Pointer();
     Comm_TransmitData(&referee_tx_handle, REFEREE_SYSTEM_HEADER_SOF, POWER_HEAT_DATA_CMD_ID, (uint8_t*)power_heat_data, sizeof(ext_power_heat_data_t));
     return 0;
+}
+
+static int32_t SuperPower_CtrlLoop(void *argc) {
+    if (!CheckDeviceIsOffline(OFFLINE_REFEREE_SYSTEM)) 
+    {
+        chassis_handle.power_limit = RefereeSystem_RobotState_Pointer()->chassis_power_limit;
+        if (RefereeSystem_PowerHeatData_Pointer()->chassis_power_buffer < 30.f)//底盘缓冲功率
+        {
+            power_limit = (RefereeSystem_RobotState_Pointer()->chassis_power_limit - 10.f) * 100;
+        } else {
+            power_limit = (RefereeSystem_RobotState_Pointer()->chassis_power_limit - 5) * 100.f;
+        }
+    } 
+    else 
+    {
+        power_limit = 60;
+    }
+    SuperPowerV1_SendMessage(chassis_handle.chassis_can,
+                             power_limit//2025.12.28增加超电
+    );
+
+}
+
+static void ClientUI_UploadDataHook(uint8_t *data, uint16_t len)
+{
+    BSP_UART_TransmitData(&com1_obj, data, len);
 }
 
 static void DBUS_ReceiveCallback(uint8_t* data, uint16_t len)
@@ -160,6 +201,10 @@ static void CAN2_ReceiveCallback(uint32_t std_id, uint8_t *data, uint32_t dlc)
             uint8_t i = std_id - CHASSIS_MOTOR_LF_MESSAGE_ID;
             Motor_DataParse(chassis_handle.chassis_motor[i].motor_info, data);
             OfflineHandle_TimeUpdate(OFFLINE_CHASSIS_MOTOR1+i);
+        }break;
+        case SUPER_POWER_V1_FEEDBACK_STD_ID:
+        {
+            SuperPowerV1_DataParse(data, dlc);
         }break;
         default:
             break;

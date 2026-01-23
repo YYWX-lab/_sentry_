@@ -63,6 +63,7 @@ void AppInit(void)
         vofa_send_task_init();
         // RV_TaskInit();
         data_send_task_init();
+        ms_timer_init();
 
     }
     else if (app_type == CHASSIS_APP)

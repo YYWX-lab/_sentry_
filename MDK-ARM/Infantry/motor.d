@@ -42,3 +42,5 @@ infantry\motor.o: ..\BSP\Inc\bsp_def.h
 infantry\motor.o: ../Core/Inc/can.h
 infantry\motor.o: ..\Components\utils\fifo.h
 infantry\motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\motor.o: ..\Components\drvices\Motor\dm_motor_ctrl.h
+infantry\motor.o: ..\Components\drvices\Motor\dm_motor_drv.h

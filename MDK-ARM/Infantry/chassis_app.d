@@ -70,3 +70,6 @@ infantry\chassis_app.o: ..\Application\timer_task.h
 infantry\chassis_app.o: ..\Components\SoftwareTimer\soft_timer.h
 infantry\chassis_app.o: ..\Application\detect_task.h
 infantry\chassis_app.o: ..\MY_Task\data_send_task.h
+infantry\chassis_app.o: ..\Components\Comm\client_ui_base.h
+infantry\chassis_app.o: ..\Application\clinet_ui_app.h
+infantry\chassis_app.o: ..\Components\drvices\RGB_Led\super_power.h

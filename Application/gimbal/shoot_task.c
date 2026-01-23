@@ -126,7 +126,7 @@ void ShootTaskInit(void)
     // shoot_handle.trigger_motor[0].ecd_ratio = TRIGGER_MOTOR_POSITIVE_DIR * TRIGGER_MOTOR_REDUCTION_RATIO / ENCODER_ANGLE_RATIO;
     shoot_handle.trigger_motor[1].ecd_ratio = -TRIGGER_MOTOR_POSITIVE_DIR * TRIGGER_MOTOR_REDUCTION_RATIO / ENCODER_ANGLE_RATIO;
     
-
+    shoot_handle.trigger_motor[1].offset_ecd = 0x13D2;
     shoot_handle.fric_wheel_motor[0].motor_info = FrictionWheelMotor_1_Pointer();
     shoot_handle.fric_wheel_motor[1].motor_info = FrictionWheelMotor_2_Pointer();
     shoot_handle.fric_wheel_motor[2].motor_info = FrictionWheelMotor_3_Pointer();
@@ -148,10 +148,10 @@ static void ShootSensorUpdata(void)
     // shoot_handle.magazine_motor.angle = shoot_handle.magazine_motor.ecd_ratio
     //         * (fp32)(shoot_handle.magazine_motor.motor_info->total_ecd - shoot_handle.magazine_motor.offset_ecd);
 
-    shoot_handle.trigger_motor[0].speed = (fp32)shoot_handle.trigger_motor[0].motor_info->speed_rpm * TRIGGER_MOTOR_REDUCTION_RATIO * TRIGGER_MOTOR_POSITIVE_DIR;
+    // shoot_handle.trigger_motor[0].speed = (fp32)shoot_handle.trigger_motor[0].motor_info->speed_rpm * TRIGGER_MOTOR_REDUCTION_RATIO * TRIGGER_MOTOR_POSITIVE_DIR;
     shoot_handle.trigger_motor[1].speed = (fp32)shoot_handle.trigger_motor[1].motor_info->speed_rpm * TRIGGER_MOTOR_REDUCTION_RATIO * -TRIGGER_MOTOR_POSITIVE_DIR;
-    shoot_handle.trigger_motor[0].angle = shoot_handle.trigger_motor[0].ecd_ratio
-            * (fp32)(shoot_handle.trigger_motor[0].motor_info->total_ecd - shoot_handle.trigger_motor[0].offset_ecd);
+    // shoot_handle.trigger_motor[0].angle = shoot_handle.trigger_motor[0].ecd_ratio
+    //         * (fp32)(shoot_handle.trigger_motor[0].motor_info->total_ecd - shoot_handle.trigger_motor[0].offset_ecd);
     shoot_handle.trigger_motor[1].angle = shoot_handle.trigger_motor[1].ecd_ratio
             * (fp32)(shoot_handle.trigger_motor[1].motor_info->total_ecd - shoot_handle.trigger_motor[1].offset_ecd);
 
@@ -160,8 +160,8 @@ static void ShootSensorUpdata(void)
     //以下未修改
     if (!CheckDeviceIsOffline(OFFLINE_REFEREE_SYSTEM))
     {
-        shoot_handle.shooter_heat_cooling_rate = RefereeSystem_RobotState_Pointer()->shooter_id1_17mm_cooling_rate;
-        shoot_handle.shooter_heat_cooling_limit = RefereeSystem_RobotState_Pointer()->shooter_id1_17mm_cooling_limit;
+        shoot_handle.shooter_heat_cooling_rate = RefereeSystem_RobotState_Pointer()->shooter_cooling_rate;
+        shoot_handle.shooter_heat_cooling_limit = RefereeSystem_RobotState_Pointer()->shooter_cooling_limit;
         // shoot_handle.shooter_speed_limit = RefereeSystem_RobotState_Pointer()->shooter_id1_17mm_speed_limit;
         shoot_handle.shooter_heat = RefereeSystem_PowerHeatData_Pointer()->shooter_id1_17mm_cooling_heat;
         // shoot_handle.shooter_heat_cooling_rate = 0;
@@ -243,7 +243,7 @@ static void Shoot_TriggerMotorCtrl(ShootHandle_t* handle)
 {
     float a ;
     static int8_t max_bullet_nums = 0;
-    static uint32_t reverse_time_1 = 0;
+    // static uint32_t reverse_time_1 = 0;
     static uint32_t reverse_time_2 = 0;
     if (handle->ctrl_mode == SHOOT_START)
     {
@@ -262,7 +262,7 @@ static void Shoot_TriggerMotorCtrl(ShootHandle_t* handle)
         }
         else if (handle->trigger_state == TRIGGER_BEGIN)
         {
-            reverse_time_1 = 0;
+            // reverse_time_1 = 0;
             reverse_time_2 = 0;
             if (handle->fire_bullet_number != 0)
             {
@@ -278,8 +278,8 @@ static void Shoot_TriggerMotorCtrl(ShootHandle_t* handle)
                 //     a = 0;
                 //     handle->trigger_motor[1].set_angle = handle->trigger_motor[1].angle - (360.0f / TRIGGER_PLATE_NUMBERS);
                 // }
-                handle->trigger_motor[0].set_angle = handle->trigger_motor[0].angle + (360.0f / TRIGGER_PLATE_NUMBERS);
-                handle->trigger_motor[1].set_angle = handle->trigger_motor[1].angle - (360.0f / TRIGGER_PLATE_NUMBERS);
+                // handle->trigger_motor[0].set_angle = handle->trigger_motor[0].angle + 1*(360.0f / TRIGGER_PLATE_NUMBERS);
+                handle->trigger_motor[1].set_angle = handle->trigger_motor[1].angle - 1*(360.0f / TRIGGER_PLATE_NUMBERS);
                 
                 Blocked_Reset(&handle->trigger_motor[0].blocked_handle, TRIGGER_BLOCKED_TIMER, 1000);
                 Blocked_Reset(&handle->trigger_motor[1].blocked_handle, TRIGGER_BLOCKED_TIMER, 1000);
@@ -292,21 +292,21 @@ static void Shoot_TriggerMotorCtrl(ShootHandle_t* handle)
         else if (handle->trigger_state == TRIGGERING)
         {
             BlockedState_t blocked_2 = Blocked_Process(&handle->trigger_motor[1].blocked_handle, handle->trigger_motor[1].speed);
-            BlockedState_t blocked_1 = Blocked_Process(&handle->trigger_motor[0].blocked_handle, handle->trigger_motor[0].speed);
-            if ( fabs(handle->trigger_motor[0].set_angle - handle->trigger_motor[0].angle) < 0.5f ||  fabs(handle->trigger_motor[1].set_angle - handle->trigger_motor[1].angle) < 0.5f )
+            // BlockedState_t blocked_1 = Blocked_Process(&handle->trigger_motor[0].blocked_handle, handle->trigger_motor[0].speed);
+            if (fabs(handle->trigger_motor[1].set_angle - handle->trigger_motor[1].angle) < 0.5f )
             {
                 handle->fire_bullet_number--;
                 handle->trigger_state = TRIGGER_BEGIN;
             }
-            else if (blocked_1 == BLOCKED)
+            else if (blocked_2 == BLOCKED)
             {
-                if (reverse_time_1 == 0)
+                if (reverse_time_2 == 0)
                 {
-                    reverse_time_1 = BSP_GetTime_ms();
+                    reverse_time_2 = BSP_GetTime_ms();
                     handle->trigger_motor[0].set_angle = handle->trigger_motor[0].angle - REVERSE_ANGLE;
                     handle->trigger_motor[1].set_angle = handle->trigger_motor[1].angle - REVERSE_ANGLE;
                 }
-                else if (BSP_GetTime_ms() - reverse_time_1 > REVERSE_TIMER)
+                else if (BSP_GetTime_ms() - reverse_time_2 > REVERSE_TIMER)
                 {
                     handle->trigger_state = TRIGGER_BEGIN;
                 }
@@ -336,7 +336,7 @@ static void Shoot_TriggerMotorCtrl(ShootHandle_t* handle)
     {
         handle->trigger_state = TRIGGER_END;
         handle->trigger_motor[0].set_angle = handle->trigger_motor[0].angle;
-        handle->trigger_motor[1].set_angle = handle->trigger_motor[1].angle;
+        // handle->trigger_motor[1].set_angle = handle->trigger_motor[1].angle;
     }
     handle->trigger_motor[0].current_set = DoublePID_Calc(&handle->trigger_motor[0].pid,
                                                        handle->trigger_motor[0].set_angle,

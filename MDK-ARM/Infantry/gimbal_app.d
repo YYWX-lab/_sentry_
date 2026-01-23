@@ -71,3 +71,5 @@ infantry\gimbal_app.o: ..\Components\SoftwareTimer\soft_timer.h
 infantry\gimbal_app.o: ..\Application\detect_task.h
 infantry\gimbal_app.o: ..\MY_Task\data_send_task.h
 infantry\gimbal_app.o: ..\MY_Task\RV_protocol.h
+infantry\gimbal_app.o: ..\Components\drvices\Motor\dm_motor_ctrl.h
+infantry\gimbal_app.o: ..\Components\drvices\Motor\dm_motor_drv.h

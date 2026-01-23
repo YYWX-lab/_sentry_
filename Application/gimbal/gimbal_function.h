@@ -20,6 +20,7 @@ void Gimbal_PID_Clear(Gimbal_PID_t* pid);
 void GimbalMotorChangeProtect(GimbalMotor_t* motor);
 void GimbalMotorControl(GimbalMotor_t* motor);
 fp32 AngleTransform(fp32 target_angle, fp32 gyro_angle);
+fp32 DM_AngleTransform(fp32 dm_angle);
 
 #endif  // GIMBAL_FUNCTION_H
 

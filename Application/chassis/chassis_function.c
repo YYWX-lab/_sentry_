@@ -19,7 +19,7 @@
 /* 私有变量 ------------------------------------------------------------------*/
 
 /* 扩展变量 ------------------------------------------------------------------*/
-
+// extern ChassisHandle_t* cahssis_handle;
 /* 私有函数原形 --------------------------------------------------------------*/
 
 /* 函数体 --------------------------------------------------------------------*/
@@ -72,10 +72,10 @@ void Mecanum_Calculate(ChassisHandle_t* chassis_handle, fp32 chassis_vx, fp32 ch
     wheel_rpm[2] = ( (chassis_vx ) - (chassis_vy ) - (chassis_vw ) * rotate_ratio_bl) * wheel_rpm_ratio;//车头前进方向左下,对应canID:3
     wheel_rpm[3] = (-(chassis_vx ) - (chassis_vy ) - (chassis_vw ) * rotate_ratio_br) * wheel_rpm_ratio;//车头前进方向右下,对应canID:4
     // 计算轮子线速度  rpm -> m/s  （rpm/60秒/减速比19）*轮子周长0.473m
-    chassis_handle->motor_speed[0] = chassis_handle->chassis_motor[0].motor_info->speed_rpm/60.f/19.f*0.47752208334564857224632179425848443839796f; //rpm -> m/s  （rpm/60秒/减速比19）*轮子周长0.473m
-    chassis_handle->motor_speed[1] = chassis_handle->chassis_motor[1].motor_info->speed_rpm/60.f/19.f*0.47752208334564857224632179425848443839796f;
-    chassis_handle->motor_speed[2] = chassis_handle->chassis_motor[2].motor_info->speed_rpm/60.f/19.f*0.47752208334564857224632179425848443839796f;
-    chassis_handle->motor_speed[3] = chassis_handle->chassis_motor[3].motor_info->speed_rpm/60.f/19.f*0.47752208334564857224632179425848443839796f;
+    chassis_handle->motor_speed[0] = chassis_handle->chassis_motor[0].motor_info->speed_rpm/60.f/19.f*WHEEL_PERIMETER; //rpm -> m/s  （rpm/60秒/减速比19）*轮子周长0.502.6548m
+    chassis_handle->motor_speed[1] = chassis_handle->chassis_motor[1].motor_info->speed_rpm/60.f/19.f*WHEEL_PERIMETER;
+    chassis_handle->motor_speed[2] = chassis_handle->chassis_motor[2].motor_info->speed_rpm/60.f/19.f*WHEEL_PERIMETER;
+    chassis_handle->motor_speed[3] = chassis_handle->chassis_motor[3].motor_info->speed_rpm/60.f/19.f*WHEEL_PERIMETER;
 
     chassis_handle->vx = (chassis_handle->motor_speed[0] + chassis_handle->motor_speed[1] - chassis_handle->motor_speed[2] - chassis_handle->motor_speed[3])/2/1.414213562373095048801688f/1000;
     chassis_handle->vy = (chassis_handle->motor_speed[0] - chassis_handle->motor_speed[1] - chassis_handle->motor_speed[2] + chassis_handle->motor_speed[3])/2/1.414213562373095048801688f/1000;
@@ -130,7 +130,7 @@ void Chassis_LimitPower(ChassisHandle_t* chassis_handle)
     }
     else
     {
-        chassis_power = RefereeSystem_PowerHeatData_Pointer()->chassis_power;
+        // chassis_power = RefereeSystem_PowerHeatData_Pointer()->chassis_power;
         chassis_power_buffer = RefereeSystem_PowerHeatData_Pointer()->chassis_power_buffer;
         max_chassis_power = RefereeSystem_RobotState_Pointer()->chassis_power_limit;
         if(chassis_power_buffer < WARNING_POWER_BUFF)

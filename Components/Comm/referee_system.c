@@ -12,8 +12,6 @@ ext_game_result_t game_result;
 ext_game_robot_HP_t game_robot_HP_t;
 
 ext_event_data_t field_event;
-ext_supply_projectile_action_t supply_projectile_action_t;
-ext_supply_projectile_booking_t supply_projectile_booking_t;
 ext_referee_warning_t referee_warning_t;
 
 ext_game_robot_state_t robot_state;
@@ -60,16 +58,6 @@ void RefereeSystem_ParseHandler(uint16_t cmd_id, uint8_t* data, uint16_t len)
         case EVENT_DATA_CMD_ID:
         {
             memcpy(&field_event, data, sizeof(ext_event_data_t));
-        }break;
-
-        case SUPPLY_ACTION_CMD_ID:
-        {
-            memcpy(&supply_projectile_action_t, data, sizeof(ext_supply_projectile_action_t));
-        }break;
-
-        case SUPPLY_BOOKING_CMD_ID:
-        {
-            memcpy(&supply_projectile_booking_t, data, sizeof(ext_supply_projectile_booking_t));
         }break;
 
         case REFEREE_WARNING_CMD_ID:
@@ -150,4 +138,14 @@ ext_game_robot_state_t* RefereeSystem_RobotState_Pointer(void)
 ext_power_heat_data_t* RefereeSystem_PowerHeatData_Pointer(void)
 {
     return &power_heat_data_t;
+}
+/*************************************************
+ * Function: Game_State_Pointer
+ * Description: 获取比赛状态
+ * Input: 无
+ * Return: 比赛状态指针
+*************************************************/
+ext_game_state_t* Game_State_Pointer(void)
+{
+    return &game_state;
 }

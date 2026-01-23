@@ -142,6 +142,64 @@ float pid_calc(pid_t* pid, float get, float set)
 }
 
 /*************************************************
+ * Function: j4310_pid_calc
+ * Description: pid计算
+ * Input: pid pid指针
+ *        get 测量反馈值
+ *        set 目标值
+ * Return: pid计算输出值
+*************************************************/
+float j4310_pid_calc(pid_t* pid, float get, float set)
+{
+    pid->get = get;
+    pid->set = set;
+   
+    pid->err[NOW] = set - get;
+
+    if (pid->err[NOW] > 180.0f)
+    {
+        pid->err[NOW] -= 360.0f;
+    }
+    else if (pid->err[NOW] < -180.0f)
+    {
+        pid->err[NOW] += 360.0f;
+    }
+    
+    if ((pid->input_max_err != 0) && (fabs(pid->err[NOW]) > pid->input_max_err))
+        return 0;
+
+    if (pid->pid_mode == POSITION_PID) //position PID
+    {
+        pid->pout = pid->p * pid->err[NOW];
+        pid->iout += pid->i * pid->err[NOW];
+        pid->dout = pid->d * (pid->err[NOW] - pid->err[LAST]);
+
+        abs_limit(&(pid->iout), pid->integral_limit);
+        pid->out = pid->pout + pid->iout + pid->dout;
+        abs_limit(&(pid->out), pid->max_out);
+    }
+    else if (pid->pid_mode == DELTA_PID) //delta PID
+    {
+        pid->pout = pid->p * (pid->err[NOW] - pid->err[LAST]);
+        pid->iout = pid->i * pid->err[NOW];
+        pid->dout = pid->d * (pid->err[NOW] - 2 * pid->err[LAST] + pid->err[LLAST]);
+
+        pid->out += pid->pout + pid->iout + pid->dout;
+        abs_limit(&(pid->out), pid->max_out);
+    }
+
+    pid->err[LLAST] = pid->err[LAST];
+    pid->err[LAST]  = pid->err[NOW];
+
+
+    if ((pid->output_deadband != 0) && (fabs(pid->out) < pid->output_deadband))
+        return 0;
+    else
+        return pid->out;
+}
+
+
+/*************************************************
  * Function: vision_pid
  * Description: 视觉pid算法
  * Input: pid pid指针

@@ -24,6 +24,8 @@ typedef enum
     RAW_VALUE_MODE = 0,
     GYRO_MODE,
     ENCONDE_MODE,
+    J4310_MIT_VEL_MODE,
+    J4310_MIT_ANGLE_MODE,
 } GimbalMotorMode_e;
 
 typedef struct
@@ -48,6 +50,7 @@ typedef struct
 typedef struct
 {
     MotorInfo_t*    motor_info;
+    DM_1TO4_MotorInfo_t* j4310_info;
     uint16_t        offset_ecd;
     fp32            ecd_ratio;
     fp32            max_relative_angle;
@@ -58,10 +61,21 @@ typedef struct
     fp32            given_value;
     GimbalSensor_t  sensor;
     Gimbal_PID_t    pid;
+    pid_t           j4310_pid;
     fp32            vision_angle;//自瞄传下来的角度
+    fp32            position;//达妙4310 mit模式回传角度（rad）
+    fp32            vel;//达妙4310 mit模式回传角速度（rad/s）
+    fp32            torque;//达妙4310 mit模式回传扭矩（N*m）
 
     int16_t         current_set;
 } GimbalMotor_t;
+
+
+// typedef struct 
+// {
+    
+// } DM_Motor_t;
+
 
 typedef struct
 {
@@ -83,6 +97,8 @@ typedef struct
     uint8_t         is_fire;//是否开火
     uint8_t         up_date;//是否更新
 
+    fp32            last_yaw_given_value;
+    fp32            total_yaw_target;
 } GimbalHandle_t;
 
 /* 宏定义 --------------------------------------------------------------------*/
@@ -91,6 +107,7 @@ typedef struct
 
 /* 函数声明 ------------------------------------------------------------------*/
 void GimbalAppConfig(void);
+void key_callback(void);
 
 #endif  // GIMBAL_APP_H
 

@@ -73,7 +73,16 @@ typedef struct
     fp32 chassis_yaw;   //the yaw angle calculated by gyro sensor and gimbal motor.
     fp32 chassis_pitch; //the pitch angle calculated by gyro sensor and gimbal motor.
     fp32 chassis_roll;  //the roll angle calculated by gyro sensor and gimbal motor.
+
+    u16 power_limit;//超电功率
 } ChassisHandle_t;
+
+typedef struct 
+{
+    uint8_t         chassis_mode;//ui更新标志，0为底盘跟随云台模式，1为自旋模式
+    u8              shoot_mode;//ui更新标志，0为停止射击，1为开始射击
+    u8              vision_mode;//ui更新标志，0为碳基自瞄，1为机器自瞄
+} UI_Update_flag;
 
 /* 宏定义 --------------------------------------------------------------------*/
 

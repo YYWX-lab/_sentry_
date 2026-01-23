@@ -48,3 +48,14 @@ infantry\bsp_init.o: ..\Components\utils\fifo.h
 infantry\bsp_init.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\bsp_init.o: ..\BSP\Inc\bsp_uart.h
 infantry\bsp_init.o: ../Core/Inc/usart.h
+infantry\bsp_init.o: ..\Application\gimbal\gimbal_app.h
+infantry\bsp_init.o: ..\Components\drvices\RemoteControl/remote_control.h
+infantry\bsp_init.o: ..\Components\utils\struct_typedef.h
+infantry\bsp_init.o: ..\Components\drvices\IMU/imu_driver.h
+infantry\bsp_init.o: ..\Components\drvices\IMU/BMI088driver.h
+infantry\bsp_init.o: ..\Components\drvices\IMU/ist8310driver.h
+infantry\bsp_init.o: ..\Components\algorithms\AHRS.h
+infantry\bsp_init.o: ..\Components\algorithms\AHRS_MiddleWare.h
+infantry\bsp_init.o: ..\Components\drvices\Motor/motor.h
+infantry\bsp_init.o: ..\Components\algorithms\pid.h
+infantry\bsp_init.o: ..\Application\infantry_console.h
