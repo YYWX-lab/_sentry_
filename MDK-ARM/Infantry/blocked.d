@@ -1,8 +1,8 @@
 infantry\blocked.o: ..\Components\drvices\Motor\blocked.c
 infantry\blocked.o: ..\Components\drvices\Motor\blocked.h
 infantry\blocked.o: ..\Components\utils\struct_typedef.h
-infantry\blocked.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-infantry\blocked.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+infantry\blocked.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\blocked.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 infantry\blocked.o: ../Core/Inc/main.h
 infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\blocked.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -18,7 +18,7 @@ infantry\blocked.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\blocked.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\blocked.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\blocked.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h

@@ -1,7 +1,7 @@
 infantry\clinet_ui_app.o: ..\Application\clinet_ui_app.c
 infantry\clinet_ui_app.o: ..\Application\clinet_ui_app.h
 infantry\clinet_ui_app.o: ..\Components\utils\struct_typedef.h
-infantry\clinet_ui_app.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\clinet_ui_app.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\clinet_ui_app.o: ..\Components\Comm\client_ui_base.h
 infantry\clinet_ui_app.o: ..\Components\Comm\comm_protocol.h
 infantry\clinet_ui_app.o: ..\Components\utils\fifo.h
@@ -20,7 +20,7 @@ infantry\clinet_ui_app.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\clinet_ui_app.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\clinet_ui_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\clinet_ui_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\clinet_ui_app.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\clinet_ui_app.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\clinet_ui_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\clinet_ui_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\clinet_ui_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -40,7 +40,7 @@ infantry\clinet_ui_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.
 infantry\clinet_ui_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\clinet_ui_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\clinet_ui_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-infantry\clinet_ui_app.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\clinet_ui_app.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\clinet_ui_app.o: ..\Components\utils\linux_list.h
 infantry\clinet_ui_app.o: ..\Components\Comm\referee_system.h
 infantry\clinet_ui_app.o: ..\Application\chassis/chassis_app.h

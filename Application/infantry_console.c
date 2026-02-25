@@ -37,7 +37,7 @@ static void RemoteControlWheelAction(void);
 static void RemoteControl_Operation(void);
 static void Keyboard_Operation(void);
 static void Other_Operation(void);
-static void Vision_mode(void);
+static void Auto_sentry_Mode(void);
 
 /* 函数体 --------------------------------------------------------------------*/
 void ConsoleTask(void *argument)
@@ -79,7 +79,7 @@ void ConsoleTask(void *argument)
                 else if(console.rc->sw1 == REMOTE_SWITCH_VALUE_DOWN)
                 {
                     // Other_Operation();
-                    Vision_mode();
+                    Auto_sentry_Mode();
                 }
             }break;
             case SAFETY_MODE:
@@ -222,7 +222,7 @@ static void RemoteControl_Operation(void)
 }
 
 
-static void Vision_mode()
+static void Auto_sentry_Mode()
 {
     // if ( == 1)
     // {

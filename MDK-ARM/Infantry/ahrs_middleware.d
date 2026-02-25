@@ -1,14 +1,14 @@
 infantry\ahrs_middleware.o: ..\Components\algorithms\AHRS_middleware.c
 infantry\ahrs_middleware.o: ..\Components\algorithms\AHRS_MiddleWare.h
-infantry\ahrs_middleware.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\ahrs_middleware.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\ahrs_middleware.o: ..\Components\algorithms\AHRS.h
 infantry\ahrs_middleware.o: ..\Components\algorithms\arm_math.h
 infantry\ahrs_middleware.o: ../Drivers/CMSIS/Include/core_cm4.h
 infantry\ahrs_middleware.o: ../Drivers/CMSIS/Include/cmsis_version.h
 infantry\ahrs_middleware.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 infantry\ahrs_middleware.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
-infantry\ahrs_middleware.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-infantry\ahrs_middleware.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+infantry\ahrs_middleware.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\ahrs_middleware.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 infantry\ahrs_middleware.o: ../Core/Inc/main.h
 infantry\ahrs_middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\ahrs_middleware.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -21,7 +21,7 @@ infantry\ahrs_middleware.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\ahrs_middleware.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\ahrs_middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\ahrs_middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\ahrs_middleware.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\ahrs_middleware.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\ahrs_middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\ahrs_middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\ahrs_middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h

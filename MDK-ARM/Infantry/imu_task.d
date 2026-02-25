@@ -8,7 +8,7 @@ infantry\imu_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 infantry\imu_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 infantry\imu_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 infantry\imu_task.o: ../Drivers/CMSIS/Include/core_cm4.h
-infantry\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\imu_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\imu_task.o: ../Drivers/CMSIS/Include/cmsis_version.h
 infantry\imu_task.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 infantry\imu_task.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -16,7 +16,7 @@ infantry\imu_task.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\imu_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\imu_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\imu_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\imu_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\imu_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\imu_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\imu_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -57,7 +57,7 @@ infantry\imu_task.o: ..\Components\utils\struct_typedef.h
 infantry\imu_task.o: ..\BSP\Inc\bsp_can.h
 infantry\imu_task.o: ../Core/Inc/can.h
 infantry\imu_task.o: ..\Components\utils\fifo.h
-infantry\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\imu_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\imu_task.o: ..\Components\drvices\IMU/imu_driver.h
 infantry\imu_task.o: ..\Components\drvices\IMU/BMI088driver.h
 infantry\imu_task.o: ..\Components\drvices\IMU/ist8310driver.h

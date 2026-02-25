@@ -1,8 +1,8 @@
 infantry\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/list.c
-infantry\list.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+infantry\list.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 infantry\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-infantry\list.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-infantry\list.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\list.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\list.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\list.o: ../Core/Inc/FreeRTOSConfig.h
 infantry\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 infantry\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

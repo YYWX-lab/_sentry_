@@ -2,7 +2,7 @@ infantry\shoot_task.o: ..\Application\gimbal\shoot_task.c
 infantry\shoot_task.o: ..\Application\gimbal\shoot_task.h
 infantry\shoot_task.o: ..\Components\drvices\RemoteControl/remote_control.h
 infantry\shoot_task.o: ..\Components\utils\struct_typedef.h
-infantry\shoot_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\shoot_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\shoot_task.o: ..\Components\drvices\Motor/motor.h
 infantry\shoot_task.o: ..\BSP\Inc\bsp_can.h
 infantry\shoot_task.o: ../Core/Inc/main.h
@@ -20,7 +20,7 @@ infantry\shoot_task.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\shoot_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\shoot_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\shoot_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\shoot_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\shoot_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\shoot_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\shoot_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\shoot_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -43,7 +43,7 @@ infantry\shoot_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 infantry\shoot_task.o: ..\BSP\Inc\bsp_def.h
 infantry\shoot_task.o: ../Core/Inc/can.h
 infantry\shoot_task.o: ..\Components\utils\fifo.h
-infantry\shoot_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\shoot_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\shoot_task.o: ..\Components\drvices\Motor/blocked.h
 infantry\shoot_task.o: ..\Components\algorithms\pid.h
 infantry\shoot_task.o: ..\Application\infantry_console.h
@@ -62,7 +62,7 @@ infantry\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers
 infantry\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 infantry\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 infantry\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-infantry\shoot_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+infantry\shoot_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 infantry\shoot_task.o: ..\BSP\Inc\bsp_init.h
 infantry\shoot_task.o: ..\BSP\Inc\bsp_delay.h
 infantry\shoot_task.o: ..\BSP\Inc\bsp_gpio.h
@@ -73,4 +73,4 @@ infantry\shoot_task.o: ..\BSP\Inc\bsp_uart.h
 infantry\shoot_task.o: ../Core/Inc/usart.h
 infantry\shoot_task.o: ..\Application\detect_task.h
 infantry\shoot_task.o: ..\Components\Comm\referee_system.h
-infantry\shoot_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+infantry\shoot_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

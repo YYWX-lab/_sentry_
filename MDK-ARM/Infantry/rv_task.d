@@ -2,7 +2,7 @@ infantry\rv_task.o: ..\MY_Task\RV_task.c
 infantry\rv_task.o: ..\MY_Task\RV_task.h
 infantry\rv_task.o: ..\Application\comm_task.h
 infantry\rv_task.o: ..\Components\utils\struct_typedef.h
-infantry\rv_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\rv_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\rv_task.o: ..\Components\Comm\comm_protocol.h
 infantry\rv_task.o: ..\Components\utils\fifo.h
 infantry\rv_task.o: ../Core/Inc/main.h
@@ -20,7 +20,7 @@ infantry\rv_task.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\rv_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\rv_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\rv_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\rv_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\rv_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\rv_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\rv_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\rv_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -40,7 +40,7 @@ infantry\rv_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 infantry\rv_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\rv_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\rv_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-infantry\rv_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\rv_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\rv_task.o: ..\Components\utils\linux_list.h
 infantry\rv_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 infantry\rv_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h

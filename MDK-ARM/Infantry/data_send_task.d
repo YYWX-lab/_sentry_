@@ -1,6 +1,6 @@
 infantry\data_send_task.o: ..\MY_Task\data_send_task.c
 infantry\data_send_task.o: ..\MY_Task\data_send_task.h
-infantry\data_send_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\data_send_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\data_send_task.o: ..\BSP\Inc\bsp_uart.h
 infantry\data_send_task.o: ../Core/Inc/main.h
 infantry\data_send_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
@@ -17,7 +17,7 @@ infantry\data_send_task.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\data_send_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\data_send_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\data_send_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\data_send_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\data_send_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\data_send_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\data_send_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\data_send_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -40,7 +40,7 @@ infantry\data_send_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uar
 infantry\data_send_task.o: ..\BSP\Inc\bsp_def.h
 infantry\data_send_task.o: ../Core/Inc/usart.h
 infantry\data_send_task.o: ..\Components\utils\fifo.h
-infantry\data_send_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\data_send_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\data_send_task.o: ..\Application\chassis\chassis_app.h
 infantry\data_send_task.o: ..\Components\drvices\RemoteControl/remote_control.h
 infantry\data_send_task.o: ..\Components\utils\struct_typedef.h
@@ -61,7 +61,7 @@ infantry\data_send_task.o: ..\BSP\Inc\bsp_gpio.h
 infantry\data_send_task.o: ../Core/Inc/gpio.h
 infantry\data_send_task.o: ../Core/Inc/tim.h
 infantry\data_send_task.o: ..\BSP\Inc\bsp_i2c.h
-infantry\data_send_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+infantry\data_send_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 infantry\data_send_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 infantry\data_send_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 infantry\data_send_task.o: ../Core/Inc/FreeRTOSConfig.h

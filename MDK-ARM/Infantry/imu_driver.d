@@ -1,7 +1,7 @@
 infantry\imu_driver.o: ..\Components\drvices\IMU\imu_driver.c
 infantry\imu_driver.o: ..\Components\drvices\IMU\imu_driver.h
 infantry\imu_driver.o: ..\Components\utils\struct_typedef.h
-infantry\imu_driver.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\imu_driver.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\imu_driver.o: ..\Components\drvices\IMU\BMI088driver.h
 infantry\imu_driver.o: ../Core/Inc/main.h
 infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
@@ -18,7 +18,7 @@ infantry\imu_driver.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\imu_driver.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\imu_driver.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\imu_driver.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -55,6 +55,6 @@ infantry\imu_driver.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers
 infantry\imu_driver.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 infantry\imu_driver.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 infantry\imu_driver.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-infantry\imu_driver.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-infantry\imu_driver.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-infantry\imu_driver.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+infantry\imu_driver.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+infantry\imu_driver.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+infantry\imu_driver.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
