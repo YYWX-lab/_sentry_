@@ -19,7 +19,7 @@ void SuperPowerV1_DataParse(uint8_t data[], uint8_t len)
     // memcpy(&super_power.pwoer_value, data, sizeof(float));
     super_power.bat_v = (data[1]<<8)|data[0];
     super_power.bat_v /= 100;
-    // cap_v = (data[3]<<8)|data[2];
+    cap_v = (data[3]<<8)|data[2];
     super_power.cap_v = (data[3]<<8)|data[2];
     super_power.cap_v /= 100;
     super_power.bat_current = (data[5]<<8)|data[4];

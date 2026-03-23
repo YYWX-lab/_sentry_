@@ -2,7 +2,7 @@ infantry\infantry_console.o: ..\Application\infantry_console.c
 infantry\infantry_console.o: ..\Application\infantry_console.h
 infantry\infantry_console.o: ..\Components\drvices\RemoteControl/remote_control.h
 infantry\infantry_console.o: ..\Components\utils\struct_typedef.h
-infantry\infantry_console.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\infantry_console.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\infantry_console.o: ..\Application\infantry_def.h
 infantry\infantry_console.o: ..\Components\drvices\Motor/motor.h
 infantry\infantry_console.o: ..\BSP\Inc\bsp_can.h
@@ -21,7 +21,7 @@ infantry\infantry_console.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\infantry_console.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\infantry_console.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\infantry_console.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\infantry_console.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\infantry_console.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\infantry_console.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\infantry_console.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\infantry_console.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -44,7 +44,7 @@ infantry\infantry_console.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_u
 infantry\infantry_console.o: ..\BSP\Inc\bsp_def.h
 infantry\infantry_console.o: ../Core/Inc/can.h
 infantry\infantry_console.o: ..\Components\utils\fifo.h
-infantry\infantry_console.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\infantry_console.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\infantry_console.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 infantry\infantry_console.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 infantry\infantry_console.o: ../Core/Inc/FreeRTOSConfig.h

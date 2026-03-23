@@ -130,6 +130,8 @@ static int32_t Transmit_RefereeData(void *argc)
     Comm_TransmitData(&referee_tx_handle, REFEREE_SYSTEM_HEADER_SOF, GAME_ROBOT_STATE_CMD_ID, (uint8_t*)robot_state, sizeof(ext_game_robot_state_t));
     ext_power_heat_data_t* power_heat_data = RefereeSystem_PowerHeatData_Pointer();
     Comm_TransmitData(&referee_tx_handle, REFEREE_SYSTEM_HEADER_SOF, POWER_HEAT_DATA_CMD_ID, (uint8_t*)power_heat_data, sizeof(ext_power_heat_data_t));
+    ext_game_state_t* game_state = Game_State_Pointer();
+    Comm_TransmitData(&referee_tx_handle, REFEREE_SYSTEM_HEADER_SOF, GAME_STATE_CMD_ID, (uint8_t*)game_state, sizeof(ext_game_state_t));
     return 0;
 }
 

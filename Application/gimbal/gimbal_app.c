@@ -82,7 +82,7 @@ void GimbalAppConfig(void)
              60.0f, 0.0f, 0.0f);
 
     pid_init(&gimbal_handle.yaw_motor.j4310_pid, POSITION_PID, 30.f, 0.0f, 
-             0.2f, 0.0f, 0.0f);
+             0.15f, 0.1f, 0.0f);
     dm_motor_init();
     // dm_motor_enable(gimbal_handle.gimbal_can,&motor[Motor1]);
     
@@ -99,7 +99,7 @@ void GimbalAppConfig(void)
 
     OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,          OFFLINE_WARNING_LEVEL,     100,         0);//ganggang
     
-
+    OfflineHandle_Init(OFFLINE_VISION_INFO,             OFFLINE_WARNING_LEVEL,     500,         1);
     OfflineHandle_Init(OFFLINE_CHASSIS_INFO,            OFFLINE_WARNING_LEVEL,     100,         2);
     OfflineHandle_Init(OFFLINE_DBUS,                    OFFLINE_WARNING_LEVEL,     100,         0);
 
@@ -142,7 +142,7 @@ static int32_t GimbalInfoUploadCallback(void *argc)
     info->pitch_ecd_angle   = gimbal_handle.pitch_motor.sensor.relative_angle;
     if(chassis_info->mode == CHASSIS_SPIN)
     {
-        info->yaw_ecd_angle = gimbal_handle.yaw_motor.sensor.relative_angle+13.f;
+        info->yaw_ecd_angle = gimbal_handle.yaw_motor.sensor.relative_angle+17.56f;
     }
     else
     {
@@ -156,6 +156,7 @@ static int32_t GimbalInfoUploadCallback(void *argc)
     info->yaw_rate          = gimbal_handle.yaw_motor.vel*180.f/PI;
     info->vision_up_date    = gimbal_handle.up_date;
     info->vision_distance   = vision_info->distance;
+    
     Comm_TransmitData(&gimbal_tx_handle, USER_PROTOCOL_HEADER_SOF, GIMBAL_INFO_CMD_ID, (uint8_t*)info, sizeof(Comm_GimbalInfo_t));
     return 0;
 }

@@ -77,8 +77,8 @@ void Mecanum_Calculate(ChassisHandle_t* chassis_handle, fp32 chassis_vx, fp32 ch
     chassis_handle->motor_speed[2] = chassis_handle->chassis_motor[2].motor_info->speed_rpm/60.f/19.f*WHEEL_PERIMETER;
     chassis_handle->motor_speed[3] = chassis_handle->chassis_motor[3].motor_info->speed_rpm/60.f/19.f*WHEEL_PERIMETER;
 
-    chassis_handle->vx = (chassis_handle->motor_speed[0] + chassis_handle->motor_speed[1] - chassis_handle->motor_speed[2] - chassis_handle->motor_speed[3])/2/1.414213562373095048801688f/1000;
-    chassis_handle->vy = (chassis_handle->motor_speed[0] - chassis_handle->motor_speed[1] - chassis_handle->motor_speed[2] + chassis_handle->motor_speed[3])/2/1.414213562373095048801688f/1000;
+    chassis_handle->vy = (chassis_handle->motor_speed[0] + chassis_handle->motor_speed[1] - chassis_handle->motor_speed[2] - chassis_handle->motor_speed[3])/2/1.414213562373095048801688f/1000;
+    chassis_handle->vx = (chassis_handle->motor_speed[0] - chassis_handle->motor_speed[1] + chassis_handle->motor_speed[2] - chassis_handle->motor_speed[3])/2/1.414213562373095048801688f/1000;
     //find max item
     for (uint8_t i = 0; i < 4; i++)
     {

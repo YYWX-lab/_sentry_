@@ -17,6 +17,7 @@ typedef enum
     GIMBAL_RELATIVE,
     GIMBAL_NORMAL,
     GIMBAL_VISION,
+    INFANTRY_VISION,
 } GimbalCtrlMode_e;
 
 typedef enum

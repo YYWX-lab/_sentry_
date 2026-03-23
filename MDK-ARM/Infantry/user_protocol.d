@@ -1,7 +1,7 @@
 infantry\user_protocol.o: ..\Components\Comm\user_protocol.c
 infantry\user_protocol.o: ..\Components\Comm\user_protocol.h
 infantry\user_protocol.o: ..\Components\utils\struct_typedef.h
-infantry\user_protocol.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\user_protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\user_protocol.o: ..\Components\Comm\comm_protocol.h
 infantry\user_protocol.o: ..\Components\utils\fifo.h
 infantry\user_protocol.o: ../Core/Inc/main.h
@@ -19,7 +19,7 @@ infantry\user_protocol.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\user_protocol.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\user_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\user_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\user_protocol.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\user_protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\user_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\user_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\user_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -39,7 +39,7 @@ infantry\user_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.
 infantry\user_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\user_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\user_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-infantry\user_protocol.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\user_protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\user_protocol.o: ..\Components\utils\linux_list.h
 infantry\user_protocol.o: ..\Application\chassis/chassis_app.h
 infantry\user_protocol.o: ..\Components\drvices\RemoteControl/remote_control.h

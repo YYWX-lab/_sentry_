@@ -26,6 +26,7 @@ typedef enum
     OFFLINE_CHASSIS_INFO,
     OFFLINE_GIMBAL_INFO,
     OFFLINE_DBUS,
+    OFFLINE_VISION_INFO,
     OFFLINE_EVENT_MAX_NUM,
 } OfflineEvent_e;
 

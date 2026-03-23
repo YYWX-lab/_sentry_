@@ -2,7 +2,7 @@ infantry\gimbal_app.o: ..\Application\gimbal\gimbal_app.c
 infantry\gimbal_app.o: ..\Application\gimbal\gimbal_app.h
 infantry\gimbal_app.o: ..\Components\drvices\RemoteControl/remote_control.h
 infantry\gimbal_app.o: ..\Components\utils\struct_typedef.h
-infantry\gimbal_app.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\gimbal_app.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\gimbal_app.o: ..\Components\drvices\IMU/imu_driver.h
 infantry\gimbal_app.o: ..\Components\drvices\IMU/BMI088driver.h
 infantry\gimbal_app.o: ../Core/Inc/main.h
@@ -20,7 +20,7 @@ infantry\gimbal_app.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\gimbal_app.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\gimbal_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\gimbal_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\gimbal_app.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\gimbal_app.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\gimbal_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\gimbal_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\gimbal_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -48,7 +48,7 @@ infantry\gimbal_app.o: ..\BSP\Inc\bsp_can.h
 infantry\gimbal_app.o: ..\BSP\Inc\bsp_def.h
 infantry\gimbal_app.o: ../Core/Inc/can.h
 infantry\gimbal_app.o: ..\Components\utils\fifo.h
-infantry\gimbal_app.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\gimbal_app.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\gimbal_app.o: ..\Components\algorithms\pid.h
 infantry\gimbal_app.o: ..\Application\infantry_console.h
 infantry\gimbal_app.o: ..\Application\infantry_def.h

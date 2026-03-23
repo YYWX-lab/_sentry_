@@ -3,7 +3,7 @@ infantry\chassis_task.o: ..\Application\chassis\chassis_task.h
 infantry\chassis_task.o: ..\Application\infantry_def.h
 infantry\chassis_task.o: ..\Components\drvices\Motor/motor.h
 infantry\chassis_task.o: ..\Components\utils\struct_typedef.h
-infantry\chassis_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\chassis_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\chassis_task.o: ..\BSP\Inc\bsp_can.h
 infantry\chassis_task.o: ../Core/Inc/main.h
 infantry\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
@@ -20,7 +20,7 @@ infantry\chassis_task.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\chassis_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\chassis_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\chassis_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -43,7 +43,7 @@ infantry\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.
 infantry\chassis_task.o: ..\BSP\Inc\bsp_def.h
 infantry\chassis_task.o: ../Core/Inc/can.h
 infantry\chassis_task.o: ..\Components\utils\fifo.h
-infantry\chassis_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\chassis_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\chassis_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 infantry\chassis_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 infantry\chassis_task.o: ../Core/Inc/FreeRTOSConfig.h
@@ -70,7 +70,7 @@ infantry\chassis_task.o: ..\Components\algorithms\pid.h
 infantry\chassis_task.o: ..\Application\infantry_console.h
 infantry\chassis_task.o: ..\Components\algorithms\arm_math.h
 infantry\chassis_task.o: ../Drivers/CMSIS/Include/core_cm4.h
-infantry\chassis_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+infantry\chassis_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 infantry\chassis_task.o: ..\Components\algorithms\user_lib.h
 infantry\chassis_task.o: ..\Components\Comm\user_protocol.h
 infantry\chassis_task.o: ..\Components\Comm\comm_protocol.h

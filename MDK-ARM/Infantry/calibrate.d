@@ -1,10 +1,10 @@
 infantry\calibrate.o: ..\Application\calibrate.c
 infantry\calibrate.o: ..\Application\calibrate.h
 infantry\calibrate.o: ..\Components\utils\struct_typedef.h
-infantry\calibrate.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\calibrate.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\calibrate.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 infantry\calibrate.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-infantry\calibrate.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\calibrate.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\calibrate.o: ../Core/Inc/FreeRTOSConfig.h
 infantry\calibrate.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 infantry\calibrate.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
@@ -53,7 +53,7 @@ infantry\calibrate.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\calibrate.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\calibrate.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 infantry\calibrate.o: ..\BSP\Inc\bsp_def.h
-infantry\calibrate.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\calibrate.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\calibrate.o: ..\Components\drvices\Buzzer\buzzer.h
 infantry\calibrate.o: ..\BSP\Inc\bsp_init.h
 infantry\calibrate.o: ..\BSP\Inc\bsp_delay.h

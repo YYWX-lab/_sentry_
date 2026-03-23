@@ -3,7 +3,7 @@ infantry\gimbal_task.o: ..\Application\gimbal\gimbal_task.h
 infantry\gimbal_task.o: ..\Application\infantry_def.h
 infantry\gimbal_task.o: ..\Components\drvices\Motor/motor.h
 infantry\gimbal_task.o: ..\Components\utils\struct_typedef.h
-infantry\gimbal_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\gimbal_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\gimbal_task.o: ..\BSP\Inc\bsp_can.h
 infantry\gimbal_task.o: ../Core/Inc/main.h
 infantry\gimbal_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
@@ -20,7 +20,7 @@ infantry\gimbal_task.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\gimbal_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\gimbal_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\gimbal_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\gimbal_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\gimbal_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\gimbal_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\gimbal_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\gimbal_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -43,7 +43,7 @@ infantry\gimbal_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 infantry\gimbal_task.o: ..\BSP\Inc\bsp_def.h
 infantry\gimbal_task.o: ../Core/Inc/can.h
 infantry\gimbal_task.o: ..\Components\utils\fifo.h
-infantry\gimbal_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\gimbal_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\gimbal_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 infantry\gimbal_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 infantry\gimbal_task.o: ../Core/Inc/FreeRTOSConfig.h
@@ -71,7 +71,7 @@ infantry\gimbal_task.o: ..\Application\infantry_console.h
 infantry\gimbal_task.o: ..\Components\algorithms\ramp.h
 infantry\gimbal_task.o: ..\Components\algorithms\arm_math.h
 infantry\gimbal_task.o: ../Drivers/CMSIS/Include/core_cm4.h
-infantry\gimbal_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+infantry\gimbal_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 infantry\gimbal_task.o: ..\Components\algorithms\user_lib.h
 infantry\gimbal_task.o: ..\Components\Comm\user_protocol.h
 infantry\gimbal_task.o: ..\Components\Comm\comm_protocol.h

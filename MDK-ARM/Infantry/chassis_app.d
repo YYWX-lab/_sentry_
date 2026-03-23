@@ -2,7 +2,7 @@ infantry\chassis_app.o: ..\Application\chassis\chassis_app.c
 infantry\chassis_app.o: ..\Application\chassis\chassis_app.h
 infantry\chassis_app.o: ..\Components\drvices\RemoteControl/remote_control.h
 infantry\chassis_app.o: ..\Components\utils\struct_typedef.h
-infantry\chassis_app.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\chassis_app.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\chassis_app.o: ..\Components\drvices\IMU/imu_driver.h
 infantry\chassis_app.o: ..\Components\drvices\IMU/BMI088driver.h
 infantry\chassis_app.o: ../Core/Inc/main.h
@@ -20,7 +20,7 @@ infantry\chassis_app.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\chassis_app.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\chassis_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\chassis_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\chassis_app.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\chassis_app.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\chassis_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\chassis_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\chassis_app.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -48,7 +48,7 @@ infantry\chassis_app.o: ..\BSP\Inc\bsp_can.h
 infantry\chassis_app.o: ..\BSP\Inc\bsp_def.h
 infantry\chassis_app.o: ../Core/Inc/can.h
 infantry\chassis_app.o: ..\Components\utils\fifo.h
-infantry\chassis_app.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\chassis_app.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\chassis_app.o: ..\Components\algorithms\pid.h
 infantry\chassis_app.o: ..\Application\infantry_console.h
 infantry\chassis_app.o: ..\Application\infantry_def.h

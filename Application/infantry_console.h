@@ -20,6 +20,7 @@ typedef enum
     GIMBAL_RELATIVE_CMD,
     GIMBAL_NORMAL_CMD,
     GIMBAL_VISION_CMD,
+    INFANTRY_VISION_CMD,
 } Gimbal_CMD_e;
 
 typedef enum

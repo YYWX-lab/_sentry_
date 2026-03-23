@@ -1,8 +1,8 @@
 infantry\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
-infantry\stream_buffer.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-infantry\stream_buffer.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\stream_buffer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\stream_buffer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-infantry\stream_buffer.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\stream_buffer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\stream_buffer.o: ../Core/Inc/FreeRTOSConfig.h
 infantry\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 infantry\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

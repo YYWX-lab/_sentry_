@@ -10,7 +10,7 @@ infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def
 infantry\client_ui_base.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 infantry\client_ui_base.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 infantry\client_ui_base.o: ../Drivers/CMSIS/Include/core_cm4.h
-infantry\client_ui_base.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\client_ui_base.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\client_ui_base.o: ../Drivers/CMSIS/Include/cmsis_version.h
 infantry\client_ui_base.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 infantry\client_ui_base.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -18,7 +18,7 @@ infantry\client_ui_base.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\client_ui_base.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\client_ui_base.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\client_ui_base.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -38,8 +38,8 @@ infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi
 infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-infantry\client_ui_base.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\client_ui_base.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\client_ui_base.o: ..\Components\utils\linux_list.h
 infantry\client_ui_base.o: ..\Components\Comm\referee_system.h
 infantry\client_ui_base.o: ..\Components\utils\struct_typedef.h
-infantry\client_ui_base.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+infantry\client_ui_base.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

@@ -13,7 +13,9 @@
 #include "RV_protocol.h"
 #include "dm_motor_drv.h"
 #include "dm_motor_ctrl.h"
+#include "detect_task.h"
 
+#include "math.h"
 
 osThreadId SendDataTaskHandle;
 osThreadId VofaSendDataTaskHandle;
@@ -27,7 +29,7 @@ static uint32_t send_data_task_stack = 0;
 extern ist8310_real_data_t ist8310_handle;
 extern ChassisHandle_t chassis_handle;
 extern GimbalHandle_t gimbal_handle;
-extern Comm_GimbalInfo_t gimbal_info;
+// extern Comm_GimbalInfo_t gimbal_info;
 extern Comm_ChassisInfo_t chassis_info;
 // extern ext_game_state_t game_state;
 extern Comm_VisionInfo_t vision_info;
@@ -44,14 +46,16 @@ static u16 robot_hp;
 static u8 enemy_colcor;//红色是1，蓝色是0
 static fp32 vx;//x方向上的速度
 static fp32 vy;//y方向上的速度
-static fp32 x;//走过的距离x
-static fp32 y;//走过的距离y
-static fp32 now_time;
-static fp32 last_time;
-static fp32 time_err;
-static fp32 yaw;//弧度
+static fp32 x = 0;//走过的距离x
+static fp32 y = 0;//走过的距离y
+static fp32 now_time = 0;
+static fp32 last_time = 0;
+static fp32 time_err = 0;
+static float yaw = 0;//弧度
 static int32_t time_stamp = 0;
-static u8 first_communicat = 0;;
+static u8 first_communicat = 0;
+static fp32 k = 0;
+static fp32 b = 0;
 
 
 
@@ -87,6 +91,7 @@ void PC_ReceiveCallback(uint8_t* data, uint16_t len)
     // ChassisHandle_t chassis_handle;
     
     pack_analysis(data, &PACK_ANALYSIS_T_1);
+    OfflineHandle_TimeUpdate(OFFLINE_VISION_INFO);
     // chassis_handle . vx = PACK_ANALYSIS_T_1 . f1;
     // chassis_handle . vy = PACK_ANALYSIS_T_1 . f2;
     // chassis_handle . vw = PACK_ANALYSIS_T_1 . f3;
@@ -109,14 +114,23 @@ void PC_ReceiveCallback(uint8_t* data, uint16_t len)
             vision_info.is_track = PACK_ANALYSIS_T_1.d5;
             vision_info.up_date = 1;
             vision_info.is_shoot = PACK_ANALYSIS_T_1.is_shoot;
+            
+
+            // if(vision_info.is_track == 0)
+            // {
+            //     vision_info.pitch_angle = 0;
+            //     vision_info.yaw_angle = 0;
+            // }
 
         }
         else if (PACK_ANALYSIS_T_1.state == 0)
         {
-            gimbal_info.vx_pc = PACK_ANALYSIS_T_1.f1;
-            gimbal_info.vy_pc = PACK_ANALYSIS_T_1.f2;
-            gimbal_info.vw_pc = PACK_ANALYSIS_T_1.f3;
+            Comm_GimbalInfo_t* gimbal_info =  GimbalInfo_Pointer();
+            gimbal_info->vx_pc = PACK_ANALYSIS_T_1.f1 * 1000;
+            gimbal_info->vy_pc = -PACK_ANALYSIS_T_1.f2 * 1000;
+            gimbal_info->vw_pc = PACK_ANALYSIS_T_1.f3;
         }
+        
 
     }
     
@@ -145,7 +159,7 @@ void data_send_task(void *argument)
         ext_game_state_t* game_state = Game_State_Pointer();
 
         now_time = HAL_GetTick();
-        if (robot_state->robot_id > 100)     //ID大于100是蓝方  
+        if (robot_state->robot_id > 60)     //ID大于100是蓝方  
         {
             robot_hp = robot_state->remain_HP;
             enemy_colcor = 1;
@@ -223,9 +237,12 @@ void data_send_task(void *argument)
             }
             vy = chassis_info.y_speed;
             vx = chassis_info.x_speed;
-            time_err = (now_time - last_time)/100000000;
-            x += ((arm_sin_f32(yaw)*vy + arm_cos_f32(yaw)*vx)*time_err);
-            y += ((arm_sin_f32(yaw)*vx - arm_cos_f32(yaw)*vy)*time_err);
+            time_err = (now_time - last_time)/1000;
+
+            // k = sinf(yaw);
+            // b = cosf(yaw);
+            x += ((sinf(yaw)*vy + cosf(yaw)*vx)*time_err);
+            y += -((-sinf(yaw)*vx + cosf(yaw)*vy)*time_err);
             // float yaw_speed = ((float)gimbal_handle.yaw_motor.motor_info->speed_rpm)*0.1046666f;
             float yaw_speed = motor[Motor1].para.vel;
             float pitch_speed = ((float)gimbal_handle.pitch_motor.motor_info->speed_rpm)*0.1046666f;
@@ -241,7 +258,6 @@ void data_send_task(void *argument)
             vx,
             vy,
             robot_hp,
-            time_stamp,
             game_state->game_progress,
             enemy_colcor
             );

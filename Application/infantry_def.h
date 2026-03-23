@@ -78,7 +78,7 @@
 #define KB_CHASSIS_MAX_SPEED_Y      MAX_CHASSIS_VX_SPEED     //Y轴方向最大速度
 #define KB_CHASSIS_MAX_SPEED_R      MAX_CHASSIS_VW_SPEED      //旋转最大速度
 #define KB_GIMBAL_MOVE_RATIO_PIT    0.007f       //pitch移动比例 0.005
-#define KB_GIMBAL_MOVE_RATIO_YAW    0.03f        //yaw移动比例 0.01
+#define KB_GIMBAL_MOVE_RATIO_YAW    0.01f        //yaw移动比例 0.01
 
 #define CHASSIS_ACCEL_TIME      1500  //ms
 #define ROTATE_ACCEL_TIME       3000  //ms

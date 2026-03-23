@@ -259,7 +259,7 @@ static void Auto_sentry_Mode()
         {
             
    
-
+            console.shoot_cmd = SHOOT_START_CMD;
             if (console.shoot_cmd == SHOOT_STOP_CMD )
             {
                 if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
@@ -333,7 +333,7 @@ static void Keyboard_Operation(void)
         chassis_vy = KB_CHASSIS_MAX_SPEED_Y * 0.5f;
     }
 
-    if (console.gimbal_cmd == GIMBAL_VISION_CMD)
+    if (console.gimbal_cmd == INFANTRY_VISION_CMD)
     {
         if (!last_rc.kb.bit.Q && console.rc->kb.bit.Q)
         {
@@ -345,7 +345,7 @@ static void Keyboard_Operation(void)
     {
         if (!last_rc.kb.bit.Q && console.rc->kb.bit.Q)
         {
-            console.gimbal_cmd = GIMBAL_VISION_CMD;
+            console.gimbal_cmd = INFANTRY_VISION_CMD;
             UI_update_flag.vision_mode = 1;
         }
 
@@ -410,13 +410,14 @@ static void Keyboard_Operation(void)
             console.shoot_cmd = SHOOT_STOP_CMD;
             UI_update_flag.shoot_mode = 0;
         }
-        else if (console.rc->mouse.l)
+        else if (console.rc->mouse.l && gimbal_handle.is_fire == 1)
         {
             console.shoot.fire_cmd = ONE_FIRE_CMD;
         }
         else if (!last_rc.mouse.r && console.rc->mouse.r)
         {
-            console.shoot.fire_cmd = RAPID_FIRE_CMD;
+            // console.shoot.fire_cmd = RAPID_FIRE_CMD;
+            console.shoot.fire_cmd = ONE_FIRE_CMD;
         }
         else
         {
@@ -498,7 +499,6 @@ static void Other_Operation(void)
             //     gimbal_handle.is_fire = 0;
             // }
             
-
         if (console.shoot_cmd == SHOOT_STOP_CMD )
         {
             if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
@@ -534,6 +534,8 @@ static void Other_Operation(void)
         {
             console.shoot.fire_cmd = STOP_FIRE_CMD;
         }
+
+        
 
 
 

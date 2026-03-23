@@ -1,7 +1,7 @@
 infantry\motor.o: ..\Components\drvices\Motor\motor.c
 infantry\motor.o: ..\Components\drvices\Motor\motor.h
 infantry\motor.o: ..\Components\utils\struct_typedef.h
-infantry\motor.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+infantry\motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\motor.o: ..\BSP\Inc\bsp_can.h
 infantry\motor.o: ../Core/Inc/main.h
 infantry\motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
@@ -18,7 +18,7 @@ infantry\motor.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 infantry\motor.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 infantry\motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-infantry\motor.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+infantry\motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 infantry\motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 infantry\motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 infantry\motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -41,6 +41,6 @@ infantry\motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 infantry\motor.o: ..\BSP\Inc\bsp_def.h
 infantry\motor.o: ../Core/Inc/can.h
 infantry\motor.o: ..\Components\utils\fifo.h
-infantry\motor.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+infantry\motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\motor.o: ..\Components\drvices\Motor\dm_motor_ctrl.h
 infantry\motor.o: ..\Components\drvices\Motor\dm_motor_drv.h

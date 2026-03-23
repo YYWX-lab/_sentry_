@@ -6,7 +6,7 @@
 #include "crc.h"
 
 
-uint8_t tx_pack_make(uint8_t *tx_pack,uint8_t header,uint8_t cmd,float f1,float f2, float f3 ,float f4, float f5, float f6, float f7, float f8, uint16_t d1,uint32_t time_stamp ,uint8_t game_state, uint8_t robot_id)//,uint16_t d1,uint16_t d2,uint16_t d3,uint16_t d4)
+uint8_t tx_pack_make(uint8_t *tx_pack,uint8_t header,uint8_t cmd,float f1,float f2, float f3 ,float f4, float f5, float f6, float f7, float f8, uint16_t d1 ,uint8_t game_state, uint8_t robot_id)//,uint16_t d1,uint16_t d2,uint16_t d3,uint16_t d4)
 {
     uint8_t len = 0;
     uint8_t *p = (uint8_t *)(&f1);
@@ -82,12 +82,6 @@ uint8_t tx_pack_make(uint8_t *tx_pack,uint8_t header,uint8_t cmd,float f1,float 
 
     tx_pack[len] = d1 & 0xff;
     tx_pack[len+1] = (d1 >> 8) & 0xff;
-    len += 2;
-
-    tx_pack[len] = time_stamp & 0xff;
-    tx_pack[len+1] = (time_stamp >> 8) & 0xff;
-    tx_pack[len+2] = (time_stamp >> 16) & 0xff;
-    tx_pack[len+3] = (time_stamp >> 24) & 0xff;
     len += 2;
 
 
