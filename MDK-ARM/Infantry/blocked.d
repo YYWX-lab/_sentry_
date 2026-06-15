@@ -1,6 +1,6 @@
 infantry\blocked.o: ..\Components\drvices\Motor\blocked.c
 infantry\blocked.o: ..\Components\drvices\Motor\blocked.h
-infantry\blocked.o: ..\Components\utils\struct_typedef.h
+infantry\blocked.o: ../Components/utils/struct_typedef.h
 infantry\blocked.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\blocked.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 infantry\blocked.o: ../Core/Inc/main.h
@@ -38,3 +38,6 @@ infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+infantry\blocked.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h

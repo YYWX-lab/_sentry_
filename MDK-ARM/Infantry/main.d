@@ -35,6 +35,9 @@ infantry\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 infantry\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+infantry\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+infantry\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+infantry\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 infantry\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 infantry\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 infantry\main.o: ../Core/Inc/FreeRTOSConfig.h
@@ -55,4 +58,10 @@ infantry\main.o: ../Core/Inc/i2c.h
 infantry\main.o: ../Core/Inc/spi.h
 infantry\main.o: ../Core/Inc/tim.h
 infantry\main.o: ../Core/Inc/usart.h
+infantry\main.o: ../USB_DEVICE/App/usb_device.h
+infantry\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
+infantry\main.o: ../USB_DEVICE/Target/usbd_conf.h
+infantry\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+infantry\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+infantry\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 infantry\main.o: ../Core/Inc/gpio.h

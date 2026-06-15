@@ -66,73 +66,73 @@ void ui_init()
       //    ClientUI_DrawFloatNumber(&fnum, "fn", 0, 500, 0, 12.34f, 50, 10, UI_COLOR_YELLOW);
       //    ClientUI_DrawLine(&line, "lin", 0, 0, 0, 960, 340, 10, UI_COLOR_YELLOW);
       }
-       else if (flag < 11)
+       else if (flag < 15)
       {    
          
          ClientUI_DrawString(&str, "cia", 0, 200, 200, "what can i say", 50, 8, UI_COLOR_YELLOW);
          flag += 1;
       }
-      else if (flag < 12)
+      else if (flag < 20)
       {
          
          //   ClientUI_DrawIntNumber(&num, "num", 0, -300, -300, 200, 50, 10, UI_COLOR_YELLOW);
          ClientUI_DrawFloatNumber(&spin,"spi",0,-600,0, 0,40,7,UI_COLOR_PURPLISH_RED);//自旋模式
          flag += 1;
       }
-      else if (flag < 13)
+      else if (flag < 25)
       {
          
          // ClientUI_DrawFloatNumber(&fnum, "fn", 0, 500, 100, 0.0f, 50, 10, UI_COLOR_YELLOW);//自瞄 目标距离
          flag += 1;
       }
-      else if (flag < 14)
+      else if (flag < 30)
       {
          
          ClientUI_DrawRectangle(&Rectangle,"jx",0,-300,-450,500,-500,3,UI_COLOR_YELLOW);//画超电矩形
          flag += 1;
       }
-      else if (flag < 15)
+      else if (flag < 35)
       {
          
          ClientUI_DrawFloatNumber(&shoot, "fnn", 0, 600, -130, 0, 50, 10, UI_COLOR_PURPLISH_RED);//射击模式是否打开
          flag += 1;
       }
-      else if (flag < 18)
+      else if (flag < 40)
       {
          
          ClientUI_DrawString(&str, "sho", 0, 500, 0, "shoot", 75, 5, UI_COLOR_CYAN);//是否进入射击模式
          flag += 1;
       }
-      else if (flag < 19)
+      else if (flag < 45)
       {
          
          ClientUI_DrawLine(&line, "lin", 0, -290, -475, 490, -475, 30, UI_COLOR_GREEN);//超电进度条
          flag += 1;
       }
-      else if (flag < 20)
+      else if (flag < 50)
       {
          
          ClientUI_DrawString(&str, "aut", 0, -900, 200, "auto aim", 60, 5, UI_COLOR_CYAN);//自瞄
          flag += 1;
       }
-      else if (flag < 25)
+      else if (flag < 55)
       {
          
          ClientUI_DrawFloatNumber(&autoo, "aim", 0, -725, 100, 0, 50, 8, UI_COLOR_PURPLISH_RED); //自瞄是否打开
          flag +=1;
             
       }
-      else if (flag < 35)
+      else if (flag < 60)
       {
          ClientUI_DrawString(&spinn, "sp", 0, -900, 0, "spin", 50, 8, UI_COLOR_CYAN); //自旋是否打开
          flag +=1;
       }
-      else if (flag < 40)
+      else if (flag < 65)
       {
-         ClientUI_DrawLine(&line2, "li2", 0, 10, -50, 80, -300, 3, UI_COLOR_GREEN);//
+         ClientUI_DrawLine(&line2, "li2", 0, 10, -40, 80, -305, 3, UI_COLOR_GREEN);//
          flag += 1;
       }
-      else if (flag < 45)
+      else if (flag < 70)
       {
          ClientUI_DrawLine(&_3m, "3m", 0, -10, -125, 80, -125, 3, UI_COLOR_GREEN);//
          flag += 1;

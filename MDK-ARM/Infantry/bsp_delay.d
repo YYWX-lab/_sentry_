@@ -1,5 +1,5 @@
 infantry\bsp_delay.o: ..\BSP\Src\bsp_delay.c
-infantry\bsp_delay.o: ..\BSP\Inc\bsp_delay.h
+infantry\bsp_delay.o: ../BSP/Inc/bsp_delay.h
 infantry\bsp_delay.o: ../Core/Inc/main.h
 infantry\bsp_delay.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\bsp_delay.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -36,4 +36,7 @@ infantry\bsp_delay.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 infantry\bsp_delay.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\bsp_delay.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\bsp_delay.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-infantry\bsp_delay.o: ..\BSP\Inc\bsp_def.h
+infantry\bsp_delay.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+infantry\bsp_delay.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+infantry\bsp_delay.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
+infantry\bsp_delay.o: ../BSP/Inc/bsp_def.h

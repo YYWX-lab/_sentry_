@@ -235,7 +235,7 @@ void IMU_GyroOffsetCalc(fp32 gyro_offset[3], fp32 gyro[3])
 
     gyro_offset[0] = gyro_offset[0] - 0.0003f * gyro[0];
     gyro_offset[1] = gyro_offset[1] - 0.0003f * gyro[1];
-    gyro_offset[2] = gyro_offset[2] - 0.0003f * gyro[2];
+    gyro_offset[2] = gyro_offset[2] - 0.0005f * gyro[2];
 }
 
 void IMU_CalibrateGyro(fp32 cali_offset[3])

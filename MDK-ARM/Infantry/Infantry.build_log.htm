@@ -21,202 +21,62 @@ Target DLL:      CMSIS_AGDI.dll V1.33.16.0
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-d:\RM\Odw_sentry\Odw_sentry (2)\Odw_sentry\Infantry\MDK-ARM\Infantry.uvprojx
-Project File Date:  12/28/2025
+d:\RM\Odw_sentry\Odw_sentry-USB\MDK-ARM\sentry.uvprojx
+Project File Date:  06/09/2026
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Infantry'
-compiling user_protocol.c...
-..\Components\Comm\user_protocol.c(83): warning:  #1-D: last line of file ends without a newline
-  }
-..\Components\Comm\user_protocol.c: 1 warning, 0 errors
-compiling bsp_init.c...
-compiling clinet_ui_app.c...
-..\Application\clinet_ui_app.c(255): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-         if ((cap_v-1000) /1600 < 0.3)
-..\Application\clinet_ui_app.c(38): warning:  #177-D: variable "flag_on"  was declared but never referenced
-  static float flag_on = 0;
-..\Application\clinet_ui_app.c(39): warning:  #177-D: variable "flag_off"  was declared but never referenced
-  static float flag_off = 0;
-..\Application\clinet_ui_app.c(40): warning:  #177-D: variable "a"  was declared but never referenced
-  static float a = 500;
-..\Application\clinet_ui_app.c: 4 warnings, 0 errors
-compiling app_init.c...
-..\Application\app_init.c(63): warning:  #223-D: function "vofa_send_task_init" declared implicitly
-          vofa_send_task_init();
-..\Application\app_init.c(65): warning:  #223-D: function "data_send_task_init" declared implicitly
-          data_send_task_init();
-..\Application\app_init.c(66): warning:  #223-D: function "ms_timer_init" declared implicitly
-          ms_timer_init();
-..\Application\app_init.c: 3 warnings, 0 errors
-compiling gimbal_function.c...
-..\Application\gimbal\gimbal_function.c(116): warning:  #1-D: last line of file ends without a newline
-  }
-..\Application\gimbal\gimbal_function.c: 1 warning, 0 errors
-compiling gimbal_app.c...
-..\MY_Task\data_send_task.h(9): warning:  #1295-D: Deprecated declaration data_send_task_init - give arg types
+compiling MY_protocol.c...
+..\MY_Task\data_send_task.h(17): warning:  #1295-D: Deprecated declaration data_send_task_init - give arg types
   void data_send_task_init();
-..\MY_Task\data_send_task.h(10): warning:  #1295-D: Deprecated declaration vofa_send_task_init - give arg types
+..\MY_Task\data_send_task.h(18): warning:  #1295-D: Deprecated declaration vofa_send_task_init - give arg types
   void vofa_send_task_init();
-..\MY_Task\data_send_task.h(16): warning:  #1-D: last line of file ends without a newline
-  #endif // !DATA_SEND_TASK_H
-..\Application\gimbal\gimbal_app.c(124): warning:  #223-D: function "Buzzer_SetBeep" declared implicitly
-      Buzzer_SetBeep(392, 150);
-..\Application\gimbal\gimbal_app.c(176): warning:  #177-D: function "COM2_ReceiveCallback"  was declared but never referenced
-  static void COM2_ReceiveCallback(uint8_t* data, uint16_t len)
-..\Application\gimbal\gimbal_app.c: 5 warnings, 0 errors
-compiling chassis_function.c...
-..\Application\chassis\chassis_function.c(75): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-      chassis_handle->motor_speed[0] = chassis_handle->chassis_motor[0].motor_info->speed_rpm/60.f/19.f*
-HEEL_PERIMETER; //rpm -> m/s  锛坮pm/60绉?/鍑忛�熸瘮19锛?*杞瓙鍛ㄩ暱0.502.6548m
-..\Application\chassis\chassis_function.c(76): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-      chassis_handle->motor_speed[1] = chassis_handle->chassis_motor[1].motor_info->speed_rpm/60.f/19.f*
-HEEL_PERIMETER;
-..\Application\chassis\chassis_function.c(77): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-      chassis_handle->motor_speed[2] = chassis_handle->chassis_motor[2].motor_info->speed_rpm/60.f/19.f*
-HEEL_PERIMETER;
-..\Application\chassis\chassis_function.c(78): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-      chassis_handle->motor_speed[3] = chassis_handle->chassis_motor[3].motor_info->speed_rpm/60.f/19.f*
-HEEL_PERIMETER;
-..\Application\chassis\chassis_function.c: 4 warnings, 0 errors
-compiling chassis_app.c...
-..\MY_Task\data_send_task.h(9): warning:  #1295-D: Deprecated declaration data_send_task_init - give arg types
-  void data_send_task_init();
-..\MY_Task\data_send_task.h(10): warning:  #1295-D: Deprecated declaration vofa_send_task_init - give arg types
-  void vofa_send_task_init();
-..\MY_Task\data_send_task.h(16): warning:  #1-D: last line of file ends without a newline
-  #endif // !DATA_SEND_TASK_H
-..\Application\chassis\chassis_app.c(157): warning:  #940-D: missing return statement at end of non-void function "SuperPower_CtrlLoop" 
+..\MY_Task\data_send_task.h(24): warning:  #1-D: last line of file ends without a newline
+  #endif // DATA_SEND_TASK_H
+..\MY_Task\MY_protocol.c(354): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
+      sprintf(buff,"samples: %.d, %.d, %.d\r\n",dat1, dat2, dat3);
+..\MY_Task\MY_protocol.c(359): warning:  #1-D: last line of file ends without a newline
   }
-..\Application\chassis\chassis_app.c(205): warning:  #188-D: enumerated type mixed with another type
-              OfflineHandle_TimeUpdate(OFFLINE_CHASSIS_MOTOR1+i);
-..\Application\chassis\chassis_app.c(47): warning:  #177-D: function "COM2_ReceiveCallback"  was declared but never referenced
-  static void COM2_ReceiveCallback(uint8_t* data, uint16_t len);
-..\Application\chassis\chassis_app.c: 6 warnings, 0 errors
-compiling shoot_task.c...
-..\Application\gimbal\shoot_task.c(141): warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
-      
-sThreadDef(shoot_task, ShootTask, osPriorityNormal, 0, 256);
-..\Application\gimbal\shoot_task.c(244): warning:  #177-D: variable "a"  was declared but never referenced
-      float a ;
-..\Application\gimbal\shoot_task.c(34): warning:  #550-D: variable "shoot_task_stack"  was set but never used
-  static uint32_t shoot_task_stack = 0;
-..\Application\gimbal\shoot_task.c(211): warning:  #177-D: function "Shoot_MagazineMotorCtrl"  was declared but never referenced
-  static void Shoot_MagazineMotorCtrl(ShootHandle_t* handle)
-..\Application\gimbal\shoot_task.c: 4 warnings, 0 errors
-compiling calibrate.c...
-..\Application\calibrate.c(217): warning:  #144-D: a value of type "void (*)(void)" cannot be used to initialize an entity of type "os_pthread"
-      
-sThreadDef(calibrate_task, CalibrateTask, osPriorityNormal, 0, 256);
-..\Application\calibrate.c(183): warning:  #177-D: variable "i"  was declared but never referenced
-      uint8_t i = 0;
-..\Application\calibrate.c(37): warning:  #177-D: variable "gimbal_cali"  was declared but never referenced
-  static GimbalCalibrate_t    gimbal_cali;     //gimbal cali data
-..\Application\calibrate.c(38): warning:  #177-D: variable "gyro_cali"  was declared but never referenced
-  static IMU_Calibrate_t      gyro_cali;       //gyro cali data
-..\Application\calibrate.c(39): warning:  #177-D: variable "accel_cali"  was declared but never referenced
-  static IMU_Calibrate_t      accel_cali;      //accel cali data
-..\Application\calibrate.c(40): warning:  #177-D: variable "mag_cali"  was declared but never referenced
-  static IMU_Calibrate_t      mag_cali;        //mag cali data
-..\Application\calibrate.c(228): warning:  #177-D: function "Calibrate_ReadData"  was declared but never referenced
-  static void Calibrate_ReadData(void)
-..\Application\calibrate.c(297): warning:  #177-D: function "GyroCalibrate_Hook"  was declared but never referenced
-  static uint8_t GyroCalibrate_Hook(uint32_t *cali, uint8_t cmd)
-..\Application\calibrate.c(325): warning:  #177-D: function "GimbalCalibrate_Hook"  was declared but never referenced
-  static uint8_t GimbalCalibrate_Hook(uint32_t *cali, uint8_t cmd)
-..\Application\calibrate.c: 9 warnings, 0 errors
-compiling infantry_console.c...
-..\Application\infantry_console.c(126): warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
-      
-sThreadDef(console_task, ConsoleTask, osPriorityNormal, 0, 256);
-..\Application\infantry_console.c(17): warning:  #550-D: variable "console_task_stack"  was set but never used
-  static uint32_t console_task_stack = 0;
-..\Application\infantry_console.c(429): warning:  #177-D: function "Other_Operation"  was declared but never referenced
-  static void Other_Operation(void)
-..\Application\infantry_console.c: 3 warnings, 0 errors
-compiling gimbal_task.c...
-..\Application\gimbal\gimbal_task.c(139): warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
-      
-sThreadDef(gimbal_task, GimbalTask, osPriorityNormal, 0, 256);
-..\Application\gimbal\gimbal_task.c(146): warning:  #144-D: a value of type "void (*)(void)" cannot be used to initialize an entity of type "os_ptimer"
-      
-sTimerDef(mstimeStampTimer, TimerCallback);
-..\Application\gimbal\gimbal_task.c(334): warning:  #177-D: variable "yaw"  was declared but never referenced
-      fp32 yaw_target = 0, yaw = 0;
-..\Application\gimbal\gimbal_task.c(557): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-              yaw_add += 0.5;
-..\Application\gimbal\gimbal_task.c(558): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-              pitch_add += 0.15;
-..\Application\gimbal\gimbal_task.c(561): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-              yaw_target += 2.5;
-..\Application\gimbal\gimbal_task.c(23): warning:  #550-D: variable "gimbal_task_stack"  was set but never used
-  static uint32_t gimbal_task_stack = 0;
-..\Application\gimbal\gimbal_task.c(31): warning:  #177-D: variable "vision_pitch_ramp"  was declared but never referenced
-  static ramp_v0_t vision_pitch_ramp = RAMP_GEN_DAFAULT;
-..\Application\gimbal\gimbal_task.c(32): warning:  #177-D: variable "pitch_vision_ramp"  was declared but never referenced
-  static ramp_v0_t pitch_vision_ramp = RAMP_GEN_DAFAULT;
-..\Application\gimbal\gimbal_task.c(33): warning:  #550-D: variable "update_flag"  was set but never used
-  static uint8_t update_flag = 0;
-..\Application\gimbal\gimbal_task.c(37): warning:  #550-D: variable "last_track"  was set but never used
-  static u8 last_track = 2;
-..\Application\gimbal\gimbal_task.c: 11 warnings, 0 errors
-compiling RV_task.c...
-..\MY_Task\RV_task.c(59): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	x0 = RV_RX->x*(1 - 
-x) + move_str->last_x * 
-x;
-..\MY_Task\RV_task.c(60): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	y0 = RV_RX->y*(1 - 
-y) + move_str->last_y * 
-y;
-..\MY_Task\RV_task.c(57): warning:  #177-D: variable "pitch_out"  was declared but never referenced
-  	float pitch_out;
-..\MY_Task\RV_task.c(102): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		 RV_TXS.pitch = (gimbal_handle.imu->euler.pitch)*3.1415926/180;
-..\MY_Task\RV_task.c(131): warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
-      
-sThreadDef(rv_task, RV_Task, osPriorityNormal, 0, 256);
-..\MY_Task\RV_task.c(19): warning:  #177-D: variable "RV_task_stack"  was declared but never referenced
-  static uint32_t RV_task_stack = 0;
-..\MY_Task\RV_task.c: 6 warnings, 0 errors
+..\MY_Task\MY_protocol.c: 5 warnings, 0 errors
 compiling data_send_task.c...
-..\MY_Task\data_send_task.h(9): warning:  #1295-D: Deprecated declaration data_send_task_init - give arg types
+..\MY_Task\data_send_task.h(17): warning:  #1295-D: Deprecated declaration data_send_task_init - give arg types
   void data_send_task_init();
-..\MY_Task\data_send_task.h(10): warning:  #1295-D: Deprecated declaration vofa_send_task_init - give arg types
+..\MY_Task\data_send_task.h(18): warning:  #1295-D: Deprecated declaration vofa_send_task_init - give arg types
   void vofa_send_task_init();
-..\MY_Task\data_send_task.h(16): warning:  #1-D: last line of file ends without a newline
-  #endif // !DATA_SEND_TASK_H
-..\MY_Task\data_send_task.c(64): warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
+..\MY_Task\data_send_task.h(24): warning:  #1-D: last line of file ends without a newline
+  #endif // DATA_SEND_TASK_H
+..\MY_Task\data_send_task.c(65): warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
       
 sThreadDef(data_sendTask, data_send_task, osPriorityNormal, 0, 256);
-..\MY_Task\data_send_task.c(70): warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
+..\MY_Task\data_send_task.c(71): warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
       
 sThreadDef(vofa_sengTask, vofa_send_task, osPriorityNormal, 0, 256);
-..\MY_Task\data_send_task.c(232): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-                  yaw = gimbal_handle.yaw_motor.sensor.relative_angle/57.295780490;//转化为弧度制
-..\MY_Task\data_send_task.c(236): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-                  yaw = gimbal_handle.yaw_motor.sensor.relative_angle/57.295780490;
-..\MY_Task\data_send_task.c(284): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
-          sprintf(vofa_buff, "samples: %.2f, %.2f, %.2f, %.2f,%.2f, %.2f\r\n",info->pitch_angle,
+..\MY_Task\data_send_task.c(122): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+              gimbal_handle.pitch_motor.vision_speed = -vision_info.pitch_vel * 57.3;//deg
+..\MY_Task\data_send_task.c(123): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+              gimbal_handle.yaw_motor.vision_speed = vision_info.yaw_vel * 57.3;//deg
+..\MY_Task\data_send_task.c(243): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                  yaw = gimbal_handle.yaw_motor.sensor.gyro_angle/57.295780490;//转化为弧度制
+..\MY_Task\data_send_task.c(247): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                  yaw = gimbal_handle.yaw_motor.sensor.gyro_angle/57.295780490;
+..\MY_Task\data_send_task.c(258): warning:  #177-D: variable "yaw_speed"  was declared but never referenced
+              float yaw_speed = motor[Motor1].para.vel;
+..\MY_Task\data_send_task.c(303): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                                                          info->pitch_vel * 57.3,
+..\MY_Task\data_send_task.c(300): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
+          sprintf(vofa_buff, "samples: %.2f, %.2f, %.2f, %.2f,%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.d\r\n",info->pitch_angle,
 ..\MY_Task\data_send_task.c(24): warning:  #177-D: variable "send_data_task_stack"  was declared but never referenced
   static uint32_t send_data_task_stack = 0;
-..\MY_Task\data_send_task.c(57): warning:  #177-D: variable "k"  was declared but never referenced
+..\MY_Task\data_send_task.c(58): warning:  #177-D: variable "k"  was declared but never referenced
   static fp32 k = 0;
-..\MY_Task\data_send_task.c(58): warning:  #177-D: variable "b"  was declared but never referenced
+..\MY_Task\data_send_task.c(59): warning:  #177-D: variable "b"  was declared but never referenced
   static fp32 b = 0;
-..\MY_Task\data_send_task.c: 11 warnings, 0 errors
-compiling chassis_task.c...
-..\Application\chassis\chassis_task.c(95): warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
-      
-sThreadDef(chassis_task, ChassisTask, osPriorityNormal, 0, 256);
-..\Application\chassis\chassis_task.c(17): warning:  #550-D: variable "chassis_task_stack"  was set but never used
-  static uint32_t chassis_task_stack = 0;
-..\Application\chassis\chassis_task.c: 2 warnings, 0 errors
+..\MY_Task\data_send_task.c: 15 warnings, 0 errors
 linking...
-Program Size: Code=75096 RO-data=4292 RW-data=860 ZI-data=48092  
+Program Size: Code=92208 RO-data=4372 RW-data=1144 ZI-data=56264  
 FromELF: creating hex file...
-"Infantry\Infantry.axf" - 0 Error(s), 70 Warning(s).
+"Infantry\Infantry.axf" - 0 Error(s), 20 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -240,7 +100,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE@5.6.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:16
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

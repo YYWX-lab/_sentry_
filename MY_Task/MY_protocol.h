@@ -16,6 +16,10 @@ typedef struct PACK_ANALYSIS_T
     float f1;
     float f2;
     float f3;
+    float f4;
+    float f5;
+    float f6;
+    float f7;
 
     uint16_t d1;
     uint16_t d2;
@@ -29,8 +33,10 @@ typedef struct PACK_ANALYSIS_T
 
 }PACK_ANALYSIS_T;
 
-uint8_t tx_pack_make(uint8_t *tx_pack,uint8_t header,uint8_t cmd,float f1,float f2,float f3 ,float f4, float f5 , float f6, float f7, float f8, uint16_t d1, uint8_t game_state,uint8_t robot_id);//,uint16_t d1,uint16_t d2,uint16_t d3,uint16_t d4);
+uint8_t tx_pack_make(uint8_t *tx_pack,uint8_t header,uint8_t cmd,float f1,float f2,float f3 ,float f4, float f5 , float f6, float f7, float f8, float f9, float f10, uint16_t d1, uint8_t game_state,uint8_t robot_id);//,uint16_t d1,uint16_t d2,uint16_t d3,uint16_t d4);
 void pack_analysis(uint8_t *rx_pack,PACK_ANALYSIS_T *pack_analysis);
+int16_t str_to_int16(uint8_t *str);
+void vofa_parse(uint8_t *buf);
 
 
 #endif //F411_FLY_CTRL_MY_PROTOCOL_H

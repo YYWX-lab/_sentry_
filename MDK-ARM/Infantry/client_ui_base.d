@@ -1,7 +1,7 @@
 infantry\client_ui_base.o: ..\Components\Comm\client_ui_base.c
 infantry\client_ui_base.o: ..\Components\Comm\client_ui_base.h
 infantry\client_ui_base.o: ..\Components\Comm\comm_protocol.h
-infantry\client_ui_base.o: ..\Components\utils\fifo.h
+infantry\client_ui_base.o: ../Components/utils/fifo.h
 infantry\client_ui_base.o: ../Core/Inc/main.h
 infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\client_ui_base.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -38,8 +38,11 @@ infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi
 infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+infantry\client_ui_base.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 infantry\client_ui_base.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-infantry\client_ui_base.o: ..\Components\utils\linux_list.h
+infantry\client_ui_base.o: ../Components/utils/linux_list.h
 infantry\client_ui_base.o: ..\Components\Comm\referee_system.h
-infantry\client_ui_base.o: ..\Components\utils\struct_typedef.h
+infantry\client_ui_base.o: ../Components/utils/struct_typedef.h
 infantry\client_ui_base.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

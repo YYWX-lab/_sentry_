@@ -59,7 +59,8 @@ static void pid_param_init(
     float intergral_limit,
     float    kp,
     float    ki,
-    float    kd)
+    float    kd,
+    float    kf)
 {
 
     pid->integral_limit = intergral_limit;
@@ -69,6 +70,7 @@ static void pid_param_init(
     pid->p = kp;
     pid->i = ki;
     pid->d = kd;
+    pid->k_f = kf;
 
 }
 
@@ -81,15 +83,17 @@ static void pid_param_init(
  *        kd 微分系数
  * Return: 无
 *************************************************/
-static void pid_reset(pid_t* pid, float kp, float ki, float kd)
+static void pid_reset(pid_t* pid, float kp, float ki, float kd, float kf)
 {
     pid->p = kp;
     pid->i = ki;
     pid->d = kd;
+    pid->k_f = kf;
 
     pid->pout = 0;
     pid->iout = 0;
     pid->dout = 0;
+    pid->fout = 0;
     pid->out  = 0;
 
 }
@@ -118,6 +122,7 @@ float pid_calc(pid_t* pid, float get, float set)
         pid->dout = pid->d * (pid->err[NOW] - pid->err[LAST]);
 
         abs_limit(&(pid->iout), pid->integral_limit);
+        pid->fout = pid->k_f * (pid->set - pid->last_set);
         pid->out = pid->pout + pid->iout + pid->dout;
         abs_limit(&(pid->out), pid->max_out);
     }
@@ -133,6 +138,7 @@ float pid_calc(pid_t* pid, float get, float set)
 
     pid->err[LLAST] = pid->err[LAST];
     pid->err[LAST]  = pid->err[NOW];
+    pid->last_set = pid->set;
 
 
     if ((pid->output_deadband != 0) && (fabs(pid->out) < pid->output_deadband))
@@ -149,8 +155,12 @@ float pid_calc(pid_t* pid, float get, float set)
  *        set 目标值
  * Return: pid计算输出值
 *************************************************/
+uint16_t tick = 100;
+float feedforward_out = 0;
+float alpha = 0;
 float j4310_pid_calc(pid_t* pid, float get, float set)
 {
+    
     pid->get = get;
     pid->set = set;
    
@@ -164,6 +174,27 @@ float j4310_pid_calc(pid_t* pid, float get, float set)
     {
         pid->err[NOW] += 360.0f;
     }
+
+     // 1. 计算目标角度变化量（速度）
+    float target_speed = pid->set - pid->last_set;
+    // 2. 速度前馈（仅目标变化时输出）
+    float instant_ff = pid->k_f * target_speed;
+    // if(instant_ff != 0)
+    // {
+    //     feedforward_out = instant_ff;
+    // }
+    feedforward_out = instant_ff;
+      // 3. 低通滤波：让前馈平滑输出，解决「一瞬间失效」问题
+    // if (target_speed == 0 && abs(feedforward_out) < 0.5)
+    // {
+    //     alpha = 1;
+    // }
+    // else
+    // {
+    //     alpha = 0.00001;
+    // }
+    // // alpha = 0.05f; // 平滑系数(0~1)，越小越平滑
+    // feedforward_out = alpha * instant_ff + (1 - alpha) * feedforward_out;
     
     if ((pid->input_max_err != 0) && (fabs(pid->err[NOW]) > pid->input_max_err))
         return 0;
@@ -175,7 +206,9 @@ float j4310_pid_calc(pid_t* pid, float get, float set)
         pid->dout = pid->d * (pid->err[NOW] - pid->err[LAST]);
 
         abs_limit(&(pid->iout), pid->integral_limit);
-        pid->out = pid->pout + pid->iout + pid->dout;
+        // pid->fout = pid->k_f * (pid->set - pid->last_set);
+        pid->fout = feedforward_out;
+        pid->out = pid->pout + pid->iout + pid->dout + pid->fout;
         abs_limit(&(pid->out), pid->max_out);
     }
     else if (pid->pid_mode == DELTA_PID) //delta PID
@@ -184,20 +217,47 @@ float j4310_pid_calc(pid_t* pid, float get, float set)
         pid->iout = pid->i * pid->err[NOW];
         pid->dout = pid->d * (pid->err[NOW] - 2 * pid->err[LAST] + pid->err[LLAST]);
 
-        pid->out += pid->pout + pid->iout + pid->dout;
+        pid->out += pid->pout + pid->iout + pid->dout ;
         abs_limit(&(pid->out), pid->max_out);
     }
+    
+
 
     pid->err[LLAST] = pid->err[LAST];
     pid->err[LAST]  = pid->err[NOW];
+    pid->last_set = pid->set;
+    
 
 
     if ((pid->output_deadband != 0) && (fabs(pid->out) < pid->output_deadband))
         return 0;
     else
-        return pid->out;
+        return pid->out ;
 }
 
+// // 简易梯形轨迹规划（100Hz控制周期，阶跃角度转平滑运动）
+// float j4310_traj_plan(float get, float set)
+// {
+//     // 计算轨迹误差
+//     float err = dpid->out - dpid->traj_pos;
+//     // 360°环向修正
+//     if (err > 180)  err -= 360;
+//     if (err < -180) err += 360;
+    
+//     // 简易速度规划（快速平滑，无冲击）
+//     if (err > 0) {
+//         dpid->traj_vel = dpid->max_vel;  // 正速度
+//         if (dpid->traj_vel > err) dpid->traj_vel = err;
+//     } else if (err < 0) {
+//         dpid->traj_vel = -dpid->max_vel; // 负速度
+//         if (dpid->traj_vel < err) dpid->traj_vel = err;
+//     } else {
+//         dpid->traj_vel = 0; // 到达目标
+//     }
+    
+//     // 更新轨迹位置
+//     dpid->traj_pos += dpid->traj_vel;
+// }
 
 /*************************************************
  * Function: vision_pid
@@ -283,10 +343,11 @@ void pid_init(
 
     float kp,
     float ki,
-    float kd)
+    float kd,
+    float kf)
 {
-    pid_param_init(pid, mode, maxout, intergral_limit, kp, ki, kd);
-    pid_reset(pid, kp, ki, kd);
+    pid_param_init(pid, mode, maxout, intergral_limit, kp, ki, kd, kf);
+    pid_reset(pid, kp, ki, kd, kf);
 }
 
 /*************************************************

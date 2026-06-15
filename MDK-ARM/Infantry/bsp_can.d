@@ -1,5 +1,5 @@
 infantry\bsp_can.o: ..\BSP\Src\bsp_can.c
-infantry\bsp_can.o: ..\BSP\Inc\bsp_can.h
+infantry\bsp_can.o: ../BSP/Inc/bsp_can.h
 infantry\bsp_can.o: ../Core/Inc/main.h
 infantry\bsp_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\bsp_can.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -36,7 +36,10 @@ infantry\bsp_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 infantry\bsp_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\bsp_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\bsp_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-infantry\bsp_can.o: ..\BSP\Inc\bsp_def.h
+infantry\bsp_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+infantry\bsp_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+infantry\bsp_can.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
+infantry\bsp_can.o: ../BSP/Inc/bsp_def.h
 infantry\bsp_can.o: ../Core/Inc/can.h
-infantry\bsp_can.o: ..\Components\utils\fifo.h
+infantry\bsp_can.o: ../Components/utils/fifo.h
 infantry\bsp_can.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

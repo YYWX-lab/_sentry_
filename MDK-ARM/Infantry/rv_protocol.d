@@ -36,6 +36,9 @@ infantry\rv_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 infantry\rv_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\rv_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\rv_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+infantry\rv_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+infantry\rv_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+infantry\rv_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 infantry\rv_protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-infantry\rv_protocol.o: ..\Components\Comm\crc.h
+infantry\rv_protocol.o: ../Components/Comm/crc.h
 infantry\rv_protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

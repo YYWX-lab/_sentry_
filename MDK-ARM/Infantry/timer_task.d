@@ -1,6 +1,6 @@
 infantry\timer_task.o: ..\Application\timer_task.c
 infantry\timer_task.o: ..\Application\timer_task.h
-infantry\timer_task.o: ..\Components\SoftwareTimer\soft_timer.h
+infantry\timer_task.o: ../Components/SoftwareTimer/soft_timer.h
 infantry\timer_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\timer_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 infantry\timer_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h

@@ -66,7 +66,8 @@ void IMU_TaskInit(void)
              TEMPERATURE_PID_MAX_IOUT,
              TEMPERATURE_PID_KP,
              TEMPERATURE_PID_KI,
-             TEMPERATURE_PID_KD);
+             TEMPERATURE_PID_KD,
+             0.0f);
 
     osThreadDef(imu_task, IMU_Task, osPriorityNormal, 0, 256);
     ImuTaskHandle = osThreadCreate(osThread(imu_task), NULL);

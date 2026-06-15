@@ -19,6 +19,7 @@ typedef struct
     float bat_current;
     float cap_v;
     float bat_v;
+    float power_limit;
 } SuperPowerInfo_t;
 
 /* 宏定义 --------------------------------------------------------------------*/

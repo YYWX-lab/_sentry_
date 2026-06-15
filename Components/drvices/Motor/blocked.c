@@ -63,7 +63,7 @@ BlockedState_t Blocked_Process(BlockedHandle_t* handle, fp32 speed)
         return BLOCKED;
     }
 
-    if ( fabs(speed) < 1.0f)
+    if ( fabs(speed) < 50.0f)
     {
         if (time_now - handle->turn_time > handle->blocked_timer)
         {

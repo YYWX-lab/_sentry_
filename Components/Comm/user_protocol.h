@@ -20,6 +20,7 @@ typedef struct
     ChassisCtrlMode_e mode;
     fp32    x_speed;
     fp32    y_speed;
+    fp32    yaw_speed;
 } Comm_ChassisInfo_t;
 
 typedef struct
@@ -45,10 +46,15 @@ typedef struct
     fp32    yaw_angle;//传下来的yaw轴角度（度）
     fp32    pitch_angle;//传下来的pitch轴角度（度）
     fp32    distance;//距离（mm）
+    fp32    yaw_acc;
+    fp32    yaw_vel;
+    fp32    pitch_acc;
+    fp32    pitch_vel;
     uint8_t is_track;
     uint8_t vision_up_date;
     uint8_t up_date;
     uint8_t is_shoot;//射击为1
+
 } Comm_VisionInfo_t;
 
 #pragma pack(pop)

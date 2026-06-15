@@ -46,6 +46,7 @@ void AppInit(void)
     StartMusic();
 
     SoftwareTimerTaskInit();
+    Calibrate_Init();
     IMU_TaskInit();
     ConsoleTaskInit();
     Comm_TaskInit();
@@ -71,6 +72,7 @@ void AppInit(void)
         ChassisAppConfig();
         ChassisTaskInit();
     }
+
     // Calibrate_Init();
 }
 
@@ -91,6 +93,6 @@ void StartMusic(void)
     HAL_Delay(100);
     Buzzer_SetBeep(LA, 150);
     HAL_Delay(100);
-    Buzzer_SetBeep(0, 0);
+    Buzzer_SetBeep(LA, 0);
     HAL_Delay(100);
 }

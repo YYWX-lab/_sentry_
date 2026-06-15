@@ -183,23 +183,24 @@ void Calibrate_Init(void)
     uint8_t i = 0;
 
 //    CalibrateObject_Init(CALIBRATE_GIMBAL, (uint32_t*)&gimbal_cali, sizeof(GimbalCalibrate_t), GimbalCalibrate_Hook);
-//    CalibrateObject_Init(CALIBRATE_GYRO, (uint32_t*)&gyro_cali, sizeof(IMU_Calibrate_t), GyroCalibrate_Hook);
+   CalibrateObject_Init(CALIBRATE_GYRO, (uint32_t*)&gyro_cali, sizeof(IMU_Calibrate_t), GyroCalibrate_Hook);
 //    CalibrateObject_Init(CALIBRATE_ACC, (uint32_t*)&accel_cali, sizeof(IMU_Calibrate_t), NULL);
 //    CalibrateObject_Init(CALIBRATE_MAG, (uint32_t*)&mag_cali, sizeof(IMU_Calibrate_t), NULL);
-//
-//    Calibrate_ReadData();
 
-//    for (i = 0; i < CALI_LIST_LENGHT; i++)
-//    {
-//        if (cali_obj[i].cali_done == CALIED_FLAG)
-//        {
-//            if (cali_obj[i].hook_func != NULL)
-//            {
-//                //if has been calibrated, set to init
-//                cali_obj[i].hook_func(cali_obj[i].flash_buffer, CALI_FUNC_CMD_INIT);
-//            }
-//        }
-//    }
+    Calibrate_ReadData();
+
+    for (i = 0; i < CALI_LIST_LENGHT; i++)
+    {
+       if (cali_obj[i].cali_done == CALIED_FLAG)
+       {
+           if (cali_obj[i].hook_func != NULL)
+           {
+               //if has been calibrated, set to init
+               cali_obj[i].hook_func(cali_obj[i].flash_buffer, CALI_FUNC_CMD_INIT);
+           }
+       }
+    }
+   
 
     osDelay(1000);
     if (console.rc->sw1 == REMOTE_SWITCH_VALUE_DOWN && console.rc->sw2 == REMOTE_SWITCH_VALUE_DOWN)
@@ -213,6 +214,8 @@ void Calibrate_Init(void)
     {
         return;
     }
+
+    
 
     osThreadDef(calibrate_task, CalibrateTask, osPriorityNormal, 0, 256);
     CalibrateTaskHandle = osThreadCreate(osThread(calibrate_task), NULL);

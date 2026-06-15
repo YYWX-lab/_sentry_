@@ -1,0 +1,98 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.39.0.0
+Copyright (C) 2023 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: huang 2923733061@qq.com, none, LIC=LSNXV-PDJAD-ARFXW-QHK77-GX9RN-7WUAJ
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.39.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 4 (build 422)
+Assembler:       Armasm.exe V5.06 update 4 (build 422)
+Linker/Locator:  ArmLink.exe V5.06 update 4 (build 422)
+Library Manager: ArmAr.exe V5.06 update 4 (build 422)
+Hex Converter:   FromElf.exe V5.06 update 4 (build 422)
+CPU DLL:         SARMCM3.DLL V5.39.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      CMSIS_AGDI.dll V1.33.16.0
+Dialog DLL:      TCM.DLL V1.56.4.0
+ 
+<h2>Project:</h2>
+d:\RM\Odw_sentry\Odw_sentry-USB\MDK-ARM\sentry.uvprojx
+Project File Date:  06/10/2026
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'Infantry'
+compiling gimbal_task.c...
+..\Application\gimbal\gimbal_task.c(140): warning:  #144-D: a value of type "void (*)(void *)" cannot be used to initialize an entity of type "os_pthread"
+      
+sThreadDef(gimbal_task, GimbalTask, osPriorityNormal, 0, 256);
+..\Application\gimbal\gimbal_task.c(147): warning:  #144-D: a value of type "void (*)(void)" cannot be used to initialize an entity of type "os_ptimer"
+      
+sTimerDef(mstimeStampTimer, TimerCallback);
+..\Application\gimbal\gimbal_task.c(194): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+              tick += 0.01;
+..\Application\gimbal\gimbal_task.c(206): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                  motor[Motor1].ctrl.vel_set = -j4310_pid_calc(&gimbal_handle.yaw_motor.j4310_pid, gimbal_handle.yaw_motor.sensor.gyro_angle, gimbal_handle.yaw_motor.given_value-2) - vision_info->yaw_vel*1 - vision_info->yaw_acc*0.05 + chassis_info->yaw_speed/57.3f;//37
+..\Application\gimbal\gimbal_task.c(212): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                      motor[Motor1].ctrl.vel_set = -j4310_pid_calc(&gimbal_handle.yaw_motor.j4310_pid, gimbal_handle.yaw_motor.sensor.gyro_angle, gimbal_handle.yaw_motor.given_value) - vision_info->yaw_vel*1 - vision_info->yaw_acc*0.08 + chassis_info->yaw_speed/57.3f  ;// vision_info->yaw_acc*0.08
+..\Application\gimbal\gimbal_task.c(215): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                  motor[Motor1].ctrl.vel_set = -j4310_pid_calc(&gimbal_handle.yaw_motor.j4310_pid, gimbal_handle.yaw_motor.sensor.gyro_angle, gimbal_handle.yaw_motor.given_value) - vision_info->yaw_vel*1 - vision_info->yaw_acc*0.08 + chassis_info->yaw_speed/57.3f   ;// vision_info->yaw_acc*0.08
+..\Application\gimbal\gimbal_task.c(191): warning:  #177-D: variable "angle_err"  was declared but never referenced
+      float angle_err, traj_vel;
+..\Application\gimbal\gimbal_task.c(191): warning:  #177-D: variable "traj_vel"  was declared but never referenced
+      float angle_err, traj_vel;
+..\Application\gimbal\gimbal_task.c(390): warning:  #177-D: variable "yaw"  was declared but never referenced
+      fp32 yaw_target = 0, yaw = 0;
+..\Application\gimbal\gimbal_task.c(613): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+              yaw_add += 0.0;//0.5
+..\Application\gimbal\gimbal_task.c(614): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+              pitch_add += 0.08;//0.15
+..\Application\gimbal\gimbal_task.c(617): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+              yaw_target += 0.8;//2.5
+..\Application\gimbal\gimbal_task.c(23): warning:  #550-D: variable "gimbal_task_stack"  was set but never used
+  static uint32_t gimbal_task_stack = 0;
+..\Application\gimbal\gimbal_task.c(31): warning:  #177-D: variable "vision_pitch_ramp"  was declared but never referenced
+  static ramp_v0_t vision_pitch_ramp = RAMP_GEN_DAFAULT;
+..\Application\gimbal\gimbal_task.c(32): warning:  #177-D: variable "pitch_vision_ramp"  was declared but never referenced
+  static ramp_v0_t pitch_vision_ramp = RAMP_GEN_DAFAULT;
+..\Application\gimbal\gimbal_task.c(33): warning:  #550-D: variable "update_flag"  was set but never used
+  static uint8_t update_flag = 0;
+..\Application\gimbal\gimbal_task.c(37): warning:  #550-D: variable "last_track"  was set but never used
+  static u8 last_track = 2;
+..\Application\gimbal\gimbal_task.c: 17 warnings, 0 errors
+linking...
+Program Size: Code=97088 RO-data=4476 RW-data=1216 ZI-data=56712  
+FromELF: creating hex file...
+".\Infantry.axf" - 0 Error(s), 17 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM::CMSIS@5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.12.0.pack
+                Keil::STM32F4xx_DFP@2.12.0
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_Infantry
+  C:/Users/29237/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/29237/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.12.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE@5.6.0
+      Include file:  CMSIS/Core/Include/tz_context.h
+Build Time Elapsed:  00:00:13
+</pre>
+</body>
+</html>

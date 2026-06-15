@@ -36,6 +36,9 @@ infantry\bmi088middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_s
 infantry\bmi088middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\bmi088middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\bmi088middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+infantry\bmi088middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+infantry\bmi088middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+infantry\bmi088middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 infantry\bmi088middleware.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 infantry\bmi088middleware.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 infantry\bmi088middleware.o: ../Core/Inc/FreeRTOSConfig.h
@@ -50,5 +53,5 @@ infantry\bmi088middleware.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/
 infantry\bmi088middleware.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 infantry\bmi088middleware.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 infantry\bmi088middleware.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-infantry\bmi088middleware.o: ..\BSP\Inc\bsp_delay.h
-infantry\bmi088middleware.o: ..\BSP\Inc\bsp_def.h
+infantry\bmi088middleware.o: ../BSP/Inc/bsp_delay.h
+infantry\bmi088middleware.o: ../BSP/Inc/bsp_def.h

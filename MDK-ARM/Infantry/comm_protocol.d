@@ -1,6 +1,6 @@
 infantry\comm_protocol.o: ..\Components\Comm\comm_protocol.c
 infantry\comm_protocol.o: ..\Components\Comm\comm_protocol.h
-infantry\comm_protocol.o: ..\Components\utils\fifo.h
+infantry\comm_protocol.o: ../Components/utils/fifo.h
 infantry\comm_protocol.o: ../Core/Inc/main.h
 infantry\comm_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\comm_protocol.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -37,7 +37,10 @@ infantry\comm_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.
 infantry\comm_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\comm_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\comm_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+infantry\comm_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+infantry\comm_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+infantry\comm_protocol.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 infantry\comm_protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-infantry\comm_protocol.o: ..\Components\utils\linux_list.h
+infantry\comm_protocol.o: ../Components/utils/linux_list.h
 infantry\comm_protocol.o: ..\Components\Comm\crc.h
 infantry\comm_protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

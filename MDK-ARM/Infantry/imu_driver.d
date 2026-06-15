@@ -1,6 +1,6 @@
 infantry\imu_driver.o: ..\Components\drvices\IMU\imu_driver.c
 infantry\imu_driver.o: ..\Components\drvices\IMU\imu_driver.h
-infantry\imu_driver.o: ..\Components\utils\struct_typedef.h
+infantry\imu_driver.o: ../Components/utils/struct_typedef.h
 infantry\imu_driver.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\imu_driver.o: ..\Components\drvices\IMU\BMI088driver.h
 infantry\imu_driver.o: ../Core/Inc/main.h
@@ -38,9 +38,12 @@ infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+infantry\imu_driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 infantry\imu_driver.o: ..\Components\drvices\IMU\ist8310driver.h
-infantry\imu_driver.o: ..\Components\algorithms\AHRS.h
-infantry\imu_driver.o: ..\Components\algorithms\AHRS_MiddleWare.h
+infantry\imu_driver.o: ../Components/algorithms/AHRS.h
+infantry\imu_driver.o: ../Components/algorithms/AHRS_MiddleWare.h
 infantry\imu_driver.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 infantry\imu_driver.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 infantry\imu_driver.o: ../Core/Inc/FreeRTOSConfig.h

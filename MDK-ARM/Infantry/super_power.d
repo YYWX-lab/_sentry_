@@ -1,8 +1,8 @@
 infantry\super_power.o: ..\Components\drvices\RGB_Led\super_power.c
 infantry\super_power.o: ..\Components\drvices\RGB_Led\super_power.h
-infantry\super_power.o: ..\Components\utils\struct_typedef.h
+infantry\super_power.o: ../Components/utils/struct_typedef.h
 infantry\super_power.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-infantry\super_power.o: ..\BSP\Inc\bsp_can.h
+infantry\super_power.o: ../BSP/Inc/bsp_can.h
 infantry\super_power.o: ../Core/Inc/main.h
 infantry\super_power.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\super_power.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -38,7 +38,10 @@ infantry\super_power.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 infantry\super_power.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\super_power.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\super_power.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-infantry\super_power.o: ..\BSP\Inc\bsp_def.h
+infantry\super_power.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+infantry\super_power.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+infantry\super_power.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
+infantry\super_power.o: ../BSP/Inc/bsp_def.h
 infantry\super_power.o: ../Core/Inc/can.h
-infantry\super_power.o: ..\Components\utils\fifo.h
+infantry\super_power.o: ../Components/utils/fifo.h
 infantry\super_power.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

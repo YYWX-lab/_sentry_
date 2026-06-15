@@ -89,7 +89,7 @@
  ******************************************************************************/
 /*---------------↓ 通用任务 ↓---------------*/
 #define START_TASK_PERIOD           100
-#define IMU_TASK_PERIOD             5
+#define IMU_TASK_PERIOD             2//5
 #define CONSOLE_TASK_PERIOD         20
 #define COMM_TASK_PERIOD            1
 #define DETECT_TASK_PERIOD          10

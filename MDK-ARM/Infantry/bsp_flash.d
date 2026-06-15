@@ -1,5 +1,5 @@
 infantry\bsp_flash.o: ..\BSP\Src\bsp_flash.c
-infantry\bsp_flash.o: ..\BSP\Inc\bsp_flash.h
+infantry\bsp_flash.o: ../BSP/Inc/bsp_flash.h
 infantry\bsp_flash.o: ../Core/Inc/main.h
 infantry\bsp_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 infantry\bsp_flash.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -36,5 +36,8 @@ infantry\bsp_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 infantry\bsp_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\bsp_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\bsp_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-infantry\bsp_flash.o: ..\BSP\Inc\bsp_def.h
+infantry\bsp_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+infantry\bsp_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+infantry\bsp_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
+infantry\bsp_flash.o: ../BSP/Inc/bsp_def.h
 infantry\bsp_flash.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

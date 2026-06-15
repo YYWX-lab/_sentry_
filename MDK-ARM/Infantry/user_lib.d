@@ -1,6 +1,6 @@
 infantry\user_lib.o: ..\Components\algorithms\user_lib.c
 infantry\user_lib.o: ..\Components\algorithms\user_lib.h
-infantry\user_lib.o: ..\Components\utils\struct_typedef.h
+infantry\user_lib.o: ../Components/utils/struct_typedef.h
 infantry\user_lib.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 infantry\user_lib.o: ..\Components\algorithms\arm_math.h
 infantry\user_lib.o: ../Drivers/CMSIS/Include/core_cm4.h

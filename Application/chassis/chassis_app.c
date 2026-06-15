@@ -66,10 +66,10 @@ void ChassisAppConfig(void)
     {
         chassis_handle.chassis_motor[i].motor_info = ChassisMotor_Pointer(i);
         pid_init(&chassis_handle.chassis_motor[i].pid, POSITION_PID, M3508_MOTOR_MAX_CURRENT, 2000.0f,
-                 6.5f, 0.1f, 0.0f);
+                 6.5f, 0.1f, 0.0f, 0.0f);
     }
     pid_init(&chassis_handle.chassis_follow_pid, POSITION_PID, 300.0f, 50.0f,
-             4.0f, 0.0f, 2.0f);
+             4.0f, 0.0f, 2.0f, 0.0f);
 
     /*--------------------event-----------------|-------enable-------|-offline time-|-beep_times-*/
     //  OfflineHandle_Init(OFFLINE_CHASSIS_MOTOR1,  OFFLINE_ERROR_LEVEL,       100,         1);
@@ -106,6 +106,7 @@ static int32_t ChassisInfoUploadCallback(void *argc)
     info->x_speed = chassis_handle.vx;
     info->y_speed = chassis_handle.vy;
     info->mode = chassis_handle.ctrl_mode;
+    info->yaw_speed = chassis_handle.imu->gyro[2]*57.3;
     Comm_TransmitData(&chassis_tx_handle, USER_PROTOCOL_HEADER_SOF, CHASSIS_INFO_CMD_ID, (uint8_t*)info, sizeof(Comm_ChassisInfo_t));
     return 0;
 }
@@ -148,7 +149,7 @@ static int32_t SuperPower_CtrlLoop(void *argc) {
     } 
     else 
     {
-        power_limit = 60;
+        power_limit = 90 * 100;
     }
     SuperPowerV1_SendMessage(chassis_handle.chassis_can,
                              power_limit//2025.12.28增加超电

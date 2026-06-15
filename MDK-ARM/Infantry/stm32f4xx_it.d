@@ -35,9 +35,12 @@ infantry\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 infantry\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 infantry\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 infantry\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+infantry\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+infantry\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+infantry\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 infantry\stm32f4xx_it.o: ../Core/Inc/stm32f4xx_it.h
-infantry\stm32f4xx_it.o: ..\BSP\Inc\bsp_uart.h
-infantry\stm32f4xx_it.o: ..\BSP\Inc\bsp_def.h
+infantry\stm32f4xx_it.o: ../BSP/Inc/bsp_uart.h
+infantry\stm32f4xx_it.o: ../BSP/Inc/bsp_def.h
 infantry\stm32f4xx_it.o: ../Core/Inc/usart.h
-infantry\stm32f4xx_it.o: ..\Components\utils\fifo.h
+infantry\stm32f4xx_it.o: ../Components/utils/fifo.h
 infantry\stm32f4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

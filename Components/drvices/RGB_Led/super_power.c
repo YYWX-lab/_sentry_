@@ -24,6 +24,9 @@ void SuperPowerV1_DataParse(uint8_t data[], uint8_t len)
     super_power.cap_v /= 100;
     super_power.bat_current = (data[5]<<8)|data[4];
     super_power.bat_current /= 100;
+    super_power.power_limit = (data[7]<<8)|data[6];
+    super_power.power_limit /= 100;
+
 }
 
 // void SuperPowerV1_SendMessage(CAN_Object_t* obj, int16_t super_power_cmd, int16_t chassis_power, int16_t chassis_power_buffer, int16_t chassis_power_limit)

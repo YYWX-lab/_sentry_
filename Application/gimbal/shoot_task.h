@@ -37,6 +37,7 @@ typedef struct
     fp32            ecd_ratio;
 
     Double_PID_t    pid;
+    pid_t           speed_pid;
     fp32            speed;
     fp32            angle;
     fp32            set_speed;

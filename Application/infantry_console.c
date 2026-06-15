@@ -38,6 +38,7 @@ static void RemoteControl_Operation(void);
 static void Keyboard_Operation(void);
 static void Other_Operation(void);
 static void Auto_sentry_Mode(void);
+static void Auto_sentry_Mode2(void);
 
 /* 函数体 --------------------------------------------------------------------*/
 void ConsoleTask(void *argument)
@@ -74,7 +75,8 @@ void ConsoleTask(void *argument)
                 }
                 else if(console.rc->sw1 == REMOTE_SWITCH_VALUE_UP)
                 {
-                    Keyboard_Operation();
+                    // Keyboard_Operation();
+                    Auto_sentry_Mode2();
                 }
                 else if(console.rc->sw1 == REMOTE_SWITCH_VALUE_DOWN)
                 {
@@ -297,6 +299,80 @@ static void Auto_sentry_Mode()
 }
 
 
+static void Auto_sentry_Mode2(void)
+{
+    // if ( == 1)
+    // {
+        static uint32_t shoot_time = 0;
+        console.gimbal_cmd = GIMBAL_VISION_CMD;
+        if (console.rc->sw2 == REMOTE_SWITCH_VALUE_UP)
+        {
+            // console.gimbal_cmd = GIMBAL_RELATIVE_CMD;
+            console.chassis_cmd = CHASSIS_SEPARATE_GIMBAL_CMD;
+
+        }
+        else if(console.rc->sw2 == REMOTE_SWITCH_VALUE_CENTRAL)
+        {
+            // console.gimbal_cmd = GIMBAL_NORMAL_CMD;
+            console.chassis_cmd = CHASSIS_FOLLOW_GIMBAL_CMD;
+
+        }
+        else if(console.rc->sw2 == REMOTE_SWITCH_VALUE_DOWN)
+        {
+            // console.gimbal_cmd = GIMBAL_NORMAL_CMD;
+            console.chassis_cmd = CHASSIS_SPIN_CMD;
+
+        }
+
+  
+
+        console.chassis.vx = console.rc->ch2 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_X;
+        console.chassis.vy = console.rc->ch1 / RC_RESOLUTION * RC_CHASSIS_MAX_SPEED_Y;
+        console.gimbal.pitch_v = console.rc->ch4 * RC_GIMBAL_MOVE_RATIO_PIT;
+        console.gimbal.yaw_v = -console.rc->ch3 * RC_GIMBAL_MOVE_RATIO_YAW;
+
+
+        if (console.gimbal_cmd == GIMBAL_VISION_CMD ) 
+        {
+            
+   
+            // console.shoot_cmd = SHOOT_START_CMD;
+            if (console.shoot_cmd == SHOOT_STOP_CMD )
+            {
+                if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
+                {
+                    console.shoot_cmd = SHOOT_START_CMD;
+                }
+            }
+            else if (console.shoot_cmd == SHOOT_START_CMD )
+            {
+                if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO1)
+                {
+                    console.shoot_cmd = SHOOT_STOP_CMD;
+                }
+                else if (wheel_switch.switch_state == REMOTE_SWITCH_CHANGE_3TO2 || gimbal_handle.is_fire == 1)
+                {
+                    console.shoot.fire_cmd = ONE_FIRE_CMD;
+                }
+                else if (wheel_switch.switch_value_raw == REMOTE_SWITCH_VALUE_DOWN)
+                {
+                    shoot_time++;
+                    if(shoot_time > 50)
+                        console.shoot.fire_cmd = ONE_FIRE_CMD;
+                    else
+                        console.shoot.fire_cmd = STOP_FIRE_CMD;
+                }
+                else
+                {
+                    console.shoot.fire_cmd = STOP_FIRE_CMD;
+                    shoot_time = 0;
+                }
+            }        
+        }
+
+    
+}
+
 static void Keyboard_Operation(void)
 {
     fp32 chassis_vx = 0;
@@ -306,7 +382,7 @@ static void Keyboard_Operation(void)
     {
         if (!last_rc.kb.bit.C && console.rc->kb.bit.C)
         {
-            console.gimbal_cmd = GIMBAL_NORMAL_CMD;
+            // console.gimbal_cmd = GIMBAL_NORMAL_CMD;
             console.chassis_cmd = CHASSIS_FOLLOW_GIMBAL_CMD;
             UI_update_flag.chassis_mode = 0;
         }
@@ -315,7 +391,7 @@ static void Keyboard_Operation(void)
     {
         if (!last_rc.kb.bit.C && console.rc->kb.bit.C)
         {
-            console.gimbal_cmd = GIMBAL_NORMAL_CMD;
+            // console.gimbal_cmd = GIMBAL_NORMAL_CMD;
             console.chassis_cmd = CHASSIS_SPIN_CMD;
             UI_update_flag.chassis_mode = 1;
         }
@@ -414,7 +490,12 @@ static void Keyboard_Operation(void)
         {
             console.shoot.fire_cmd = ONE_FIRE_CMD;
         }
-        else if (!last_rc.mouse.r && console.rc->mouse.r)
+        // else if (!last_rc.mouse.r && console.rc->mouse.r)
+        // {
+        //     // console.shoot.fire_cmd = RAPID_FIRE_CMD;
+        //     console.shoot.fire_cmd = ONE_FIRE_CMD;
+        // }
+        else if ( console.rc->mouse.r)
         {
             // console.shoot.fire_cmd = RAPID_FIRE_CMD;
             console.shoot.fire_cmd = ONE_FIRE_CMD;

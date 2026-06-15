@@ -18,6 +18,7 @@
 #include "dm_motor_drv.h"
 
 #include "bsp_init.h"
+#include "MY_protocol.h"
 // #include "dm_motor.h"
 /* 私有类型定义 --------------------------------------------------------------*/
 extern RV_RX_STR RV_RXS;	
@@ -77,30 +78,32 @@ void GimbalAppConfig(void)
 
 
     pid_init(&gimbal_handle.pitch_motor.pid.outer_pid, POSITION_PID, 2000.0f, 0.0f,
-             40.0f, 0.0f, 0.0f);// 40 0 0
+             40.0f, 0.0f, 0.0f, 0.0f);// 40 0 0
     pid_init(&gimbal_handle.pitch_motor.pid.inter_pid, POSITION_PID, GM6020_MOTOR_MAX_CURRENT, 8000.0f,
-             60.0f, 0.0f, 0.0f);
+             60.0f, 0.0f, 0.0f, 0.0f);
 
-    pid_init(&gimbal_handle.yaw_motor.j4310_pid, POSITION_PID, 30.f, 0.0f, 
-             0.15f, 0.1f, 0.0f);
+    pid_init(&gimbal_handle.yaw_motor.j4310_pid, POSITION_PID, 30.f, 0.1f, 
+             0.15f, 0.01f, 0.0f, 50.0f);
+    // pid_init(&gimbal_handle.yaw_motor.j4310_pid, POSITION_PID, 1700.f, 0.0f, 
+    // 3.f, 0.f, 0.0f, 0.0f);
     dm_motor_init();
     // dm_motor_enable(gimbal_handle.gimbal_can,&motor[Motor1]);
     
 
 
     /*--------------------event------------------------|-------enable-------|-offline time-|-beep_times-*/
-    OfflineHandle_Init(OFFLINE_GIMBAL_PITCH,            OFFLINE_ERROR_LEVEL,       100,         5);
-    OfflineHandle_Init(OFFLINE_GIMBAL_YAW,              OFFLINE_ERROR_LEVEL,       100,         6);
+    // OfflineHandle_Init(OFFLINE_GIMBAL_PITCH,            OFFLINE_ERROR_LEVEL,       100,         5);
+    // OfflineHandle_Init(OFFLINE_GIMBAL_YAW,              OFFLINE_ERROR_LEVEL,       100,         6);
     // OfflineHandle_Init(OFFLINE_FRICTION_WHEEL_MOTOR1,   OFFLINE_ERROR_LEVEL,       100,         1);
     // OfflineHandle_Init(OFFLINE_FRICTION_WHEEL_MOTOR2,   OFFLINE_ERROR_LEVEL,       100,         2);
-    OfflineHandle_Init(OFFLINE_TRIGGER_MOTOR,           OFFLINE_ERROR_LEVEL,       100,         3);
+    // OfflineHandle_Init(OFFLINE_TRIGGER_MOTOR,           OFFLINE_ERROR_LEVEL,       100,         3);
     // OfflineHandle_Init(OFFLINE_MAGAZINE_MOTOR,          OFFLINE_WARNING_LEVEL,     100,         4);
 
 
     OfflineHandle_Init(OFFLINE_REFEREE_SYSTEM,          OFFLINE_WARNING_LEVEL,     100,         0);//ganggang
     
-    OfflineHandle_Init(OFFLINE_VISION_INFO,             OFFLINE_WARNING_LEVEL,     500,         1);
-    OfflineHandle_Init(OFFLINE_CHASSIS_INFO,            OFFLINE_WARNING_LEVEL,     100,         2);
+    OfflineHandle_Init(OFFLINE_VISION_INFO,             OFFLINE_WARNING_LEVEL,     500,         4);
+    // OfflineHandle_Init(OFFLINE_CHASSIS_INFO,            OFFLINE_WARNING_LEVEL,     100,         2);
     OfflineHandle_Init(OFFLINE_DBUS,                    OFFLINE_WARNING_LEVEL,     100,         0);
 
     Comm_TransmitInit(&gimbal_tx_handle, gimbal_tx_fifo_buffer, GIMBAL_CHASSIS_DATA_FIFO_SIZE, CAN1_UploadDataHook);
@@ -123,7 +126,7 @@ void key_callback(void)
     save_pos_zero(gimbal_handle.gimbal_can, motor[Motor1].id, MIT_MODE);
     Buzzer_SetBeep(392, 150);
     HAL_Delay(100);
-    Buzzer_SetBeep(0, 0);
+    Buzzer_SetBeep(392, 0);
     HAL_Delay(1000);
 }
 
@@ -156,6 +159,7 @@ static int32_t GimbalInfoUploadCallback(void *argc)
     info->yaw_rate          = gimbal_handle.yaw_motor.vel*180.f/PI;
     info->vision_up_date    = gimbal_handle.up_date;
     info->vision_distance   = vision_info->distance;
+
     
     Comm_TransmitData(&gimbal_tx_handle, USER_PROTOCOL_HEADER_SOF, GIMBAL_INFO_CMD_ID, (uint8_t*)info, sizeof(Comm_GimbalInfo_t));
     return 0;
@@ -170,7 +174,7 @@ static void DBUS_ReceiveCallback(uint8_t* data, uint16_t len)
 
 static void COM1_ReceiveCallback(uint8_t* data, uint16_t len)
 {
-
+    vofa_parse(data);
 }
 
 static void COM2_ReceiveCallback(uint8_t* data, uint16_t len)

@@ -16,7 +16,7 @@
 #include "detect_task.h"
 
 #include "math.h"
-
+#include "usbd_cdc_if.h"
 osThreadId SendDataTaskHandle;
 osThreadId VofaSendDataTaskHandle;
 osTimerId timeStampTimerHandle;
@@ -35,7 +35,9 @@ extern Comm_ChassisInfo_t chassis_info;
 extern Comm_VisionInfo_t vision_info;
 extern RV_GB_MOVE_STR rv_gb_s;
 extern RV_RX_STR RV_RXS;
-
+Vofa_data vofa_data;
+extern int16_t dat1;
+extern IMU_Data_t m_imu;
 
 // ext_game_robot_HP_t hp;
 // ext_game_robot_state_t robot_stste;
@@ -111,9 +113,15 @@ void PC_ReceiveCallback(uint8_t* data, uint16_t len)
             vision_info.yaw_angle = PACK_ANALYSIS_T_1.f1;
             vision_info.pitch_angle = PACK_ANALYSIS_T_1.f2;
             vision_info.distance = PACK_ANALYSIS_T_1.f3;
+            vision_info.yaw_acc = PACK_ANALYSIS_T_1.f4;
+            vision_info.yaw_vel = PACK_ANALYSIS_T_1.f5;//rad
+            vision_info.pitch_acc = PACK_ANALYSIS_T_1.f6;
+            vision_info.pitch_vel = PACK_ANALYSIS_T_1.f7;//rad
             vision_info.is_track = PACK_ANALYSIS_T_1.d5;
             vision_info.up_date = 1;
             vision_info.is_shoot = PACK_ANALYSIS_T_1.is_shoot;
+            gimbal_handle.pitch_motor.vision_speed = -vision_info.pitch_vel * 57.3;//deg
+            gimbal_handle.yaw_motor.vision_speed = vision_info.yaw_vel * 57.3;//deg
             
 
             // if(vision_info.is_track == 0)
@@ -129,6 +137,10 @@ void PC_ReceiveCallback(uint8_t* data, uint16_t len)
             gimbal_info->vx_pc = PACK_ANALYSIS_T_1.f1 * 1000;
             gimbal_info->vy_pc = -PACK_ANALYSIS_T_1.f2 * 1000;
             gimbal_info->vw_pc = PACK_ANALYSIS_T_1.f3;
+				
+			// gimbal_info->vx_pc = 0;
+            // gimbal_info->vy_pc = 0;
+            // gimbal_info->vw_pc = 0;
         }
         
 
@@ -226,14 +238,14 @@ void data_send_task(void *argument)
         if (app_type == GIMBAL_APP)
         {
 
-            if (gimbal_handle.yaw_motor.sensor.relative_angle<0)
+            if (gimbal_handle.yaw_motor.sensor.gyro_angle<0)
             {
-                yaw = gimbal_handle.yaw_motor.sensor.relative_angle + 360;       
-                yaw = gimbal_handle.yaw_motor.sensor.relative_angle/57.295780490;//转化为弧度制
+                yaw = gimbal_handle.yaw_motor.sensor.gyro_angle + 360;       
+                yaw = gimbal_handle.yaw_motor.sensor.gyro_angle/57.295780490;//转化为弧度制
             }
             else
             {
-                yaw = gimbal_handle.yaw_motor.sensor.relative_angle/57.295780490;
+                yaw = gimbal_handle.yaw_motor.sensor.gyro_angle/57.295780490;
             }
             vy = chassis_info.y_speed;
             vx = chassis_info.x_speed;
@@ -249,24 +261,27 @@ void data_send_task(void *argument)
             tx_pack_make(send_buff,
             VISION_HEAD,
             PC_TO_MCU_RECEIVE,
-            gimbal_handle.pitch_motor.sensor.relative_angle,
-            gimbal_handle.yaw_motor.sensor.gyro_angle,
-            yaw_speed,
-            pitch_speed,
+            gimbal_handle.imu->quat[0],// w
+            gimbal_handle.imu->quat[1],// x
+            gimbal_handle.imu->quat[2],// y
+            gimbal_handle.imu->quat[3],//z
+            gimbal_handle.pitch_motor.sensor.relative_angle,//gimbal_handle.pitch_motor.sensor.relative_angle
+            gimbal_handle.yaw_motor.sensor.gyro_angle,//gimbal_handle.yaw_motor.sensor.gyro_angle
             x,
             y,
             vx,
             vy,
-            robot_hp,
+            vofa_data.num1,//robot_hp
             game_state->game_progress,
             enemy_colcor
             );
         }
        
 
-        BSP_UART_TransmitData(&com2_obj,send_buff,sizeof(send_buff));
-        
-        osDelay(10);
+        // BSP_UART_TransmitData(&com2_obj,send_buff,sizeof(send_buff));
+        CDC_Send_Data(send_buff,sizeof(send_buff));
+        rxdata_printf();
+        osDelay(1);
         last_time = now_time;
     }
     
@@ -277,19 +292,29 @@ void vofa_send_task(void *argumen)
 {
     for (;;)
     {
+        // vofa_data = &vofa_data;
         Comm_VisionInfo_t* info = VisionInfo_Pointer();
         fp32 pitch_given_current = (fp32)gimbal_handle.pitch_motor.motor_info->given_current;
         fp32 pitch_current_set = (fp32)gimbal_handle.pitch_motor.current_set;
         
-        sprintf(vofa_buff, "samples: %.2f, %.2f, %.2f, %.2f,%.2f, %.2f\r\n",info->pitch_angle,
-                                                                        gimbal_handle.pitch_motor.sensor.relative_angle,
+        // gimbal_handle.vofa_data_num1 = dat1;
+        sprintf(vofa_buff, "samples: %.2f, %.2f, %.2f, %.2f,%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.d\r\n",info->pitch_acc,
+                                                                        gimbal_handle.pitch_motor.sensor.gyro_angle,
+                                                                        gimbal_handle.pitch_motor.sensor.palstance,//((float)gimbal_handle.pitch_motor.motor_info->speed_rpm)*0.1046666f
+                                                                        info->pitch_vel * 57.3,
                                                                         info->yaw_angle,
-                                                                        gimbal_handle.yaw_motor.sensor.gyro_angle,
-                                                                        pitch_given_current,
-                                                                        gimbal_handle.yaw_motor.j4310_info->rad_s);
+                                                                        gimbal_handle.yaw_motor.sensor.gyro_angle,                                                                        
+                                                                        motor[Motor1].para.vel,
+                                                                        motor[Motor1].ctrl.vel_set,
+                                                                        gimbal_handle.yaw_motor.given_value,
+                                                                        gimbal_handle.pitch_motor.given_value,
+                                                                        info->yaw_acc,
+                                                                        info->is_shoot);
 
         BSP_UART_TransmitData(&com1_obj,vofa_buff,sizeof(vofa_buff));     
-        
+        // usb_printf("1\r\n");
+
+        // rxdata_printf();
         osDelay(10);
     }
 }
