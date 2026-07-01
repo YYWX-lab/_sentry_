@@ -298,7 +298,7 @@ void vofa_send_task(void *argumen)
         fp32 pitch_current_set = (fp32)gimbal_handle.pitch_motor.current_set;
         
         // gimbal_handle.vofa_data_num1 = dat1;
-        sprintf(vofa_buff, "samples: %.2f, %.2f, %.2f, %.2f,%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.d\r\n",info->pitch_acc,
+        sprintf(vofa_buff, "samples: %.2f, %.2f, %.2f, %.2f,%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.d\r\n",0.0,
                                                                         gimbal_handle.pitch_motor.sensor.gyro_angle,
                                                                         gimbal_handle.pitch_motor.sensor.palstance,//((float)gimbal_handle.pitch_motor.motor_info->speed_rpm)*0.1046666f
                                                                         info->pitch_vel * 57.3,
@@ -308,8 +308,8 @@ void vofa_send_task(void *argumen)
                                                                         motor[Motor1].ctrl.vel_set,
                                                                         gimbal_handle.yaw_motor.given_value,
                                                                         gimbal_handle.pitch_motor.given_value,
-                                                                        info->yaw_acc,
-                                                                        info->is_shoot);
+                                                                        cosf(gimbal_handle.pitch_motor.sensor.gyro_angle/57.3),
+                                                                        gimbal_handle.is_fire);
 
         BSP_UART_TransmitData(&com1_obj,vofa_buff,sizeof(vofa_buff));     
         // usb_printf("1\r\n");

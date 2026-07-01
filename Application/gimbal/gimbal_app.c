@@ -69,7 +69,7 @@ void GimbalAppConfig(void)
     gimbal_handle.yaw_motor.max_relative_angle = 90;
     gimbal_handle.yaw_motor.min_relative_angle = -90;
     gimbal_handle.pitch_motor.max_relative_angle = 30;
-    gimbal_handle.pitch_motor.min_relative_angle = -13;
+    gimbal_handle.pitch_motor.min_relative_angle = -18;
 
     // pid_init(&gimbal_handle.yaw_motor.pid.outer_pid, POSITION_PID, 7.0f*PI, 7.0f*PI,
     //          1.0f, 0.0f, 0.0f);   //40 0 40
@@ -78,9 +78,9 @@ void GimbalAppConfig(void)
 
 
     pid_init(&gimbal_handle.pitch_motor.pid.outer_pid, POSITION_PID, 2000.0f, 0.0f,
-             40.0f, 0.0f, 0.0f, 0.0f);// 40 0 0
+             20.0f, 1.0f, 0.0f, 0.0f);// 40 0 0
     pid_init(&gimbal_handle.pitch_motor.pid.inter_pid, POSITION_PID, GM6020_MOTOR_MAX_CURRENT, 8000.0f,
-             60.0f, 0.0f, 0.0f, 0.0f);
+             50.0f, 0.0f, 0.0f, 0.0f);
 
     pid_init(&gimbal_handle.yaw_motor.j4310_pid, POSITION_PID, 30.f, 0.1f, 
              0.15f, 0.01f, 0.0f, 50.0f);

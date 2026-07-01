@@ -45,7 +45,7 @@ typedef struct
 {
     fp32    yaw_angle;//传下来的yaw轴角度（度）
     fp32    pitch_angle;//传下来的pitch轴角度（度）
-    fp32    distance;//距离（mm）
+    fp32    distance;//距离（m）
     fp32    yaw_acc;
     fp32    yaw_vel;
     fp32    pitch_acc;

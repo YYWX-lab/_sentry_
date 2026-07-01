@@ -112,7 +112,13 @@ void GimbalMotorControl(GimbalMotor_t* motor)
                                              motor->given_value,
                                              motor->sensor.gyro_angle,
                                              motor->sensor.palstance,
-                                             motor->vision_speed);              
+                                             motor->vision_speed) + cosf(motor->sensor.gyro_angle/57.3f) * 4200.f;    
+        // motor->current_set = cosf(motor->sensor.gyro_angle/57.3f) * 4200.f;      
+        // motor->current_set = Gimbal_PID_feedforward_Calc(&motor->pid,
+        //                                      motor->given_value,
+        //                                      motor->sensor.gyro_angle,
+        //                                      motor->sensor.palstance,
+        //                                      motor->vision_speed) ;                                   
     }
     else if(motor->mode == ENCONDE_MODE)
     {
@@ -124,8 +130,50 @@ void GimbalMotorControl(GimbalMotor_t* motor)
                                              motor->given_value,
                                              motor->sensor.relative_angle,
                                              motor->sensor.palstance,
-                                             motor->vision_speed);
+                                             motor->vision_speed) + cosf(motor->sensor.gyro_angle/57.3f) * 4200.f;
     }
+}
+
+static float i_grav;
+// 每10ms 100Hz调用，输入原始编码器角度(弧度)，输出电机电流指令
+float GravityStatic_Calc(float enc_ang_rad)
+{
+    // 1. 角度弱平滑，消除编码器噪声带来cos跳变
+    angle_raw = enc_ang_rad;
+    angle_filt = ALPHA_ANGLE * angle_raw + (1 - ALPHA_ANGLE) * angle_filt;
+
+    // 2. 基础重力前馈核心公式（简洁优美，无需查表）
+    i_grav = I_GRAV_MAX * cosf(angle_filt) + I_FIX_OFFSET;
+
+    // 3. 手拨跟随逻辑：外力拨动时同步目标角度
+    float err = target_angle - angle_filt;
+    if(fabsf(err) > DEAD_ZONE_RAD * 3.0f)
+    {
+        target_angle = angle_filt;
+    }
+
+    // 4. 死区设计：微小误差完全不做修正，彻底消除定点来回抖动
+    float i_correct = 0.0f;
+    if(fabsf(err) > DEAD_ZONE_RAD)
+    {
+        // 仅微弱一次性补偿，无连续闭环震荡
+        i_correct = clamp(50.f * err, -I_GRAV_MAX, I_GRAV_MAX);
+    }
+
+    // 5. 原始总电流
+    float curr_raw = i_grav + i_correct;
+
+    // 6. 电流一阶平滑输出，解决100Hz离散刷新的段落卡顿
+    curr_out_filt = ALPHA_CURR * curr_raw + (1 - ALPHA_CURR) * curr_out_filt;
+
+    return curr_out_filt;
+}
+
+float clamp(float val, float min, float max)
+{
+    if(val < min) return min;
+    if(val > max) return max;
+    return val;
 }
 
 fp32 AngleTransform(fp32 target_angle, fp32 gyro_angle)

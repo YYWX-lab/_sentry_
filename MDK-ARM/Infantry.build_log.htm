@@ -37,22 +37,22 @@ sTimerDef(mstimeStampTimer, TimerCallback);
 ..\Application\gimbal\gimbal_task.c(194): warning:  #1035-D: single-precision operand implicitly converted to double-precision
               tick += 0.01;
 ..\Application\gimbal\gimbal_task.c(206): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-                  motor[Motor1].ctrl.vel_set = -j4310_pid_calc(&gimbal_handle.yaw_motor.j4310_pid, gimbal_handle.yaw_motor.sensor.gyro_angle, gimbal_handle.yaw_motor.given_value-2) - vision_info->yaw_vel*1 - vision_info->yaw_acc*0.05 + chassis_info->yaw_speed/57.3f;//37
+                  motor[Motor1].ctrl.vel_set = -j4310_pid_calc(&gimbal_handle.yaw_motor.j4310_pid, gimbal_handle.yaw_motor.sensor.gyro_angle, gimbal_handle.yaw_motor.given_value-2) - vision_info->yaw_vel*1 - vision_info->yaw_acc*0.08 + chassis_info->yaw_speed/57.3f;//37
 ..\Application\gimbal\gimbal_task.c(212): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-                      motor[Motor1].ctrl.vel_set = -j4310_pid_calc(&gimbal_handle.yaw_motor.j4310_pid, gimbal_handle.yaw_motor.sensor.gyro_angle, gimbal_handle.yaw_motor.given_value) - vision_info->yaw_vel*1 - vision_info->yaw_acc*0.08 + chassis_info->yaw_speed/57.3f  ;// vision_info->yaw_acc*0.08
+                      motor[Motor1].ctrl.vel_set = -j4310_pid_calc(&gimbal_handle.yaw_motor.j4310_pid, gimbal_handle.yaw_motor.sensor.gyro_angle, gimbal_handle.yaw_motor.given_value) - vision_info->yaw_vel - vision_info->yaw_acc*0.08 + chassis_info->yaw_speed/57.3f  ;// vision_info->yaw_acc*0.08
 ..\Application\gimbal\gimbal_task.c(215): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-                  motor[Motor1].ctrl.vel_set = -j4310_pid_calc(&gimbal_handle.yaw_motor.j4310_pid, gimbal_handle.yaw_motor.sensor.gyro_angle, gimbal_handle.yaw_motor.given_value) - vision_info->yaw_vel*1 - vision_info->yaw_acc*0.08 + chassis_info->yaw_speed/57.3f   ;// vision_info->yaw_acc*0.08
+                  motor[Motor1].ctrl.vel_set = -j4310_pid_calc(&gimbal_handle.yaw_motor.j4310_pid, gimbal_handle.yaw_motor.sensor.gyro_angle, gimbal_handle.yaw_motor.given_value) - vision_info->yaw_vel - vision_info->yaw_acc*0.08 + chassis_info->yaw_speed/57.3f   ;// vision_info->yaw_acc*0.08
 ..\Application\gimbal\gimbal_task.c(191): warning:  #177-D: variable "angle_err"  was declared but never referenced
       float angle_err, traj_vel;
 ..\Application\gimbal\gimbal_task.c(191): warning:  #177-D: variable "traj_vel"  was declared but never referenced
       float angle_err, traj_vel;
 ..\Application\gimbal\gimbal_task.c(390): warning:  #177-D: variable "yaw"  was declared but never referenced
       fp32 yaw_target = 0, yaw = 0;
-..\Application\gimbal\gimbal_task.c(613): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\Application\gimbal\gimbal_task.c(621): warning:  #1035-D: single-precision operand implicitly converted to double-precision
               yaw_add += 0.0;//0.5
-..\Application\gimbal\gimbal_task.c(614): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-              pitch_add += 0.08;//0.15
-..\Application\gimbal\gimbal_task.c(617): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\Application\gimbal\gimbal_task.c(622): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+              basic_pitch += 0.08;//0.15
+..\Application\gimbal\gimbal_task.c(625): warning:  #1035-D: single-precision operand implicitly converted to double-precision
               yaw_target += 0.8;//2.5
 ..\Application\gimbal\gimbal_task.c(23): warning:  #550-D: variable "gimbal_task_stack"  was set but never used
   static uint32_t gimbal_task_stack = 0;
@@ -62,13 +62,17 @@ sTimerDef(mstimeStampTimer, TimerCallback);
   static ramp_v0_t pitch_vision_ramp = RAMP_GEN_DAFAULT;
 ..\Application\gimbal\gimbal_task.c(33): warning:  #550-D: variable "update_flag"  was set but never used
   static uint8_t update_flag = 0;
+..\Application\gimbal\gimbal_task.c(34): warning:  #550-D: variable "pitch_add"  was set but never used
+  static float pitch_add = 0;
 ..\Application\gimbal\gimbal_task.c(37): warning:  #550-D: variable "last_track"  was set but never used
   static u8 last_track = 2;
-..\Application\gimbal\gimbal_task.c: 17 warnings, 0 errors
+..\Application\gimbal\gimbal_task.c(515): warning:  #550-D: variable "last_pitch"  was set but never used
+  static fp32 last_pitch;
+..\Application\gimbal\gimbal_task.c: 19 warnings, 0 errors
 linking...
-Program Size: Code=97088 RO-data=4476 RW-data=1216 ZI-data=56712  
+Program Size: Code=98792 RO-data=4556 RW-data=1240 ZI-data=56712  
 FromELF: creating hex file...
-".\Infantry.axf" - 0 Error(s), 17 Warning(s).
+".\Infantry.axf" - 0 Error(s), 19 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -92,7 +96,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE@5.6.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:13
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>
