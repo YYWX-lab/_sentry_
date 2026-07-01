@@ -46,7 +46,7 @@ void AppInit(void)
     StartMusic();
 
     SoftwareTimerTaskInit();
-    Calibrate_Init();
+    Calibrate_Init(); 
     IMU_TaskInit();
     ConsoleTaskInit();
     Comm_TaskInit();
